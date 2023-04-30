@@ -1,1 +1,24 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10521997&assignment_repo_type=AssignmentRepo)
+# Project LTW 2023
+
+## Group T03G04
+| Name             | Number    | E-Mail             |
+| ---------------- | --------- | ------------------ |
+| David Burchakov  | 202203777 | up202203777@fe.up.pt                |
+| Renato Leite  | ------------ | ----------------@edu.fe.up.pt                |
+| António Campelo | ----------------- | --------------@edu.fe.up.pt
+----
+
+## set-up commands
+
+Start a web server
+
+~~~
+php -S localhost:9000
+~~~
+
+
+Update the database
+
+~~~
+sqlite3 -init database/database.sql database/database.db
+~~~
