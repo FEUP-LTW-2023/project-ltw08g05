@@ -5,9 +5,9 @@
 */
 
 // initialize database connection
-require_once('database/connection.php');
-require_once('database/faq.php');
-require_once('templates/common.php');
+require_once('../database/connection.php');
+require_once('../database/faq.php');
+require_once('../templates/common.php');
 $db = getDatabaseConnection();
 $tickets = getAllFAQ($db);
 output_header();

@@ -2,20 +2,20 @@
 function getAllFAQ(PDO $connection){
     $stmt = $connection->prepare('SELECT * FROM FAQ');
     $stmt->execute();
-    $tickets = $stmt->fetchAll();
+    $faqs = $stmt->fetchAll();
     
-    return $tickets;
+    return $faqs;
 }
 
-function output_FAQ($ticket){ ?>
-    <h2><?php echo $ticket['question']; ?></h2>
-    <p><?php echo $ticket['answer']; ?></p>
+function output_FAQ($faq){ ?>
+    <h2><?php echo $faq['question']; ?></h2>
+    <p><?php echo $faq['answer']; ?></p>
     <?php } ?>
 
 <?php
 
-function output_FAQ_list($tickets){?>
+function output_FAQ_list($faqs){?>
         <section id="FAQ">
-          <?php foreach($tickets as $ticket) output_FAQ($ticket); ?>
+          <?php foreach($faqs as $faq) output_FAQ($faq); ?>
         </section>
       <?php } ?>
