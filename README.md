@@ -1,6 +1,6 @@
 # Project LTW 2023
 
-## Group T03G04
+## Group 08g05
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | David Burchakov  | 202203777 | up202203777@fe.up.pt                |
