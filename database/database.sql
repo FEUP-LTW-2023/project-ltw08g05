@@ -108,3 +108,8 @@ VALUES
 
 /* Enable foreign key constraint support */
 PRAGMA foreign_keys = ON;
+
+
+
+INSERT INTO User (username, email, password, name, is_admin)
+VALUES ('john_doe', 'john_doe@example.com', 'password123', 'John Doe', 'false');
