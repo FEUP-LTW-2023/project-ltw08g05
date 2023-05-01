@@ -16,7 +16,9 @@ output_header();
 
 ?>
     <h1>TICKET page</h1>
+
 <?php
+
 output_ticket_list($tickets);    
 output_footer();
 ?>

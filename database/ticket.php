@@ -1,4 +1,5 @@
 <?php
+
 function getAllTickets(PDO $dbConnection){
     $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     try{
@@ -28,3 +29,20 @@ function output_ticket_list($tickets){?>
           <?php foreach($tickets as $ticket) output_ticket($ticket); ?>
         </section>
       <?php } ?>
+
+<?php
+function updateTicket($id, $title, $content){
+    
+    $db = new PDO('sqlite:../database/database.db');
+    try{
+        $stmt = $db->prepare('UPDATE Ticket SET title = ?, content_text = ? WHERE id = ?');
+        $stmt->execute([$title, $content, $id]);
+    } catch(PDOException $e) {
+        echo "Oops, we've got a problem related to database connection:";
+        ?> <br> <?php
+        echo $e->getMessage();
+      }
+
+}
+
+?>

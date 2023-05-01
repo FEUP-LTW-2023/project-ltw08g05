@@ -4,10 +4,11 @@ DROP TABLE IF EXISTS Agent;
 DROP TABLE IF EXISTS Admin;
 DROP TABLE IF EXISTS Ticket;
 DROP TABLE IF EXISTS Department;
+DROP TABLE IF EXISTS FAQ;
 
 /* Create the tables */
 CREATE TABLE User(
-    userId          INTEGER PRIMARY KEY,
+    id          INTEGER PRIMARY KEY,
     username        VARCHAR(255) UNIQUE NOT NULL,
     email           VARCHAR(255) UNIQUE NOT NULL,
     password        VARCHAR(255) NOT NULL,
@@ -21,15 +22,15 @@ CREATE TABLE User(
 );
 
 CREATE TABLE Agent(
-    id_agent INTEGER PRIMARY KEY REFERENCES User(userId)
+    id INTEGER PRIMARY KEY REFERENCES User(userId)
 );
 
 CREATE TABLE Admin (
-    id_admin INTEGER PRIMARY KEY REFERENCES User(userId)
+    id INTEGER PRIMARY KEY REFERENCES User(userId)
 );
 
 CREATE TABLE Ticket (
-    id_ticket       INTEGER PRIMARY KEY,
+    id       INTEGER PRIMARY KEY,
     id_user         INTEGER REFERENCES User(userId),
     id_department   INTEGER REFERENCES Department(id_department),
     agent_assigned  INTEGER REFERENCES User(userId) ON UPDATE CASCADE ON DELETE SET NULL,
@@ -37,19 +38,20 @@ CREATE TABLE Ticket (
     content_text    TEXT NOT NULL,
     ticket_status   status DEFAULT 'Open' NOT NULL,
     creation_date   DATE DEFAULT (DATE('now')),
+    update_date     DATE DEFAULT null,
 
     CHECK(length(content_text) > 0 and length(content_text) <= 200)
 );
 
 CREATE TABLE Department (
-    id_department   INTEGER PRIMARY KEY,
+    id   INTEGER PRIMARY KEY,
     id_user         INTEGER REFERENCES User(userId),
     title           VARCHAR(255) NOT NULL,
     creation_date   DATE DEFAULT (DATE('now'))
 );
 
 CREATE TABLE FAQ(
-    id_faq          INTEGER PRIMARY KEY,
+    id          INTEGER PRIMARY KEY,
     question        VARCHAR(255) NOT NULL,
     answer          TEXT NOT NULL,
     creation_date   DATE DEFAULT (DATE('now')),
@@ -57,6 +59,14 @@ CREATE TABLE FAQ(
     CHECK(length(question) > 0 and length(question) <= 200)
 );
 
+-------------------------------------------------------- TRIGGERS --------------------------------------------------------
+
+CREATE TRIGGER update_ticket_date
+AFTER UPDATE ON Ticket
+FOR EACH ROW
+BEGIN
+    UPDATE Ticket SET update_date = DATE('now') WHERE id = OLD.id;
+END;
 
 
 
@@ -69,7 +79,7 @@ CREATE TABLE FAQ(
 
 
 
-INSERT INTO User(userId, username, email, password, name, is_agent, is_admin)
+INSERT INTO User(id, username, email, password, name, is_agent, is_admin)
 VALUES
 (1, 'john_doe', 'john.doe@example.com', 'password123', 'John Doe', 1, 0),
 (2, 'jane_doe', 'jane.doe@example.com', 'password123', 'Jane Doe', 1, 0),
@@ -82,7 +92,7 @@ VALUES
 (9, 'kevin_hernandez', 'kevin.hernandez@example.com', 'password123', 'Kevin Hernandez', 1, 0),
 (10, 'emily_park', 'emily.park@example.com', 'password123', 'Emily Park', 1, 0);
 
-INSERT INTO Agent(id_agent)
+INSERT INTO Agent(id)
 VALUES
 (1),
 (2),
@@ -91,12 +101,12 @@ VALUES
 (9),
 (10);
 
-INSERT INTO Admin(id_admin)
+INSERT INTO Admin(id)
 VALUES
 (3),
 (4);
 
-INSERT INTO Ticket(id_ticket, id_user, id_department, agent_assigned, title, content_text, ticket_status)
+INSERT INTO Ticket(id, id_user, id_department, agent_assigned, title, content_text, ticket_status)
 VALUES
 (1, 1, 1, 1, 'Issue with login', 'I am unable to log in to my account.', 'Open'),
 (2, 2, 2, 1, 'Forgot password', 'I forgot my password and need help resetting it.', 'Open'),
@@ -109,7 +119,7 @@ VALUES
 (9, 9, 9, 2, 'Feedback', 'I really like the app and have some suggestions for improvement.', 'Open'),
 (10, 10, 10, NULL, 'General inquiry', 'I have a question about the app.', 'Open');
 
-INSERT INTO Department (id_department, title) 
+INSERT INTO Department (id, title) 
 VALUES 
 (1, 'Human Resources'),
 (2, 'Marketing'),
