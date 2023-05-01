@@ -1,9 +1,16 @@
 <?php
-function getAllTickets(PDO $connection){
-    $stmt = $connection->prepare('SELECT * FROM Ticket');
-    $stmt->execute();
-    $tickets = $stmt->fetchAll();
-    
+function getAllTickets(PDO $dbConnection){
+    $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try{
+        $stmt = $dbConnection->prepare('SELECT * FROM Ticket');
+        $stmt->execute();
+        $tickets = $stmt->fetchAll();
+    } catch(PDOException $e) {
+        echo "Oops, we've got a problem related to database connection:";
+        ?> <br> <?php
+        echo $e->getMessage();
+      }
+
     return $tickets;
 
 }

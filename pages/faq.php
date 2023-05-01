@@ -9,6 +9,8 @@ require_once('../database/connection.php');
 require_once('../database/faq.php');
 require_once('../templates/common.php');
 $db = getDatabaseConnection();
+if ($db == null)
+  throw new Exception('Database not initialized');
 $tickets = getAllFAQ($db);
 output_header();
 
