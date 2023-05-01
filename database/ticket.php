@@ -5,7 +5,7 @@ function getAllTickets(PDO $connection){
     $tickets = $stmt->fetchAll();
     
     foreach( $tickets as $ticket) {
-        echo '<h1>' . $ticket['title'] . '</h1>';
+        echo '<h2>' . $ticket['title'] . '</h2>';
         echo '<p>' . $ticket['content_text'] . '</p>';
         }
 

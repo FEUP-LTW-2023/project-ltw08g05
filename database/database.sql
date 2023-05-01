@@ -48,9 +48,26 @@ CREATE TABLE Department (
     creation_date   DATE DEFAULT (DATE('now'))
 );
 
+CREATE TABLE FAQ(
+    id_faq          INTEGER PRIMARY KEY,
+    question        VARCHAR(255) NOT NULL,
+    answer          TEXT NOT NULL,
+    creation_date   DATE DEFAULT (DATE('now')),
+
+    CHECK(length(question) > 0 and length(question) <= 200)
+);
 
 
-/* Populate the database */
+
+
+-------------------------------------------------------- Populate the database --------------------------------------------------------
+
+
+
+
+
+
+
 
 INSERT INTO User(userId, username, email, password, name, is_agent, is_admin)
 VALUES
@@ -106,10 +123,22 @@ VALUES
 (10, 'Operations');
 
 
+INSERT INTO FAQ (question, answer) VALUES
+('What is a trouble ticket?', 'A trouble ticket is a record of a customer request for assistance.'),
+('How do I create a new trouble ticket?', 'You can create a new trouble ticket by filling out a form on our website or by contacting our support team directly.'),
+('What information should I include in a trouble ticket?', 'Include a detailed description of the issue you are experiencing, any error messages you have received, and steps you have taken to try to resolve the issue.'),
+('How long does it take to resolve a trouble ticket?', 'The time it takes to resolve a trouble ticket depends on the nature of the issue and the resources available to our support team.'),
+('How will I be notified when my trouble ticket is resolved?', 'You will receive an email notification when your trouble ticket is resolved.'),
+('What is the status of my trouble ticket?', 'You can check the status of your trouble ticket by logging in to your account on our website and viewing the ticket status.'),
+('Can I reopen a closed trouble ticket?', 'Yes, you can reopen a closed trouble ticket if the issue was not resolved to your satisfaction.'),
+('What if I am not satisfied with the resolution of my trouble ticket?', 'If you are not satisfied with the resolution of your trouble ticket, you can contact our support team to discuss your concerns.'),
+('How can I escalate a trouble ticket?', 'You can request that a trouble ticket be escalated by contacting our support team and providing details of the issue and why you believe it should be escalated.'),
+('Can I attach files to a trouble ticket?', 'Yes, you can attach files to a trouble ticket to provide additional information or context for the issue.'),
+('How do I check the history of a trouble ticket?', 'You can view the history of a trouble ticket by logging in to your account on our website and selecting the ticket in question.'),
+('What is the difference between a trouble ticket and a service request?', 'A trouble ticket is a request for assistance with an issue or problem, while a service request is a request for a new service or change to an existing service.'),
+('What is the priority of my trouble ticket?', 'The priority of a trouble ticket is based on the severity of the issue and the impact it has on your business.'),
+('What is the SLA for resolving a trouble ticket?', 'The SLA for resolving a trouble ticket depends on the level of service agreement you have with our company.'),
+('How do I provide feedback on my experience with the trouble ticket system?', 'You can provide feedback on your experience with the trouble ticket system by completing a survey that will be sent to you after your ticket is resolved.');
+
 /* Enable foreign key constraint support */
 PRAGMA foreign_keys = ON;
-
-
-
-INSERT INTO User (username, email, password, name, is_admin)
-VALUES ('john_doe', 'john_doe@example.com', 'password123', 'John Doe', 'false');
