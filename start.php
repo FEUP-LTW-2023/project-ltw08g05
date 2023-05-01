@@ -6,17 +6,13 @@
 </head>
 <body>
     <header>
+
          <?php
-        $db = new PDO('sqlite:database/database.db');
-        $stmt = $db->prepare('SELECT * FROM User');
-        $stmt->execute();
-        $articles = $stmt->fetchAll();
-        
-        foreach( $articles as $article) {
-            echo '<h1>' . $article['username'] . '</h1>';
-            echo '<p>' . $article['email'] . '</p>';
-          }
-    
+        // initialize database connection
+        require_once('database/connection.php'); 
+        require_once('database/ticket.php');
+        $db = getDatabaseConnection();
+        $tickets = getAllTickets($db);
         ?>
         
     </header>
