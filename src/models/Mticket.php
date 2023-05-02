@@ -33,7 +33,7 @@ function output_ticket_list($tickets){?>
 <?php
 function updateTicket($id, $title, $content){
     
-    $db = new PDO('sqlite:../database/database.db');
+    $db = new PDO('sqlite:../../database/database.db');
     try{
         $stmt = $db->prepare('UPDATE Ticket SET title = ?, content_text = ? WHERE id = ?');
         $stmt->execute([$title, $content, $id]);

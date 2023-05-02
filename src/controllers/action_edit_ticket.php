@@ -1,5 +1,5 @@
 <?php
-require_once '../database/ticket.php';
+require_once '../models/Mticket.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // get new data
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     updateTicket($id, $title, $content);
 
-    header("Location: tickets.php");
+    header("Location: ../../public/views/tickets.php");
 
     exit();
 } else {

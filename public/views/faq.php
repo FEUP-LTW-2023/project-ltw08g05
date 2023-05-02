@@ -4,11 +4,11 @@
  * at the top of the page, before any HTML output is sent.
 */
 
-// initialize database connection
-require_once('../database/connection.php');
-require_once('../database/faq.php');
-require_once('../templates/common.php');
-$db = getDatabaseConnection();
+
+// require_once('../database/connection.php');
+require_once('../../src/models/Mfaq.php');
+require_once('../templates/Tcommon.php');
+$db = new PDO('sqlite:../../database/database.db');
 if ($db == null)
   throw new Exception('Database not initialized');
 $tickets = getAllFAQ($db);

@@ -7,7 +7,7 @@ if (!isset($_GET['id'])) {
 
 // connect to database
 try {
-    $dbh = new PDO('sqlite:../database/database.db');
+    $dbh = new PDO('sqlite:../../database/database.db');
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Oops, we've got a problem related to database connection:";
@@ -45,7 +45,7 @@ $content = $article['content_text'];
     <h1>Edit Article</h1>
     <p>current title: <?php echo $ticket['title'] ?> </p> 
     <p>current issue: <?php echo $ticket['content_text'] ?></p>
-    <form action="action_edit_ticket.php" method="post">
+    <form action="../../src/controllers/action_edit_ticket.php" method="post">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <label for="title">New Title:</label>
         <input type="text" name="title" value="<?php echo $title; ?>"><br><br>
