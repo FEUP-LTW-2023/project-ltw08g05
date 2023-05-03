@@ -15,11 +15,11 @@ if ($db == null){
     ?> <p>$db is null</p> <?php
 }
 
-$tickets = User::getUserTickets($db, intval($_SESSION['id']));
-$user = User::getUser($db, $_SESSION['id']);
-foreach ($ticket as $tickets) {
-    $restaurant->setRestaurantRating($db);
-}
+$tickets = Ticket::getAllTickets($db);
+
+// for when login is implemented -- tickets of a client
+// $tickets = User::getUserTickets($db, intval($_SESSION['id']));
+// $user = User::getUser($db, $_SESSION['id']);
 
 drawHeader();
 
