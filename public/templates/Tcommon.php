@@ -17,7 +17,8 @@ require_once(__DIR__ . '/../../database/connection.php');
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tickets website</title>
-    
+        <link href="../styles/common.css" rel="stylesheet">
+
     </head>
 
     <body style="overflow: scroll;">
@@ -33,26 +34,26 @@ if (isset($_SESSION['id'])) {
     // get user statement here
 } ?>
     
-    <nav class="">
+    <nav class="nav shadow-nohov">
         <div class="nav" id="nav-left">
-            <button><span onclick="window.location.href = 'index.php';" class="">TicketEase</span></button>
+            <a href="index.php"><span>TicketEase</span></a>
         </div>
 
         <ul class="nav" id="nav-right">
-            <!-- session condition to verify if user is logged in or not -->
-            <li><a class="" id="" href='tickets.php'>TICKETS</a></li>
-            <li><a class="" id="" href="faq.php">FAQ</a></li>
-            <li><a class="" id="" href="#">CONTACT</a></li>
-            <li><a class="" id="" onclick="">Login</a></li>
-            <li><a class="" id="nav-right-signup" onclick="">Sign-Up</a></li>
+            <!-- add here session condition to verify if user is logged in or not -->
+            <li><a href='tickets.php'>TICKETS</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">CONTACT</a></li>
+            <li><a href="#">Login</a></li>
             
-            <section id="dropdown-content">
+            <!--  Logout dropdown
+            <section id="dropdown">
                 <form action="" method="">
                     <button type="submit" class="">
                         Logout
                     </button>
                 </form>
-            </section>
+            </section>-->
         </ul>
     </nav>
     
@@ -61,7 +62,7 @@ if (isset($_SESSION['id'])) {
 <?php function drawFooter()
 { ?>
 </main>
-<footer id="app_footer">
+<footer id="app-footer">
     <section class="copyright">
         <p>&copy;TicketEase 2023</p>
     </section>

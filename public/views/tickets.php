@@ -23,11 +23,7 @@ $tickets = Ticket::getAllTickets($db);
 
 drawHeader();
 
-?>
-    <h1>TICKET page</h1>
-    <p><?php echo $tickets ?></p>
-<?php
+drawAllTickets($tickets);   
 
-output_ticket_list($tickets);    
 drawFooter();
 ?>

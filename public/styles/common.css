@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+    --white: #fff;
+    --black: #000;
+    --light-black: #1b1c1e;
+    --light-grey: #c5c5c5;
+    --dark-grey: #949b96;
+    --olive: #829191;
+    --dark-red: #a20021;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+/* Nav styles*/
+.nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    padding: 2px;
+    list-style: none;
+    color: var(--white);
+    background-color: var(--light-black);
+}
+.nav a {
+    text-decoration: none;
+    color: var(--dark-text);
+}
+.shadow-nohov {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+#nav-left {
+    position: relative;
+    display: flex;
+    float: left;
+    width: 50%;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+#nav-left button{
+    padding: 0.5rem 1rem;
+    border-radius: 5%;
+    background-color: var(--light-black);
+}
+#nav-left span {
+    font-family: 'Anton', sans-serif;
+    font-size: 18px;
+    color: var(--white); 
+}
+
+#nav-right {
+    position: relative;
+    display: flex;
+    float: right;
+    gap: 2rem;
+    width: 50%;
+    justify-content: flex-end;
+}
+
+#nav-right>li:nth-child(2)>a {
+    padding: 7px;
+}
+
+#nav-right:last-child {
+    padding-right: 10px;
+}
+
+.nav a {
+    padding: 10px;
+}
+
+/* Main styles */
+
+main {
+    margin-top: 50px;
+    padding: 10px;
+    min-height: 100vh;
+    color: var(--black);
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 600px;
+    text-align: center;
+}
+  
+.card .home-card-message p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#ticket-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem auto;
+    padding: 10px;
+}
+
+#ticket-page header {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Footer styles */
+#app-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--olive); /* Change to your desired background color */
+    padding: 20px;
+    margin-top: 20px;
+    
+    
+}
+
+#app-footer p {
+    font-size: 15px;
+    color: var(--light-black); /* Change to your desired text color */
+}

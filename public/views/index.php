@@ -9,13 +9,13 @@ $db = getDatabaseConnection();
 drawHeader()
 ?>
 
-<div class="">
-    <div class="">
+<section class="card">
+    <article class="home-card-message">
         <p>Welcome Back!</p>
         <p>Please Login to your account, or Create a new account</p>    
         <br>
-    </div>
-</div>
+    </article>
+</section>
 
 <?php
 drawFooter();
