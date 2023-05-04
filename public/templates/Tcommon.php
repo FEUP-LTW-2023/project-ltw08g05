@@ -18,7 +18,8 @@ require_once(__DIR__ . '/../../database/connection.php');
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tickets website</title>
         <link href="../styles/common.css" rel="stylesheet">
-
+        <link href="../styles/search.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Xb+PnNbz9s3q4SK4twHv/UV+Zie70C/2fS2BtPv2IyXYoX9Xli38WswiYZGWMwAj1DOKnwnpJFNkHlDKm13uOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
     <body style="overflow: scroll;">
