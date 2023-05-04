@@ -10,14 +10,14 @@ DROP TABLE IF EXISTS User;
 CREATE TABLE User(
     id              INTEGER PRIMARY KEY,
     email           VARCHAR(255) UNIQUE NOT NULL,
-    pass            VARCHAR(255) NOT NULL,
+    password            VARCHAR(255) NOT NULL,
     name            TEXT NOT NULL,
     is_agent        BOOLEAN NOT NULL DEFAULT 'false',
     is_admin        BOOLEAN NOT NULL DEFAULT 'false',
     creation_date   DATE DEFAULT (DATE('now')),
     update_date     DATE DEFAULT null,
-    CHECK(email LIKE '%_@_%._%'),
-    CHECK(length(pass) >= 6)
+    CHECK(email LIKE '%_@_%._%')
+    -- CHECK(length(password) >= 6)
 );
 
 CREATE TABLE Agent(
@@ -74,7 +74,7 @@ END;
 -------------------------------------------------------- Populate the database --------------------------------------------------------
 
 
-INSERT INTO User(email, pass, name, is_agent, is_admin) VALUES
+INSERT INTO User(email, password, name, is_agent, is_admin) VALUES
 ('john@gmail.com', 'password1', 'John Doe', false, false),
 ('jane@gmail.com', 'password2', 'Jane Smith', false, false),
 ('alex@gmail.com', 'password3', 'Alex Johnson', true, false),
