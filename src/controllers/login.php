@@ -13,7 +13,7 @@
         $stmt->execute();
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
-            echo $row['email'] . ' ' . $row['pass'] . '<br>';
+            echo $row['email'] . ' ' . $row['password'] . '<br>';
         }
         
 
