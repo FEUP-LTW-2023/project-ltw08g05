@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../../database/connection.php');
 
 $db = getDatabaseConnection();
 
-drawHeader()
+drawHeader();
 ?>
 
 <section class="card">
