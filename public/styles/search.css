@@ -1,0 +1,39 @@
+.search-bar {
+    position: relative;
+    display: inline-block;
+}
+  
+#search-ticket {
+    box-sizing: border-box;
+    padding-left: 2em;
+    padding-right: 2em;
+    border: 2px solid var(--light-grey);
+    border-radius: 20px;
+    font-size: 1em;
+    width: 250px;
+    height: 34px;
+    outline: none;
+}
+
+#search-ticket:focus {
+    border-color: var(--olive);
+}
+
+
+.search-icon, .filter-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 0.8em;
+    width: 0.8em;
+    fill: #333;
+}
+  
+.search-icon {
+    left: 24em;
+}
+  
+.filter-icon {
+    right: 1em;
+}
+  

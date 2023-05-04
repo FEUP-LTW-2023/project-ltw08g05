@@ -119,12 +119,16 @@ main {
     padding: 10px;
 }
 
-#ticket-page header {
+#tickets > span:first-child {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
+    margin-top: 1em;
+}
+
+.ticketCard:nth-child(2) {
+    margin-top: 1em;
 }
 
 /* Footer styles */
