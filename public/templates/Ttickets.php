@@ -32,3 +32,17 @@ function drawAllTickets($tickets){?>
    
   <?php } 
 ?>
+
+<?php function drawEditTicket($ticket) { ?>
+    <h1>Edit Ticket</h1>
+    <p>Current title: <?= $ticket->title ?> </p> 
+    <p>Current issue: <?= $ticket->content ?></p>
+    <form action="../../src/controllers/action_edit_ticket.php" method="post">
+        <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+        <label for="title">New Title:</label>
+        <input type="text" name="title" value=" <?= $ticket->title; ?> "><br><br>
+        <label for="content">New Content:</label><br>
+        <textarea name="content"> <?= $ticket->content; ?> </textarea><br><br>
+        <button type="submit">Save</button>
+    </form>
+<?php } ?>

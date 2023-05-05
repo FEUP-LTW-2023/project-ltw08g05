@@ -32,7 +32,12 @@ class Ticket {
     $stmt->execute(array($id));
 
     $ticket = $stmt->fetch();
-   
+
+    // check if ticket exists
+    if (!$ticket) {
+      echo "Oops, Ticket not found.";
+      die("Ticket not found.");
+    }
     return new Ticket(
         $ticket['id'], 
         $ticket['id_user'], 
@@ -66,19 +71,13 @@ class Ticket {
       }
       return $tickets;
   }
-  
-  static function updateTicket($id, $title, $content){
-      
-      $db = getDatabaseConnection();
-      try{
-          $stmt = $db->prepare('UPDATE Ticket SET title = ?, content_text = ? WHERE id = ?');
-          $stmt->execute([$title, $content, $id]);
-      } catch(PDOException $e) {
-          echo "Oops, we've got a problem related to database connection:";
-          ?> <br> <?php
-          echo $e->getMessage();
-        }
 
+  function save(PDO $db) {
+    $stmt = $db->prepare('
+      UPDATE Ticket SET title = ?, content_text = ? WHERE id = ?
+    ');
+
+    $stmt->execute(array($this->title, $this->content, $this->id));
   }
 
 }

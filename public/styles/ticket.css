@@ -25,9 +25,7 @@
     margin-top: 1em;
 }
 
-#tickets-page a {
+#tickets-page a, #single-ticket-page a{
     text-decoration: none;
     color: var(--dark-text);
 }
-
-/* Single ticket page */
