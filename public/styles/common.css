@@ -109,27 +109,6 @@ main {
     font-weight: bold;
 }
 
-#ticket-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin: 1rem auto;
-    padding: 10px;
-}
-
-#tickets > span:first-child {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: end;
-    margin-top: 1em;
-}
-
-.ticketCard:nth-child(2) {
-    margin-top: 1em;
-}
 
 /* Footer styles */
 #app-footer {
@@ -144,8 +123,6 @@ main {
     background-color: var(--olive); /* Change to your desired background color */
     padding: 20px;
     margin-top: 20px;
-    
-    
 }
 
 #app-footer p {

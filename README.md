@@ -4,7 +4,7 @@
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | David Burchakov  | 202203777 | up202203777@fe.up.pt                |
-| Renato Leite  | ------------ | ----------------@edu.fe.up.pt                |
+| Renato Leite  | 201908633 | up201908633@edu.fc.up.pt                |
 | António Campelo | ----------------- | --------------@edu.fe.up.pt
 ----
 

@@ -1,0 +1,33 @@
+/* Tickets page */
+#tickets-page, #single-ticket-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem auto;
+    padding: 10px;
+}
+
+#tickets > span:first-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    margin-top: 1em;
+}
+
+.ticketCard {
+    width: 580px;    /* card width override */
+}
+
+.ticketCard:nth-child(2) {
+    margin-top: 1em;
+}
+
+#tickets-page a {
+    text-decoration: none;
+    color: var(--dark-text);
+}
+
+/* Single ticket page */

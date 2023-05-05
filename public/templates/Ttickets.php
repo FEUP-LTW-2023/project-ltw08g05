@@ -6,7 +6,7 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../../database/connection.php');
 
 function drawAllTickets($tickets){?>
-    <section id="ticket-page">
+    <section id="tickets-page">
       <header>
         <h2>Tickets</h2>
       </header>
@@ -24,8 +24,7 @@ function drawAllTickets($tickets){?>
         </span>
         <?php foreach($tickets as $ticket) { ?> 
           <article class="card ticketCard">
-            <h4 class="ticket-title"> <?=$ticket['title'];?> </h4>
-            <p class="ticket-content"> <?=$ticket['content_text'];?> </p>
+            <a href="../views/ticket.php?id=<?=$ticket->id?>"><h4 class="ticket-title"> <?= $ticket->title ?> </h4></a>
           </article>
         <?php } ?>
       </section>
