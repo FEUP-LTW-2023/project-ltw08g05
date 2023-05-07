@@ -46,12 +46,13 @@ require_once(__DIR__ . '/../../database/connection.php');
             <li><a href="#">CONTACT</a></li>
             <li><a href="faq.php">FAQ</a></li>
             <li><a href="#">PROFILE</a></li>
-            <li><a href="#">LOGOUT</a></li>
+            <li><a href="../../src/controllers/logout.php">LOGOUT</a></li>
             <?php else: ?>
             <!-- add links for non-logged in users here -->
             <li><a href="tickets.php">TICKETS</a></li>
             <li><a href="faq.php">FAQ</a></li>
             <li><a href="#">CONTACT</a></li>
+            <li><a href="register.php">SIGN UP</a></li>
             <li><a href="login.php">LOGIN</a></li>
             <?php endif; ?>
         </ul>

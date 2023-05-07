@@ -16,8 +16,10 @@ CREATE TABLE User(
     is_admin        BOOLEAN NOT NULL DEFAULT 'false',
     creation_date   DATE DEFAULT (DATE('now')),
     update_date     DATE DEFAULT null,
-    CHECK(email LIKE '%_@_%._%')
-    -- CHECK(length(password) >= 6)
+    CHECK(email LIKE '%_@_%._%'),
+    CHECK(length(password) >= 6)
+    -- CHECK(password REGEXP '[A-Z]'),
+    -- CHECK(password REGEXP '[!@#$%^&*(),.?":{}|<>]')
 );
 
 CREATE TABLE Agent(

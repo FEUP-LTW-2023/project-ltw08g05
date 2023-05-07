@@ -20,13 +20,12 @@ class LoginController
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        if (User::userExists($email, $password)) {
+        if (User::userPasswordMatch($email, $password)) {
             $_SESSION['email'] = $email;
             header('Location: /index.php');
             exit();
         } else {
             $_SESSION['error_message'] = 'does not exist in the db';
-            $_SESSION['email'] = $email;
             header('Location: /public/views/login.php');
             exit();
         }
