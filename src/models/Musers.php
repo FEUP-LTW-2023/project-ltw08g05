@@ -32,6 +32,7 @@ class User {
             if($user){
                 return true;
             }
+            error_log("credentials don't match. User data:");
             error_log('User data: ' . print_r($user, true));
             error_log($stmt->rowCount());
             error_log($email);
