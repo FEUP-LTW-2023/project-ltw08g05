@@ -30,10 +30,9 @@ require_once(__DIR__ . '/../../database/connection.php');
 
 <?php function drawNavbar()
 { 
-if (isset($_SESSION['id'])) {
-    $db = getDatabaseConnection();
-    // get user statement here
-} ?>
+    session_start(); // start the session to access the $_SESSION variable
+    $loggedIn = isset($_SESSION['email']); // check if the id key is set in the $_SESSION variable
+ ?>
     
     <nav class="nav shadow-nohov">
         <div class="nav" id="nav-left">
@@ -41,20 +40,21 @@ if (isset($_SESSION['id'])) {
         </div>
 
         <ul class="nav" id="nav-right">
-            <!-- add here session condition to verify if user is logged in or not -->
+            <?php if ($loggedIn): ?>
+            <!-- add links for logged in users here -->
             <li><a href='tickets.php'>TICKETS</a></li>
+            <li><a href="#">CONTACT</a></li>
+            <li><a href="faq.php">FAQ</a></li>
+            <li><a href="#">PROFILE</a></li>
+            <li><a href="../../src/controllers/logout.php">LOGOUT</a></li>
+            <?php else: ?>
+            <!-- add links for non-logged in users here -->
+            <li><a href="tickets.php">TICKETS</a></li>
             <li><a href="faq.php">FAQ</a></li>
             <li><a href="#">CONTACT</a></li>
-            <li><a href="#">Login</a></li>
-            
-            <!--  Logout dropdown
-            <section id="dropdown">
-                <form action="" method="">
-                    <button type="submit" class="">
-                        Logout
-                    </button>
-                </form>
-            </section>-->
+            <li><a href="register.php">SIGN UP</a></li>
+            <li><a href="login.php">LOGIN</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
     

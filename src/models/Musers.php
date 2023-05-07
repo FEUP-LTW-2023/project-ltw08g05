@@ -18,10 +18,10 @@ class User {
         $this->email = $email;
     }
 
-    function userExists($email, $password) {
+    public static function userPasswordMatch($email, $password) {
         $db = new PDO('sqlite:../../database/database.db');
         if ($db == null)
-        throw new Exception('Database not initialized');
+              throw new Exception('Database not initialized');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
             $stmt = $db->prepare('SELECT * FROM User WHERE email = :email AND password = :password');
@@ -32,15 +32,37 @@ class User {
             if($user){
                 return true;
             }
+            error_log("Credentials don't match. User data:");
             error_log('User data: ' . print_r($user, true));
             error_log($stmt->rowCount());
             error_log($email);
             error_log($password);
             return false;
         } catch(PDOException $e) {
-            echo "Oops, we've got a problem related to database connection:";
-            ?> <br> <?php
-            echo $e->getMessage();
+           ?> <p> <?php echo "Oops, we've got a problem with database connection:"; ?> </p> <br> 
+           <?php echo $e->getMessage();
+        }
+    }
+
+
+    public static function userExists($email){
+        $db = new PDO('sqlite:../../database/database.db');
+        if($db == null)
+            throw new Exception('Database not initialized');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+            $stms = $db->prepare('SELECT * FROM User WHERE email = :email');
+            $stms->bindParam(':email', $email);
+            $stms->execute();
+            $user = $stms->fetch();
+            if($user) 
+                return true;
+
+            return false;
+        }
+        catch(PDOException $e){
+          ?> <p> <?php echo "Oops, we've got a problem with database connection:"; ?> </p> <br> 
+          <?php $e->getMessage();
         }
     }
     
