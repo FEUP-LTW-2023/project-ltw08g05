@@ -45,7 +45,7 @@ if (isset($_SESSION['id'])) {
             <li><a href='tickets.php'>TICKETS</a></li>
             <li><a href="faq.php">FAQ</a></li>
             <li><a href="#">CONTACT</a></li>
-            <li><a href="#">Login</a></li>
+            <li><a href="../../src/controllers/login.php">Login</a></li>
             
             <!--  Logout dropdown
             <section id="dropdown">

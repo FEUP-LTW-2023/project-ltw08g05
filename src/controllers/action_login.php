@@ -7,7 +7,7 @@ require_once('../models/Musers.php');
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-if (userExists($email, $password)) {
+if (User::userExists($email, $password)) {
     $_SESSION['email'] = $email;
     header('Location: /index.php');
     exit();
