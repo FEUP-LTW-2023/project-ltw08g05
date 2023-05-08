@@ -4,19 +4,33 @@ require_once('Mticket.php');
 
 class User {
 
-    public ?int $userID = NULL;
-    public ?string $email = NULL;
-    public ?string $name = NULL;
-    public ?array $tickets = null;
-    public ?bool $isAgent = null;
-    public ?bool $isAdmin = null;
-
-    public function __construct($userID, $name, $email) {
-
-        $this->userID = $userID;
-        $this->name = $name;
-        $this->email = $email;
-    }
+  public ?int $userID = NULL;
+  public ?string $email = NULL;
+  public ?string $firstName = NULL;
+  public ?string $lastName = NULL;
+  public ?string $username = NULL;
+  public ?string $address = NULL;
+  public ?int $countryID = NULL;
+  public ?string $city = NULL;
+  public ?string $zipCode = NULL;
+  public ?string $bio = NULL;
+  public ?bool $isAgent = null;
+  public ?bool $isAdmin = null;
+  
+  public function __construct($userID, $email, $firstName, $lastName, $username, $address = null, $countryID = null, $city = null, $zipCode = null, $bio = null, $isAgent = false, $isAdmin = false) {
+      $this->userID = $userID;
+      $this->email = $email;
+      $this->firstName = $firstName;
+      $this->lastName = $lastName;
+      $this->username = $username;
+      $this->address = $address;
+      $this->countryID = $countryID;
+      $this->city = $city;
+      $this->zipCode = $zipCode;
+      $this->bio = $bio;
+      $this->isAgent = $isAgent;
+      $this->isAdmin = $isAdmin;
+  }
 
     public static function userPasswordMatch($email, $password) {
         $db = new PDO('sqlite:../../database/database.db');
@@ -66,12 +80,60 @@ class User {
         }
     }
     // --------------------------------------- getters ---------------------------------------
-    public function getEmail(){
+    public function getUserID() {
+      return $this->userID;
+  }
+  
+  public function getEmail() {
       return $this->email;
-    }
-    public function getName() {
-        return $this->name;
-    }
+  }
+  
+  
+  public function getFirstName() {
+      return $this->firstName;
+  }
+  
+  public function getLastName() {
+      return $this->lastName;
+  }
+  
+  public function getUsername() {
+      return $this->username;
+  }
+  
+  public function getAddress() {
+      return $this->address;
+  }
+  
+  public function getCountryID() {
+      return $this->countryID;
+  }
+  
+  public function getCity() {
+      return $this->city;
+  }
+  
+  public function getZipCode() {
+      return $this->zipCode;
+  }
+  
+  public function getBio() {
+      return $this->bio;
+  }
+  
+  public function getIsAgent() {
+      return $this->isAgent;
+  }
+  
+  public function getIsAdmin() {
+      return $this->isAdmin;
+  }
+  
+  
+  public function getFullName() {
+      return $this->firstName . ' ' . $this->lastName;
+  }
+  
     /**
      * access a user's data using email
      */
@@ -82,12 +144,26 @@ class User {
       }
   
       try {
-          $stmt = $db->prepare('SELECT id, name, email FROM User WHERE email = :email');
-          $stmt->bindParam(':email', $email);
+        $stmt = $db->prepare('SELECT id, email, first_name, last_name, username, address, country_id, city, zip_code, bio, is_agent, is_admin FROM User WHERE email = :email');
+        $stmt->bindParam(':email', $email);
           $stmt->execute();
           $user = $stmt->fetch(PDO::FETCH_ASSOC);
           if ($user) {
-              return new User($user['id'], $user['name'], $user['email']);
+            return new User(
+              $user['id'],
+              $user['email'],
+              $user['first_name'],
+              $user['last_name'],
+              $user['username'],
+              $user['address'],
+              $user['country_id'],
+              $user['city'],
+              $user['zip_code'],
+              $user['bio'],
+              $user['is_agent'],
+              $user['is_admin']
+            );
+            
           } else {
               return null;
           }
@@ -106,10 +182,20 @@ class User {
         $users = array();
         while ($user = $stmt->fetch(PDO::FETCH_OBJ)) {
           $users[] = new User(
-            $user->userID,
-            $user->name,
-            $user->email,
+            $user['id'],
+            $user['email'],
+            $user['first_name'],
+            $user['last_name'],
+            $user['username'],
+            $user['address'],
+            $user['country_id'],
+            $user['city'],
+            $user['zip_code'],
+            $user['bio'],
+            $user['is_agent'],
+            $user['is_admin']
           );
+          
         }
         return $users;
     }

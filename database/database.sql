@@ -19,11 +19,11 @@ CREATE TABLE User(
     password        VARCHAR(255) NOT NULL,
     first_name      VARCHAR(20) NOT NULL,
     last_name       VARCHAR(20) NOT NULL,
-    username        VARCHAR(20) UNIQUE NOT NULL,
-    address         VARCHAR(255) NOT NULL,
-    country_id      INTEGER NOT NULL,
-    city            VARCHAR(20) NOT NULL,
-    zip_code        VARCHAR(8) NOT NULL, -- 4100-001
+    username        VARCHAR(20) UNIQUE,
+    address         VARCHAR(255),
+    country_id      INTEGER,
+    city            VARCHAR(20),
+    zip_code        VARCHAR(8), -- 4100-001
     bio             TEXT,
     is_agent        BOOLEAN NOT NULL DEFAULT 'false',
     is_admin        BOOLEAN NOT NULL DEFAULT 'false',
