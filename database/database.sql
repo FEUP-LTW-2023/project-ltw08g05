@@ -5,20 +5,35 @@ DROP TABLE IF EXISTS Agent;
 DROP TABLE IF EXISTS Admin;
 DROP TABLE IF EXISTS FAQ;
 DROP TABLE IF EXISTS User;
-
+DROP TABLE IF EXISTS Country;
+DROP TABLE IF EXISTS AccessLog;
 /* Create the tables */
+CREATE TABLE Country (
+    id         INTEGER PRIMARY KEY,
+    name       VARCHAR(50) NOT NULL UNIQUE
+);
+
 CREATE TABLE User(
     id              INTEGER PRIMARY KEY,
-    email           VARCHAR(255) UNIQUE NOT NULL,
+    email           VARCHAR(20) UNIQUE NOT NULL,
     password        VARCHAR(255) NOT NULL,
-    name            TEXT NOT NULL,
+    first_name      VARCHAR(20) NOT NULL,
+    last_name       VARCHAR(20) NOT NULL,
+    username        VARCHAR(20) UNIQUE NOT NULL,
+    address         VARCHAR(255) NOT NULL,
+    country_id      INTEGER NOT NULL,
+    city            VARCHAR(20) NOT NULL,
+    zip_code        VARCHAR(8) NOT NULL, -- 4100-001
+    bio             TEXT,
     is_agent        BOOLEAN NOT NULL DEFAULT 'false',
     is_admin        BOOLEAN NOT NULL DEFAULT 'false',
     creation_date   DATE DEFAULT (DATE('now')),
     update_date     DATE DEFAULT null,
     CHECK(email LIKE '%_@_%._%'),
-    CHECK(length(password) >= 6)
+    CHECK(length(password) >= 6),
+    FOREIGN KEY (country_id) REFERENCES Country(id)
 );
+
 
 CREATE TABLE AccessLog (
     id INTEGER PRIMARY KEY,
@@ -83,23 +98,40 @@ END;
 
 -------------------------------------------------------- Populate the database --------------------------------------------------------
 
+INSERT INTO Country (name) VALUES
+  ('United States'),
+  ('Canada'),
+  ('Mexico'),
+  ('Brazil'),
+  ('Argentina'),
+  ('United Kingdom'),
+  ('France'),
+  ('Germany'),
+  ('Spain'),
+  ('Italy'),
+  ('Netherlands'),
+  ('Belgium'),
+  ('Switzerland'),
+  ('Austria'),
+  ('Sweden');
 
-INSERT INTO User(email, password, name, is_agent, is_admin) VALUES
-('john@gmail.com', 'password1', 'John Doe', false, false),
-('jane@gmail.com', 'password2', 'Jane Smith', false, false),
-('alex@gmail.com', 'password3', 'Alex Johnson', true, false),
-('carl@gmail.com', 'password4', 'Carl Williams', true, false),
-('emma@gmail.com', 'password5', 'Emma Davis', false, true),
-('ryan@gmail.com', 'password6', 'Ryan Garcia', false, true),
-('lucy@gmail.com', 'password7', 'Lucy Brown', false, false),
-('jacob@gmail.com', 'password8', 'Jacob Lee', true, false),
-('olivia@gmail.com', 'password9', 'Olivia Wilson', true, false),
-('michael@gmail.com', 'password10', 'Michael Jones', false, true),
-('samantha@gmail.com', 'password11', 'Samantha Taylor', false, true),
-('william@gmail.com', 'password12', 'William Green', true, false),
-('ava@gmail.com', 'password13', 'Ava Anderson', true, false),
-('matthew@gmail.com', 'password14', 'Matthew Hernandez', false, false),
-('madison@gmail.com', 'password15', 'Madison Martin', false, false);
+INSERT INTO User (email, password, first_name, last_name, username, address, country_id, city, zip_code, bio) VALUES
+    ('user1@example.com', 'password1', 'John', 'Doe', 'johndoe', '123 Main St', 1, 'Los Angeles', '90001', 'Bio for John Doe'),
+    ('user2@example.com', 'password2', 'Jane', 'Doe', 'janedoe', '456 Main St', 2, 'New York', '10001', 'Bio for Jane Doe'),
+    ('user3@example.com', 'password3', 'Bob', 'Smith', 'bobsmith', '789 Main St', 3, 'Chicago', '60601', 'Bio for Bob Smith'),
+    ('user4@example.com', 'password4', 'Alice', 'Johnson', 'alicejohnson', '321 Main St', 4, 'Houston', '77001', 'Bio for Alice Johnson'),
+    ('user5@example.com', 'password5', 'Michael', 'Brown', 'michaelbrown', '654 Main St', 5, 'Phoenix', '85001', 'Bio for Michael Brown'),
+    ('user6@example.com', 'password6', 'Samantha', 'Davis', 'samanthadavis', '987 Main St', 6, 'Philadelphia', '19101', 'Bio for Samantha Davis'),
+    ('user7@example.com', 'password7', 'David', 'Wilson', 'davidwilson', '246 Main St', 7, 'San Antonio', '78201', 'Bio for David Wilson'),
+    ('user8@example.com', 'password8', 'Linda', 'Garcia', 'lindagarcia', '135 Main St', 8, 'San Diego', '92101', 'Bio for Linda Garcia'),
+    ('user9@example.com', 'password9', 'William', 'Martinez', 'williammartinez', '864 Main St', 9, 'Dallas', '75201', 'Bio for William Martinez'),
+    ('user10@example.com', 'password10', 'Emily', 'Hernandez', 'emilyhernandez', '975 Main St', 10, 'San Jose', '95101', 'Bio for Emily Hernandez'),
+    ('user11@example.com', 'password11', 'Christopher', 'Lopez', 'christopherlopez', '732 Main St', 11, 'Austin', '73301', 'Bio for Christopher Lopez'),
+    ('user12@example.com', 'password12', 'Mary', 'Clark', 'maryclark', '741 Main St', 12, 'Jacksonville', '32201', 'Bio for Mary Clark'),
+    ('user13@example.com', 'password13', 'Daniel', 'Lee', 'daniellee', '258 Main St', 13, 'Fort Worth', '76101', 'Bio for Daniel Lee'),
+    ('user14@example.com', 'password14', 'Patricia', 'Walker', 'patriciawalker', '369 Main St', 14, 'Columbus', '43201', 'Bio for Patricia Walker'),
+    ('user15@example.com', 'password15', 'Joseph', 'Perez', 'josephperez', '159 Main St', 15, 'San Francisco', '94101', 'Bio for Joseph Perez');
+
 
 INSERT INTO Department(id_user, title) VALUES
 (1, 'Sales'),
