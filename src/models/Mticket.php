@@ -15,7 +15,7 @@ class Ticket {
   public ?string $creationDate;
   public ?string $updateDate;
 
-  public function __construct(?int $id, ?int $userID, ?int $departmentID, ?int $agentAssignedID, ?string $title, ?string $content, ?string $status, ?string $creationDate, ?string $updateDate) {
+  public function __construct($id, $userID, $departmentID, $agentAssignedID, $title, $content, $status, $creationDate, $updateDate) {
     $this->id = $id;
     $this->userID = $userID;
     $this->departmentID = $departmentID;
@@ -27,7 +27,7 @@ class Ticket {
     $this->updateDate = $updateDate;
   }
 
-  static function getTicket(PDO $db, int $id) : Ticket {
+  static function getTicket(PDO $db, int $id) {
     $stmt = $db->prepare('SELECT id, id_user, id_department, agent_assigned, title, content_text, ticket_status, creation_date, update_date FROM Ticket WHERE id = ?');
     $stmt->execute(array($id));
 
@@ -70,6 +70,19 @@ class Ticket {
           );
       }
       return $tickets;
+  }
+
+  public function add(PDO $db) {  
+
+    $stmt = $db->prepare('
+        INSERT INTO Ticket
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ');
+
+    $stmt->execute(array($this->id, $this->userID, $this->departmentID, $this->agentAssignedID, $this->title, $this->content, $this->status, $this->creationDate, $this->updateDate));
+    $this->id = intval($db->lastInsertId('Ticket'));
+    $this->userID = $_SESSION['id'];            // TODO: check if this is correct
+
   }
 
   function save(PDO $db) {

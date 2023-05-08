@@ -29,3 +29,8 @@
     text-decoration: none;
     color: var(--dark-text);
 }
+
+.add-ticket-icon {
+    height: 3em;
+    width: 3em;
+}

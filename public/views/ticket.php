@@ -15,22 +15,6 @@ if ($db == null){
 $ticket = Ticket::getTicket($db, intval($_GET['id']));
 
 drawHeader();
-?>
-
-<section id="single-ticket-page">
-    <header>
-        <h2> <?= $ticket->title ?> </h2>
-    </header>
-    <aside>
-        <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
-    </aside>
-    <section>
-    <p>
-        <?= $ticket->content ?>
-    </p>
-    </section>
-</section>
-
-<?php
+drawTicket($ticket);
 drawFooter();
 ?>

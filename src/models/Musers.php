@@ -18,7 +18,7 @@ class User {
         $this->email = $email;
     }
 
-    function userExists($email, $password) {
+    public static function userExists($email, $password) {
         $db = new PDO('sqlite:../../database/database.db');
         if ($db == null)
         throw new Exception('Database not initialized');

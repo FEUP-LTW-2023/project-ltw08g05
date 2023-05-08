@@ -95,18 +95,8 @@ INSERT INTO Department(id_user, title) VALUES
 (1, 'Sales'),
 (2, 'Customer Service'),
 (3, 'Technical Support'),
-(4, 'Technical Support'),
-(5, 'Admin'),
-(6, 'Admin'),
-(7, 'Sales'),
-(8, 'Customer Service'),
-(9, 'Technical Support'),
-(10, 'Admin'),
-(11, 'Admin'),
-(12, 'Sales'),
-(13, 'Customer Service'),
-(14, 'Technical Support'),
-(15, 'Admin');
+(4, 'Admin');
+
 
 INSERT INTO Agent(id) VALUES (3), (4), (8), (9), (11), (12), (13);
 
@@ -117,17 +107,17 @@ INSERT INTO Ticket(id_user, id_department, title, content_text) VALUES
 (2, 2, 'Forgot password', 'I forgot my password and cannot log into my account.'),
 (3, 3, 'Internet connection issue', 'I am experiencing problems with my internet connection.'),
 (4, 4, 'Cannot access my account', 'I cannot log into my account and need help accessing it.'),
-(5, 5, 'Adding new user', 'I need help adding a new user to our system.'),
-(6, 6, 'Removing user', 'I need help removing a user from our system.'),
-(7, 1, 'Product inquiry', 'I have a question about a product you sell.'),
-(8, 2, 'Change of address', 'I recently moved and need to update my address on file.'),
-(9, 3, 'Software issue', 'I am having problems with the software and need help resolving it.'),
-(10, 5, 'Billing inquiry', 'I have a question about my bill.'),
-(11, 6, 'System upgrade', 'I need help upgrading our system.'),
-(12, 1, 'Product warranty', 'I have a problem with a product I purchased and want to know about the warranty.'),
-(13, 2, 'Cancellation request', 'I need to cancel my subscription.'),
-(14, 3, 'Hardware issue', 'I am having problems with my hardware and need help)'),
-(15, 5, 'Payment inquiry', 'I have a question about my payment.');
+(5, 1, 'Adding new user', 'I need help adding a new user to our system.'),
+(6, 2, 'Removing user', 'I need help removing a user from our system.'),
+(7, 3, 'Product inquiry', 'I have a question about a product you sell.'),
+(8, 4, 'Change of address', 'I recently moved and need to update my address on file.'),
+(9, 1, 'Software issue', 'I am having problems with the software and need help resolving it.'),
+(10, 2, 'Billing inquiry', 'I have a question about my bill.'),
+(11, 3, 'System upgrade', 'I need help upgrading our system.'),
+(12, 4, 'Product warranty', 'I have a problem with a product I purchased and want to know about the warranty.'),
+(13, 1, 'Cancellation request', 'I need to cancel my subscription.'),
+(14, 2, 'Hardware issue', 'I am having problems with my hardware and need help)'),
+(15, 3, 'Payment inquiry', 'I have a question about my payment.');
 
 INSERT INTO FAQ (question, answer) VALUES ('What is your return policy?', 'Our return policy allows customers to return items within 30 days of purchase for a full refund.');
 INSERT INTO FAQ (question, answer) VALUES ('How can I track my order?', 'You can track your order by logging into your account and viewing the order details. You will also receive a shipping confirmation email with a tracking number.');
