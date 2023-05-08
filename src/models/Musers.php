@@ -4,19 +4,33 @@ require_once('Mticket.php');
 
 class User {
 
-    public ?int $userID = NULL;
-    public ?string $email = NULL;
-    public ?string $name = NULL;
-    public ?array $tickets = null;
-    public ?bool $isAgent = null;
-    public ?bool $isAdmin = null;
-
-    public function __construct($userID, $name, $email) {
-
-        $this->userID = $userID;
-        $this->name = $name;
-        $this->email = $email;
-    }
+  public ?int $userID = NULL;
+  public ?string $email = NULL;
+  public ?string $firstName = NULL;
+  public ?string $lastName = NULL;
+  public ?string $username = NULL;
+  public ?string $address = NULL;
+  public ?int $countryID = NULL;
+  public ?string $city = NULL;
+  public ?string $zipCode = NULL;
+  public ?string $bio = NULL;
+  public ?bool $isAgent = null;
+  public ?bool $isAdmin = null;
+  
+  public function __construct($userID, $email, $firstName, $lastName, $username, $address = null, $countryID = null, $city = null, $zipCode = null, $bio = null, $isAgent = false, $isAdmin = false) {
+      $this->userID = $userID;
+      $this->email = $email;
+      $this->firstName = $firstName;
+      $this->lastName = $lastName;
+      $this->username = $username;
+      $this->address = $address;
+      $this->countryID = $countryID;
+      $this->city = $city;
+      $this->zipCode = $zipCode;
+      $this->bio = $bio;
+      $this->isAgent = $isAgent;
+      $this->isAdmin = $isAdmin;
+  }
 
     public static function userPasswordMatch($email, $password) {
         $db = new PDO('sqlite:../../database/database.db');
@@ -65,27 +79,101 @@ class User {
           <?php $e->getMessage();
         }
     }
-    
-    function name() {
-        return $this->name;
-    }
-
-    static function getUser(PDO $db, int $id): User {
-        $stmt = $db->prepare('
-            SELECT userID, name, email
-            FROM User 
-            WHERE userID = ?
-        ');
-
-        $stmt->execute(array($id));
-        $user = $stmt->fetch();
-
-        return new User(
-            $user['userID'],
-            $user['name'],
-            $user['email'],
-        );
-    }
+    // --------------------------------------- getters ---------------------------------------
+    public function getUserID() {
+      return $this->userID;
+  }
+  
+  public function getEmail() {
+      return $this->email;
+  }
+  
+  
+  public function getFirstName() {
+      return $this->firstName;
+  }
+  
+  public function getLastName() {
+      return $this->lastName;
+  }
+  
+  public function getUsername() {
+      return $this->username;
+  }
+  
+  public function getAddress() {
+      return $this->address;
+  }
+  
+  public function getCountryID() {
+      return $this->countryID;
+  }
+  
+  public function getCity() {
+      return $this->city;
+  }
+  
+  public function getZipCode() {
+      return $this->zipCode;
+  }
+  
+  public function getBio() {
+      return $this->bio;
+  }
+  
+  public function getIsAgent() {
+      return $this->isAgent;
+  }
+  
+  public function getIsAdmin() {
+      return $this->isAdmin;
+  }
+  
+  
+  public function getFullName() {
+      return $this->firstName . ' ' . $this->lastName;
+  }
+  
+    /**
+     * access a user's data using email
+     */
+    public static function getUserByEmail(PDO $db, $email): ?User {
+      if ($db == null) {
+          error_log("Database not initialized");
+          throw new Exception('Database not initialized');
+      }
+  
+      try {
+        $stmt = $db->prepare('SELECT id, email, first_name, last_name, username, address, country_id, city, zip_code, bio, is_agent, is_admin FROM User WHERE email = :email');
+        $stmt->bindParam(':email', $email);
+          $stmt->execute();
+          $user = $stmt->fetch(PDO::FETCH_ASSOC);
+          if ($user) {
+            return new User(
+              $user['id'],
+              $user['email'],
+              $user['first_name'],
+              $user['last_name'],
+              $user['username'],
+              $user['address'],
+              $user['country_id'],
+              $user['city'],
+              $user['zip_code'],
+              $user['bio'],
+              $user['is_agent'],
+              $user['is_admin']
+            );
+            
+          } else {
+              return null;
+          }
+      } catch(PDOException $e) {
+          ?> <p> <?php echo "Oops, we've got a problem with database connection:"; ?> </p> <br> 
+          <?php echo $e->getMessage();
+      }
+  }
+  
+  
 
     static function getAllUsers(PDO $db) {
         $stmt = $db->prepare('SELECT * FROM User');
@@ -94,10 +182,20 @@ class User {
         $users = array();
         while ($user = $stmt->fetch(PDO::FETCH_OBJ)) {
           $users[] = new User(
-            $user->userID,
-            $user->name,
-            $user->email,
+            $user['id'],
+            $user['email'],
+            $user['first_name'],
+            $user['last_name'],
+            $user['username'],
+            $user['address'],
+            $user['country_id'],
+            $user['city'],
+            $user['zip_code'],
+            $user['bio'],
+            $user['is_agent'],
+            $user['is_admin']
           );
+          
         }
         return $users;
     }
