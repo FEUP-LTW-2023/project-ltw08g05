@@ -34,6 +34,13 @@ class RegisterController {
         $success = $stmt->rowCount();
         
         if($success) {
+            /**
+             * session_regenerate_id()
+             * for security purposes we're generating a new random session id.
+             * Using a random id as the session identifier can make it harder 
+             * for attackers to guess or intercept the session ID.
+             */
+            session_regenerate_id();
             $_SESSION['email'] = $email;
             $_SESSION['justRegistered'] = "Welcome, new user!";
             $_SESSION['error_message'] = "No errors";

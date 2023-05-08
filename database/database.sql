@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS User;
 CREATE TABLE User(
     id              INTEGER PRIMARY KEY,
     email           VARCHAR(255) UNIQUE NOT NULL,
-    password            VARCHAR(255) NOT NULL,
+    password        VARCHAR(255) NOT NULL,
     name            TEXT NOT NULL,
     is_agent        BOOLEAN NOT NULL DEFAULT 'false',
     is_admin        BOOLEAN NOT NULL DEFAULT 'false',
@@ -18,9 +18,17 @@ CREATE TABLE User(
     update_date     DATE DEFAULT null,
     CHECK(email LIKE '%_@_%._%'),
     CHECK(length(password) >= 6)
-    -- CHECK(password REGEXP '[A-Z]'),
-    -- CHECK(password REGEXP '[!@#$%^&*(),.?":{}|<>]')
 );
+
+CREATE TABLE AccessLog (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER,
+    ip_address VARCHAR(255),
+    operating_system VARCHAR(255),
+    access_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User (id)
+);
+
 
 CREATE TABLE Agent(
     id INTEGER PRIMARY KEY REFERENCES User(id)

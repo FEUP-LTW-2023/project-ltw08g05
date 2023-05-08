@@ -65,27 +65,39 @@ class User {
           <?php $e->getMessage();
         }
     }
-    
-    function name() {
+    // --------------------------------------- getters ---------------------------------------
+    public function getEmail(){
+      return $this->email;
+    }
+    public function getName() {
         return $this->name;
     }
-
-    static function getUser(PDO $db, int $id): User {
-        $stmt = $db->prepare('
-            SELECT userID, name, email
-            FROM User 
-            WHERE userID = ?
-        ');
-
-        $stmt->execute(array($id));
-        $user = $stmt->fetch();
-
-        return new User(
-            $user['userID'],
-            $user['name'],
-            $user['email'],
-        );
-    }
+    /**
+     * access a user's data using email
+     */
+    public static function getUserByEmail(PDO $db, $email): ?User {
+      if ($db == null) {
+          error_log("Database not initialized");
+          throw new Exception('Database not initialized');
+      }
+  
+      try {
+          $stmt = $db->prepare('SELECT id, name, email FROM User WHERE email = :email');
+          $stmt->bindParam(':email', $email);
+          $stmt->execute();
+          $user = $stmt->fetch(PDO::FETCH_ASSOC);
+          if ($user) {
+              return new User($user['id'], $user['name'], $user['email']);
+          } else {
+              return null;
+          }
+      } catch(PDOException $e) {
+          ?> <p> <?php echo "Oops, we've got a problem with database connection:"; ?> </p> <br> 
+          <?php echo $e->getMessage();
+      }
+  }
+  
+  
 
     static function getAllUsers(PDO $db) {
         $stmt = $db->prepare('SELECT * FROM User');
