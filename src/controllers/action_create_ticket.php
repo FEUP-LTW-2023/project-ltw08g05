@@ -1,8 +1,10 @@
 <?php
 require_once(__DIR__ . '/../../database/connection.php');
+require_once '../models/Musers.php';
 require_once '../models/Mticket.php';
-require_once '../models/MDep.php';
+require_once '../models/Mdep.php';
 
+session_start();
 $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -10,10 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $departmentId = intval($_POST['department']);
     $content = $_POST['content'];
+    $current_user = User::getUserByEmail($db, $_SESSION['email']);
+    $userID = $current_user->getUserId();
 
     $ticket = new Ticket(
         null, 
-        null, 
+        $userID, 
         $departmentId,
         null,
         $title, 

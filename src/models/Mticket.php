@@ -81,8 +81,6 @@ class Ticket {
 
     $stmt->execute(array($this->id, $this->userID, $this->departmentID, $this->agentAssignedID, $this->title, $this->content, $this->status, $this->creationDate, $this->updateDate));
     $this->id = intval($db->lastInsertId('Ticket'));
-    $this->userID = $_SESSION['id'];            // TODO: check if this is correct
-
   }
 
   function save(PDO $db) {

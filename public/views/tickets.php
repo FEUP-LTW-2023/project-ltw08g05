@@ -9,21 +9,30 @@ require_once('../../src/models/Musers.php');
 require_once('../templates/Tcommon.php');
 require_once('../templates/Ttickets.php');
 
+session_start();
+$loggedIn = isset($_SESSION['email']);
 $db = getDatabaseConnection();
+
 if ($db == null){
     throw new Exception('Database not initialized');
     ?> <p>$db is null</p> <?php
 }
+$email = $_SESSION['email'];
+$current_user = User::getUserByEmail($db, $email);
 
-$tickets = Ticket::getAllTickets($db);
-
-// for when login is implemented -- tickets of a client
-// $tickets = User::getUserTickets($db, intval($_SESSION['id']));
-// $user = User::getUser($db, $_SESSION['id']);
+if ($current_user->getIsAgent()) {
+    $tickets = Ticket::getAllTickets($db);
+} else {
+    $tickets = User::getUserTickets($db, $current_user->getUserId());
+}
 
 drawHeader();
 
 drawAllTickets($tickets);   
+//echo(print_r($current_user));
+//var_dump($current_user);
+//echo $current_user->isAgent; // Should output 0 or false
+//var_dump($current_user->getIsAgent());
 
 drawFooter();
 ?>

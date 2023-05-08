@@ -115,22 +115,22 @@ INSERT INTO Country (name) VALUES
   ('Austria'),
   ('Sweden');
 
-INSERT INTO User (email, password, first_name, last_name, username, address, country_id, city, zip_code, bio) VALUES
-    ('user1@example.com', 'password1', 'John', 'Doe', 'johndoe', '123 Main St', 1, 'Los Angeles', '90001', 'Bio for John Doe'),
-    ('user2@example.com', 'password2', 'Jane', 'Doe', 'janedoe', '456 Main St', 2, 'New York', '10001', 'Bio for Jane Doe'),
-    ('user3@example.com', 'password3', 'Bob', 'Smith', 'bobsmith', '789 Main St', 3, 'Chicago', '60601', 'Bio for Bob Smith'),
-    ('user4@example.com', 'password4', 'Alice', 'Johnson', 'alicejohnson', '321 Main St', 4, 'Houston', '77001', 'Bio for Alice Johnson'),
-    ('user5@example.com', 'password5', 'Michael', 'Brown', 'michaelbrown', '654 Main St', 5, 'Phoenix', '85001', 'Bio for Michael Brown'),
-    ('user6@example.com', 'password6', 'Samantha', 'Davis', 'samanthadavis', '987 Main St', 6, 'Philadelphia', '19101', 'Bio for Samantha Davis'),
-    ('user7@example.com', 'password7', 'David', 'Wilson', 'davidwilson', '246 Main St', 7, 'San Antonio', '78201', 'Bio for David Wilson'),
-    ('user8@example.com', 'password8', 'Linda', 'Garcia', 'lindagarcia', '135 Main St', 8, 'San Diego', '92101', 'Bio for Linda Garcia'),
-    ('user9@example.com', 'password9', 'William', 'Martinez', 'williammartinez', '864 Main St', 9, 'Dallas', '75201', 'Bio for William Martinez'),
-    ('user10@example.com', 'password10', 'Emily', 'Hernandez', 'emilyhernandez', '975 Main St', 10, 'San Jose', '95101', 'Bio for Emily Hernandez'),
-    ('user11@example.com', 'password11', 'Christopher', 'Lopez', 'christopherlopez', '732 Main St', 11, 'Austin', '73301', 'Bio for Christopher Lopez'),
-    ('user12@example.com', 'password12', 'Mary', 'Clark', 'maryclark', '741 Main St', 12, 'Jacksonville', '32201', 'Bio for Mary Clark'),
-    ('user13@example.com', 'password13', 'Daniel', 'Lee', 'daniellee', '258 Main St', 13, 'Fort Worth', '76101', 'Bio for Daniel Lee'),
-    ('user14@example.com', 'password14', 'Patricia', 'Walker', 'patriciawalker', '369 Main St', 14, 'Columbus', '43201', 'Bio for Patricia Walker'),
-    ('user15@example.com', 'password15', 'Joseph', 'Perez', 'josephperez', '159 Main St', 15, 'San Francisco', '94101', 'Bio for Joseph Perez');
+INSERT INTO User (email, password, first_name, last_name, username, address, country_id, city, zip_code, bio, is_agent, is_admin) VALUES
+    ('user1@example.com', 'password1', 'John', 'Doe', 'johndoe', '123 Main St', 1, 'Los Angeles', '90001', 'Bio for John Doe', false, false),
+    ('user2@example.com', 'password2', 'Jane', 'Doe', 'janedoe', '456 Main St', 2, 'New York', '10001', 'Bio for Jane Doe', false, false),
+    ('user3@example.com', 'password3', 'Bob', 'Smith', 'bobsmith', '789 Main St', 3, 'Chicago', '60601', 'Bio for Bob Smith', true, false),
+    ('user4@example.com', 'password4', 'Alice', 'Johnson', 'alicejohnson', '321 Main St', 4, 'Houston', '77001', 'Bio for Alice Johnson', true, false),
+    ('user5@example.com', 'password5', 'Michael', 'Brown', 'michaelbrown', '654 Main St', 5, 'Phoenix', '85001', 'Bio for Michael Brown', true, true),
+    ('user6@example.com', 'password6', 'Samantha', 'Davis', 'samanthadavis', '987 Main St', 6, 'Philadelphia', '19101', 'Bio for Samantha Davis', true, true),
+    ('user7@example.com', 'password7', 'David', 'Wilson', 'davidwilson', '246 Main St', 7, 'San Antonio', '78201', 'Bio for David Wilson', false, false),
+    ('user8@example.com', 'password8', 'Linda', 'Garcia', 'lindagarcia', '135 Main St', 8, 'San Diego', '92101', 'Bio for Linda Garcia', false, false),
+    ('user9@example.com', 'password9', 'William', 'Martinez', 'williammartinez', '864 Main St', 9, 'Dallas', '75201', 'Bio for William Martinez', true, false),
+    ('user10@example.com', 'password10', 'Emily', 'Hernandez', 'emilyhernandez', '975 Main St', 10, 'San Jose', '95101', 'Bio for Emily Hernandez', true, true),
+    ('user11@example.com', 'password11', 'Christopher', 'Lopez', 'christopherlopez', '732 Main St', 11, 'Austin', '73301', 'Bio for Christopher Lopez', false, false),
+    ('user12@example.com', 'password12', 'Mary', 'Clark', 'maryclark', '741 Main St', 12, 'Jacksonville', '32201', 'Bio for Mary Clark', false, false),
+    ('user13@example.com', 'password13', 'Daniel', 'Lee', 'daniellee', '258 Main St', 13, 'Fort Worth', '76101', 'Bio for Daniel Lee', true, false),
+    ('user14@example.com', 'password14', 'Patricia', 'Walker', 'patriciawalker', '369 Main St', 14, 'Columbus', '43201', 'Bio for Patricia Walker', false, false),
+    ('user15@example.com', 'password15', 'Joseph', 'Perez', 'josephperez', '159 Main St', 15, 'San Francisco', '94101', 'Bio for Joseph Perez', false, false);
 
 
 INSERT INTO Department(id_user, title) VALUES
@@ -140,9 +140,9 @@ INSERT INTO Department(id_user, title) VALUES
 (4, 'Admin');
 
 
-INSERT INTO Agent(id) VALUES (3), (4), (8), (9), (11), (12), (13);
+INSERT INTO Agent (id) VALUES (3), (4), (5), (6), (9), (10), (13);
 
-INSERT INTO Admin(id) VALUES (5), (6), (10);
+INSERT INTO Admin (id) VALUES (5), (6), (10);
 
 INSERT INTO Ticket(id_user, id_department, title, content_text) VALUES
 (1, 1, 'Issue with payment', 'I am trying to purchase an item but my payment is not going through.'),
