@@ -1,0 +1,89 @@
+#single-ticket-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#single-ticket-page header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#single-ticket-page header a {
+  padding: 0.4rem 1rem;
+  position: relative;
+  left: 1em;
+  color: #333;
+  text-decoration: none;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: color 0.1s ease-in-out;
+}
+
+#single-ticket-page header a:hover {
+  color: #555;
+}
+
+#single-ticket-page header a:last-child {
+  position: relative;
+  left: 2em;
+}
+#single-ticket-page .container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.user-message {
+  background-color: #EEE;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  align-self: flex-end;
+}
+
+.agent-message {
+  background-color: #CCC;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+textarea {
+  height: 80px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+}
+
+button[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background-color: #3e8e41;
+}

@@ -200,6 +200,31 @@ class User {
         return $users;
     }
 
+    static function getAgents(PDO $db) {
+      $stmt = $db->prepare('SELECT * FROM User WHERE is_agent = 1');
+      $stmt->execute();
+  
+      $users = array();
+      while ($user = $stmt->fetch()) {
+        $users[] = new User(
+          $user['id'],
+          $user['email'],
+          $user['first_name'],
+          $user['last_name'],
+          $user['username'],
+          $user['address'],
+          $user['country_id'],
+          $user['city'],
+          $user['zip_code'],
+          $user['bio'],
+          $user['is_agent'],
+          $user['is_admin']
+        );
+        
+      }
+      return $users;
+  }
+
     static function getUserTickets(PDO $db, int $id) {
     
         $stmt = $db->prepare('
@@ -228,6 +253,7 @@ class User {
             $ticket['agent_assigned'], 
             $ticket['title'], 
             $ticket['content_text'], 
+            $ticket['response_text'], 
             $ticket['ticket_status'], 
             $ticket['creation_date'], 
             $ticket['update_date']

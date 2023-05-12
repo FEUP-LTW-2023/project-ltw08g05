@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 <?php
 require_once(__DIR__ . '/../../database/connection.php');
+require_once('../../src/models/Mticket.php');
+require_once('../../src/models/Musers.php');
+
+session_start();
+$loggedIn = isset($_SESSION['email']);
 
 function drawAllTickets($tickets){?>
     <section id="tickets-page">
@@ -28,9 +33,11 @@ function drawAllTickets($tickets){?>
           </article>
         </a>
         <?php foreach($tickets as $ticket) { ?> 
-          <article class="card ticketCard">
-            <a href="../views/ticket.php?id=<?=$ticket->id?>"><h4 class="ticket-title"> <?= $ticket->title ?> </h4></a>
-          </article>
+          <a href="../views/ticket.php?id=<?=$ticket->id?>">
+            <article class="card ticketCard">
+              <h4 class="ticket-title"> <?= $ticket->title ?> </h4>
+            </article>
+          </a>
         <?php } ?>
       </section>
     </section>
@@ -38,19 +45,34 @@ function drawAllTickets($tickets){?>
   <?php } 
 ?>
 
-<?php function drawTicket($ticket) { ?>
+<?php function drawTicket($ticket, $current_user) { ?>
   <section id="single-ticket-page">
       <header>
           <h2> <?= $ticket->title ?> </h2>
-      </header>
-      <aside>
           <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
-      </aside>
-      <section>
-      <p>
-          <?= $ticket->content ?>
-      </p>
+          <?php  if($current_user->getIsAgent()) { ?>
+              <a href="assign_ticket.php?id=<?=$ticket->id?>"> Assign </a>
+          <?php } ?>
+      </header>
+
+      <section class="container">
+          <h2>Message Chat</h2>
+          <section class="chat-window">
+            <article class="user-message"> <?= $ticket->content ?> </article>
+            <?php  if($ticket->response!=NULL) { ?>
+              <article class="agent-message"> <?= $ticket->response ?> </article>
+            <?php } ?>
+          </section>
+        <?php  if($current_user->getIsAgent() && $ticket->agentAssignedID===$current_user->userID) { ?>  
+          <form class="chat-form" action="../../src/controllers/action_agent_response.php" method="post">
+            <input type="hidden" name="user_email" value="<?=$current_user->email?>">
+            <input type="hidden" name="id" value="<?=$ticket->id?>">
+            <textarea id="message" name="message" placeholder="Enter your message..."></textarea>
+            <button type="submit">Send</button>
+          </form>
+        <?php } ?>
       </section>
+    
   </section>
 <?php } ?>
 
@@ -68,7 +90,28 @@ function drawAllTickets($tickets){?>
   </form>
 <?php } ?>
 
+<?php function drawAssignTicket($ticket, $agents) { ?>
+  <h1>Assign Ticket</h1><br>
+  <p>Current title: <?= $ticket->title ?> </p> 
+  <p>Current issue: <?= $ticket->content ?></p><br>
+  <form action="../../src/controllers/action_assign_ticket.php" method="post">
+      <h4>New Assignee</h4><br>
+      <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+      <?php foreach($agents as $agent) { ?> 
+        <input type="radio" id="agent<?= $agent->id ?>" name="assignee" value="<?= $agent->email ?>">
+        <label for="agent<?= $agent->id ?>"><?= $agent->firstName ?> <?= $agent->lastName ?></label><br>
+      <?php } ?>
+      <br><h4>New Status</h4><br>
+      <input type="radio" id="status_open" class="ticket_status" name="status" value="Open">
+      <label for="status_open">Open</label><br>
+      <input type="radio" id="status_assigned" class="ticket_status" name="status" value="Assigned">
+      <label for="status_assigned">Assigned</label><br>
+      <input type="radio" id="status_closed" class="ticket_status" name="status" value="Closed">
+      <label for="status_closed">Close</label><br>
 
+      <button type="submit">Save</button>
+  </form>
+<?php } ?>
 <?php function drawAddTicket($deps) { ?>
 
   <h1>New Ticket</h1>

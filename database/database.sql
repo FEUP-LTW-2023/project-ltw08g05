@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS FAQ;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Country;
 DROP TABLE IF EXISTS AccessLog;
+/*DROP TABLE IF EXISTS Message; */
 /* Create the tables */
 CREATE TABLE Country (
     id         INTEGER PRIMARY KEY,
@@ -67,11 +68,21 @@ CREATE TABLE Ticket (
     agent_assigned  INTEGER REFERENCES User(id) ON UPDATE CASCADE ON DELETE SET NULL,
     title           VARCHAR(255) NOT NULL,
     content_text    TEXT NOT NULL,
+    response_text   TEXT DEFAULT NULL,
     ticket_status   VARCHAR(255) DEFAULT 'Open' NOT NULL,
     creation_date   DATE DEFAULT (DATE('now')),
     update_date     DATE DEFAULT null
     CHECK(length(content_text) > 0 and length(content_text) <= 200)
 );
+
+/*
+CREATE TABLE Message (
+    id              INTEGER PRIMARY KEY,
+    id_user         INTEGER REFERENCES User(id),
+    id_ticket       INTEGER REFERENCES Ticket(id),
+    message         TEXT NOT NULL,
+    creation_date   DATE DEFAULT (DATE('now'))
+);*/
 
 CREATE TABLE FAQ(
     id              INTEGER PRIMARY KEY,
@@ -94,7 +105,12 @@ BEGIN
     UPDATE Ticket SET update_date = DATE('now') WHERE id = OLD.id;
 END;
 
-
+CREATE TRIGGER update_assignment
+AFTER UPDATE ON Ticket
+FOR EACH ROW
+BEGIN
+    UPDATE Ticket SET agent_assigned = NULL WHERE ticket_status = 'Open';
+END;
 
 -------------------------------------------------------- Populate the database --------------------------------------------------------
 
