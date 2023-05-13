@@ -25,7 +25,7 @@ class LoginController
             header('Location: /index.php');
             exit();
         } else {
-            $_SESSION['error_message'] = 'does not exist in the db';
+            $_SESSION['error_message'] = 'credentials do not match';
             header('Location: /public/views/login.php');
             exit();
         }
