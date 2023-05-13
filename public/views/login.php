@@ -12,7 +12,6 @@
 
     <section id="login" class="centered">
         <h2>Login</h2>
-        <p>\2630</p>
         <form>
             <label for="email">Email:</label>
             <input type="email" name="email" id="email"><br>

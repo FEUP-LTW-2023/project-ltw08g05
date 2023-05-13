@@ -76,9 +76,9 @@ body {
     position: relative;
     display: flex;
     float: right;
-    gap: 2rem;
+    gap: 1rem;
     width: 50%;
-    justify-content: flex-end;
+    justify-content: right;
 }
 
 #nav-right>li:nth-child(2)>a {
@@ -144,7 +144,7 @@ main {
 
 /* ---------------------------- Responsivness ----------------------------*/
 
-@media screen and (max-width: 60em){
+@media screen and (max-width: 80em){
     main{
       grid-template-columns: 100%;
       grid-template-rows: auto;
@@ -161,7 +161,45 @@ main {
 
     .topnav.responsive {
         position: relative;
+    }
+    .topnav.responsive a.icon {
+        position: absolute;
+    }
+    .topnav.responsive a {
+        float: none;
         display: flex;
+        text-align: center;
+        justify-content: center;
+    }
+    .topnav.responsive a:nth-last-child(2) {
+        margin-right: 2em;
+      }
+    #nav-right {
+        display: flex;
+        flex-direction: wrap;
+        background-color: #1b1c1e;
+    }
+}
+
+
+
+@media screen and (max-width: 50em){
+    main{
+      grid-template-columns: 100%;
+      grid-template-rows: auto;
+    }
+    .topnav a:not(:last-child) {
+        display: none;
+      }
+      
+    
+    .topnav a.icon {
+        float: right;
+        display: block;
+      }
+
+    .topnav.responsive {
+        position: relative;
     }
     .topnav.responsive a.icon {
         position: absolute;
@@ -170,7 +208,14 @@ main {
     }
     .topnav.responsive a {
         float: none;
-        display: block;
-        text-align: left;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        /* text-align: left; */
+    }
+    #nav-right {
+        display: inline;
+        background-color: #1b1c1e;
+        top: 5em;
     }
 }

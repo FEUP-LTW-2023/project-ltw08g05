@@ -40,30 +40,30 @@ require_once(__DIR__ . '/../../database/connection.php');
     session_start(); // start the session to access the $_SESSION variable
     $loggedIn = isset($_SESSION['email']); // check if the id key is set in the $_SESSION variable
  ?>
-    
+
     <nav class="nav shadow-nohov">
         <div class="nav" id="nav-left">
             <a href="index.php"><span>TicketEase</span></a>
         </div>
 
         <div class="topnav" id="nav-right">
-  <?php if ($loggedIn): ?>
-  <!-- add links for logged in users here -->
-  <a href='tickets.php'>TICKETS</a>
-  <a href="#">CONTACT</a>
-  <a href="faq.php">FAQ</a>
-  <a href="profile.php">PROFILE</a>
-  <a href="../../src/controllers/logout.php">LOGOUT</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
-  <?php else: ?>
-  <!-- add links for non-logged in users here -->
-  <a href="faq.php">FAQ</a>
-  <a href="#">CONTACT</a>
-  <a href="register.php">SIGN UP</a>
-  <a href="login.php">LOGIN</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
-  <?php endif; ?>
-</div>
+        <?php if ($loggedIn): ?>
+        <!-- add links for logged in users here -->
+        <a href='tickets.php'>TICKETS</a>
+        <a href="#">CONTACT</a>
+        <a href="faq.php">FAQ</a>
+        <a href="profile.php">PROFILE</a>
+        <a href="../../src/controllers/logout.php">LOGOUT</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+        <?php else: ?>
+        <!-- add links for non-logged in users here -->
+        <a href="faq.php">FAQ</a>
+        <a href="#">CONTACT</a>
+        <a href="register.php">SIGN UP</a>
+        <a href="login.php">LOGIN</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+        <?php endif; ?>
+        </div>
 
     </nav>
 <?php } ?>
