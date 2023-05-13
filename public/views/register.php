@@ -8,7 +8,6 @@
 ?>
 
     <head>
-    <link href="../styles/login.css" rel="stylesheet">
     <link href="../styles/register.css" rel="stylesheet">
     <script src="../scripts/register.js"></script>
     
