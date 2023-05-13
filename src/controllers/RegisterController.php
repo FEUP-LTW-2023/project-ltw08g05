@@ -16,7 +16,7 @@ class RegisterController {
         $address = $_POST['address'];
         $country = $_POST['country'];
         $city = $_POST['city'];
-        $zipCode = $_POST['zip_code'];
+        $zipCode = $_POST['zipCode'];
         $bio = $_POST['bio'];
         $isAgent = isset($_POST['is_agent']) ? 1 : 0;
         $isAdmin = isset($_POST['is_admin']) ? 1 : 0;
