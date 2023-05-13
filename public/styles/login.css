@@ -70,8 +70,6 @@ body{
     grid-template-areas: "header" "login" "footer";
     gap: 0px 0px; 
 }
-.header { grid-area: header; }
+header { grid-area: header; }
 .login { grid-area: login; }
 footer { grid-area: footer; }
-
-/* ---------------------------- Responsivness ----------------------------*/
