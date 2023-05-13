@@ -37,7 +37,7 @@ class LoginController
         $stmt->execute();
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
-            echo $row['email'] . ' ' . $row['password'] . ' ' . $row['first_name'] . $row['last_name'] . $row['username'] . $row['address'] . $row['country_id']. '<br>';
+            echo $row['email'] . ' ' . $row['password'] . ' ' . $row['first_name'] . $row['last_name'] . $row['username'] . $row['address'] . $row['country']. '<br>';
         }
     }
 }

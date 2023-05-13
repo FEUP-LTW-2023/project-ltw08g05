@@ -20,8 +20,6 @@ require_once(__DIR__ . '/../../database/connection.php');
         <link href="../styles/common.css" rel="stylesheet">
         <link href="../styles/search.css" rel="stylesheet">
         <link href="../styles/ticket.css" rel="stylesheet">
-        <link href="../styles/profile.css" rel="stylesheet">
-        <link href="../styles/login.css" rel="stylesheet">
         <link href="../styles/chat.css" rel="stylesheet">
 	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	    <script src="../scripts/chat.js"></script>

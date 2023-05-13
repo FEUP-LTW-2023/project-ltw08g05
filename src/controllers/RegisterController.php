@@ -14,7 +14,7 @@ class RegisterController {
         $lastName = $_POST['last_name'];
         $username = $_POST['username'];
         $address = $_POST['address'];
-        $countryID = $_POST['country'];
+        $country = $_POST['country'];
         $city = $_POST['city'];
         $zipCode = $_POST['zip_code'];
         $bio = $_POST['bio'];
@@ -35,15 +35,15 @@ class RegisterController {
         
         $db = new PDO("sqlite:../../database/database.db");
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $db->prepare('INSERT INTO User (email, password, first_name, last_name, username, address, country_id, city, zip_code, bio, is_agent, is_admin) 
-                              VALUES (:email, :password, :firstName, :lastName, :username, :address, :countryID, :city, :zipCode, :bio, :isAgent, :isAdmin)');
+        $stmt = $db->prepare('INSERT INTO User (email, password, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin) 
+                              VALUES (:email, :password, :firstName, :lastName, :username, :address, :country, :city, :zipCode, :bio, :isAgent, :isAdmin)');
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':lastName', $lastName);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':address', $address);
-        $stmt->bindParam(':countryID', $countryID);
+        $stmt->bindParam(':country', $country);
         if(isset($city)) {
           $stmt->bindParam(':city', $city);
         } else {

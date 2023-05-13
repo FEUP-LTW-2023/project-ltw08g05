@@ -1,9 +1,26 @@
-h3 {
+.centered {
     position: absolute;
-    top: 10%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border: 0.1em solid black;
+    text-align: center;
+    min-height: 15em;
+    min-width: 25em;
+    margin-top: 3em;
+    padding: 0.5em;
   }
+.error{
+  color: red;
+  font-size: 1em;
+}
+.required{
+    color: red;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
 .row {
   --mdb-gutter-x: 1.5rem;
   --mdb-gutter-y: 0;

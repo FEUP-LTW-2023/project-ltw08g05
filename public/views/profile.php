@@ -21,8 +21,11 @@
 
     drawHeader()
 ?>
+    <head>
+    <link href="../styles/profile.css" rel="stylesheet">
+    </head>
     <body>
-    <h3 class="centered">User <?php echo $current_user->getUsername()?></h3><br><br> 
+    <h3>User <?php echo $current_user->getUsername()?></h3><br><br> 
         <div class="card mb-4">
         <div class="card-body">
             <div class="row">
@@ -57,7 +60,7 @@
                 <p class="mb-0">Country</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0"><?php echo $current_user->getCountryID() ?></p>
+                <p class="text-muted mb-0"><?php echo $current_user->getCountry() ?></p>
               </div>
             </div>
             <hr>
@@ -88,8 +91,6 @@
               </div>
             </div>
           </div>
-
-
     </body>
 <?php
     drawFooter();

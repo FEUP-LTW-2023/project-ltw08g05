@@ -5,10 +5,13 @@
 
     drawHeader();
 ?>
+    <head>
+    <link href="../styles/login.css" rel="stylesheet">
+    </head>
     <script src="../scripts/login.js"></script>
 
     <!-- records to be removed when the time comes -->
-    <?php LoginController::showRecordsFromDatabase(); ?>
+    <!-- <?php LoginController::showRecordsFromDatabase(); ?> -->
 
     <section id="login" class="centered">
         <h2>Login</h2>
@@ -23,7 +26,7 @@
             <button formaction="/src/controllers/LoginController.php" formmethod="post" disabled hover-text="Fields are not filled" style="vertical-align:middle"><span>Login</span></button>
         </form>
         <?php if (isset($_SESSION['error_message'])): ?>
-            <p><?php echo $_SESSION['error_message']; ?></p>
+            <p style="background-color: red;"><?php echo $_SESSION['error_message']; ?></p>
             <?php unset($_SESSION['error_message']); ?>
         <?php endif; ?>
     </section>
