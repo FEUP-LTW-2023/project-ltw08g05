@@ -20,14 +20,16 @@ require_once(__DIR__ . '/../../database/connection.php');
         <link href="../styles/common.css" rel="stylesheet">
         <link href="../styles/search.css" rel="stylesheet">
         <link href="../styles/ticket.css" rel="stylesheet">
-        <link href="../styles/profile.css" rel="stylesheet">
         <link href="../styles/chat.css" rel="stylesheet">
+        <link href="../styles/responsive.css" rel="stylesheet">
 	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	    <script src="../scripts/chat.js"></script>
     </head>
 
     <body>
-    <?php drawNavbar(); ?>
+        <header>
+        <?php drawNavbar(); ?>
+        </header>
     <main>
 <?php } ?>
 
@@ -37,31 +39,45 @@ require_once(__DIR__ . '/../../database/connection.php');
     session_start(); // start the session to access the $_SESSION variable
     $loggedIn = isset($_SESSION['email']); // check if the id key is set in the $_SESSION variable
  ?>
-    
+
     <nav class="nav shadow-nohov">
         <div class="nav" id="nav-left">
             <a href="index.php"><span>TicketEase</span></a>
         </div>
 
-        <ul class="nav" id="nav-right">
-            <?php if ($loggedIn): ?>
-            <!-- add links for logged in users here -->
-            <li><a href='tickets.php'>TICKETS</a></li>
-            <li><a href="#">CONTACT</a></li>
-            <li><a href="faq.php">FAQ</a></li>
-            <li><a href="profile.php">PROFILE</a></li>
-            <li><a href="../../src/controllers/logout.php">LOGOUT</a></li>
-            <?php else: ?>
-            <!-- add links for non-logged in users here -->
-            <li><a href="faq.php">FAQ</a></li>
-            <li><a href="#">CONTACT</a></li>
-            <li><a href="register.php">SIGN UP</a></li>
-            <li><a href="login.php">LOGIN</a></li>
-            <?php endif; ?>
-        </ul>
+        <div class="topnav" id="nav-right">
+        <?php if ($loggedIn): ?>
+        <!-- add links for logged in users here -->
+        <a href='tickets.php'>TICKETS</a>
+        <a href="#">CONTACT</a>
+        <a href="faq.php">FAQ</a>
+        <a href="profile.php">PROFILE</a>
+        <a href="../../src/controllers/logout.php">LOGOUT</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+        <?php else: ?>
+        <!-- add links for non-logged in users here -->
+        <a href="faq.php">FAQ</a>
+        <a href="#">CONTACT</a>
+        <a href="register.php">SIGN UP</a>
+        <a href="login.php">LOGIN</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+        <?php endif; ?>
+        </div>
+
     </nav>
-    
 <?php } ?>
+
+
+<script>
+    function myFunction() {
+    var x = document.getElementById("nav-right");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+    }
+</script>
 
 <?php function drawFooter()
 { ?>

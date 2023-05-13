@@ -10,21 +10,21 @@ class User {
   public ?string $lastName = NULL;
   public ?string $username = NULL;
   public ?string $address = NULL;
-  public ?int $countryID = NULL;
+  public ?string $country = NULL;
   public ?string $city = NULL;
   public ?string $zipCode = NULL;
   public ?string $bio = NULL;
   public ?bool $isAgent = null;
   public ?bool $isAdmin = null;
   
-  public function __construct($userID, $email, $firstName, $lastName, $username, $address = null, $countryID = null, $city = null, $zipCode = null, $bio = null, $isAgent = false, $isAdmin = false) {
+  public function __construct($userID, $email, $firstName, $lastName, $username, $address = null, $country = null, $city = null, $zipCode = null, $bio = null, $isAgent = false, $isAdmin = false) {
       $this->userID = $userID;
       $this->email = $email;
       $this->firstName = $firstName;
       $this->lastName = $lastName;
       $this->username = $username;
       $this->address = $address;
-      $this->countryID = $countryID;
+      $this->country = $country;
       $this->city = $city;
       $this->zipCode = $zipCode;
       $this->bio = $bio;
@@ -105,8 +105,8 @@ class User {
       return $this->address;
   }
   
-  public function getCountryID() {
-      return $this->countryID;
+  public function getCountry() {
+      return $this->country;
   }
   
   public function getCity() {
@@ -144,7 +144,7 @@ class User {
       }
   
       try {
-        $stmt = $db->prepare('SELECT id, email, first_name, last_name, username, address, country_id, city, zip_code, bio, is_agent, is_admin FROM User WHERE email = :email');
+        $stmt = $db->prepare('SELECT id, email, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin FROM User WHERE email = :email');
         $stmt->bindParam(':email', $email);
           $stmt->execute();
           $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -156,7 +156,7 @@ class User {
               $user['last_name'],
               $user['username'],
               $user['address'],
-              $user['country_id'],
+              $user['country'],
               $user['city'],
               $user['zip_code'],
               $user['bio'],
@@ -188,7 +188,7 @@ class User {
             $user['last_name'],
             $user['username'],
             $user['address'],
-            $user['country_id'],
+            $user['country'],
             $user['city'],
             $user['zip_code'],
             $user['bio'],
@@ -213,7 +213,7 @@ class User {
           $user['last_name'],
           $user['username'],
           $user['address'],
-          $user['country_id'],
+          $user['country'],
           $user['city'],
           $user['zip_code'],
           $user['bio'],

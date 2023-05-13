@@ -3,15 +3,27 @@
     require_once("../../src/controllers/RegisterController.php");
     require_once("../../src/controllers/LoginController.php");
     session_start();
-
-    drawHeader()
+    
+    drawHeader();
 ?>
 
-    <?php LoginController::showRecordsFromDatabase() ?>
-    <form method="post" action="/src/controllers/RegisterController.php">
+    <head>
+    <link href="../styles/register.css" rel="stylesheet">
+    <script src="../scripts/register.js"></script>
+    
+    </head>
+
+    <!-- <?php LoginController::showRecordsFromDatabase() ?> -->
+
+    <div class="centered">
+      <h2>Register</h2>
+    <form>
     <label for="email">Email: <span class="required">*</span></label>
-    <input type="email" name="email" id="email" required 
+    <input type="email" name="email" id="email" required
         <?php if (isset($_SESSION['email'])) echo 'value="' . $_SESSION['email'] . '"'; ?>>
+    <br>
+    <span id="email-error" class="error"></span>
+
     <br>
 
     <label for="password">Password: <span class="required">*</span></label>
@@ -84,9 +96,9 @@
     <input type="checkbox" name="isAdmin" id="isAdmin">
     <br>
 
-    <label for="submit"></label>
-    <input type="submit" value="Submit">
+    <button formaction="/src/controllers/RegisterController.php" formmethod="post" disabled hover-text="Fields are not filled" style="vertical-align:middle"><span>Login</span></button>
     </form>
+    </div>
 
     <?php if (isset($_SESSION['error_message'])): ?>
         <p><?php echo $_SESSION['error_message']; ?></p>

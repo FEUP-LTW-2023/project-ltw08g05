@@ -25,7 +25,7 @@ class LoginController
             header('Location: /index.php');
             exit();
         } else {
-            $_SESSION['error_message'] = 'does not exist in the db';
+            $_SESSION['error_message'] = 'credentials do not match';
             header('Location: /public/views/login.php');
             exit();
         }
@@ -37,7 +37,7 @@ class LoginController
         $stmt->execute();
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
-            echo $row['email'] . ' ' . $row['password'] . ' ' . $row['first_name'] . $row['last_name'] . $row['username'] . $row['address'] . $row['country_id']. '<br>';
+            echo $row['email'] . ' ' . $row['password'] . ' ' . $row['first_name'] . $row['last_name'] . $row['username'] . $row['address'] . $row['country']. '<br>';
         }
     }
 }
