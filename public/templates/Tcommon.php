@@ -28,7 +28,9 @@ require_once(__DIR__ . '/../../database/connection.php');
     </head>
 
     <body>
-    <?php drawNavbar(); ?>
+        <header class="header">
+        <?php drawNavbar(); ?>
+        </header>
     <main>
 <?php } ?>
 
