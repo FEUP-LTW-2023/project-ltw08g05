@@ -99,7 +99,7 @@ function drawAllTickets($tickets){?>
       <input type="hidden" name="id" value=" <?= $ticket->id ?>">
       <?php foreach($agents as $agent) { ?> 
         <input type="radio" id="agent<?= $agent->id ?>" name="assignee" value="<?= $agent->email ?>">
-        <label for="agent<?= $agent->id ?>"><?= $agent->firstName ?> <?= $agent->lastName ?></label><br>
+        <label for="agent<?= $agent->id ?>"><?= $agent->first_name ?> <?= $agent->last_name ?></label><br>
       <?php } ?>
       <br><h4>New Status</h4><br>
       <input type="radio" id="status_open" class="ticket_status" name="status" value="Open">

@@ -30,11 +30,11 @@
     <input type="password" name="password" id="password" required>
     <br>
 
-    <label for="firstName">First Name: <span class="required">*</span></label>
+    <label for="first_name">First Name: <span class="required">*</span></label>
     <input type="text" name="first_name" id="first_name" required>
     <br>
 
-    <label for="lastName">Last Name: <span class="required">*</span></label>
+    <label for="last_name">Last Name: <span class="required">*</span></label>
     <input type="text" name="last_name" id="last_mame" required>
     <br>
 
@@ -80,8 +80,8 @@
     <input type="text" name="city" id="city">
     <br>
 
-    <label for="zipCode">Zip Code:</label>
-    <input type="text" name="zipCode" id="zipCode">
+    <label for="zip_code">Zip Code:</label>
+    <input type="text" name="zip_code" id="zip_code">
     <br>
 
     <label for="bio">Bio:</label>

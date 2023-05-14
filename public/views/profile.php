@@ -78,7 +78,7 @@
                 <p class="mb-0">Zip Code</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0"><?php echo $current_user->getZipCode() ?></p>
+                <p class="text-muted mb-0"><?php echo $current_user->getzip_code() ?></p>
               </div>
             </div>
             <hr>

@@ -6,27 +6,27 @@ class User {
 
   public ?int $userID = NULL;
   public ?string $email = NULL;
-  public ?string $firstName = NULL;
-  public ?string $lastName = NULL;
+  public ?string $first_name = NULL;
+  public ?string $last_name = NULL;
   public ?string $username = NULL;
   public ?string $address = NULL;
   public ?string $country = NULL;
   public ?string $city = NULL;
-  public ?string $zipCode = NULL;
+  public ?string $zip_code = NULL;
   public ?string $bio = NULL;
   public ?bool $isAgent = null;
   public ?bool $isAdmin = null;
   
-  public function __construct($userID, $email, $firstName, $lastName, $username, $address = null, $country = null, $city = null, $zipCode = null, $bio = null, $isAgent = false, $isAdmin = false) {
+  public function __construct($userID, $email, $first_name, $last_name, $username, $address = null, $country = null, $city = null, $zip_code = null, $bio = null, $isAgent = false, $isAdmin = false) {
       $this->userID = $userID;
       $this->email = $email;
-      $this->firstName = $firstName;
-      $this->lastName = $lastName;
+      $this->first_name = $first_name;
+      $this->last_name = $last_name;
       $this->username = $username;
       $this->address = $address;
       $this->country = $country;
       $this->city = $city;
-      $this->zipCode = $zipCode;
+      $this->zip_code = $zip_code;
       $this->bio = $bio;
       $this->isAgent = $isAgent;
       $this->isAdmin = $isAdmin;
@@ -79,6 +79,48 @@ class User {
         <?php $e->getMessage();
       }
   }
+
+  function save(PDO $db) {
+    if ($db == null) {
+        error_log("Database not initialized");
+        throw new Exception('Database not initialized');
+    }
+
+    $stmt = $db->prepare('
+      UPDATE User 
+      SET email = :email, 
+          username = :username, 
+          first_name = :first_name, 
+          last_name = :last_name, 
+          address = :address, 
+          country = :country, 
+          city = :city, 
+          zip_code = :zip_code, 
+          bio = :bio 
+      WHERE id = :user_id
+    ');
+
+    $stmt->bindValue(':email', $this->email);
+    $stmt->bindValue(':username', $this->username);
+    $stmt->bindValue(':first_name', $this->first_name);
+    $stmt->bindValue(':last_name', $this->last_name);
+    $stmt->bindValue(':address', $this->address);
+    $stmt->bindValue(':country', $this->country);
+    $stmt->bindValue(':city', $this->city);
+    $stmt->bindValue(':zip_code', $this->zip_code);
+    $stmt->bindValue(':bio', $this->bio);
+    $stmt->bindValue(':user_id', $this->userID);
+    
+    try {
+        $stmt->execute();
+    } catch (PDOException $e) {
+        error_log('Error updating user data: ' . $e->getMessage());
+        ?> <p> <?php echo "Error updating user data"; ?> </p> <br> <?php
+        throw new Exception('Error updating user data');
+    }
+}
+
+
   // --------------------------------------- getters ---------------------------------------
   public function getUserID() {
     return $this->userID;
@@ -89,12 +131,12 @@ class User {
   }
   
   
-  public function getFirstName() {
-      return $this->firstName;
+  public function getfirst_name() {
+      return $this->first_name;
   }
   
-  public function getLastName() {
-      return $this->lastName;
+  public function getlast_name() {
+      return $this->last_name;
   }
   
   public function getUsername() {
@@ -113,8 +155,8 @@ class User {
       return $this->city;
   }
   
-  public function getZipCode() {
-      return $this->zipCode;
+  public function getzip_code() {
+      return $this->zip_code;
   }
   
   public function getBio() {
@@ -131,7 +173,7 @@ class User {
   
   
   public function getFullName() {
-      return $this->firstName . ' ' . $this->lastName;
+      return $this->first_name . ' ' . $this->last_name;
   }
   
     /**
