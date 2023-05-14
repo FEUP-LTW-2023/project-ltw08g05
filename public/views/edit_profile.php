@@ -49,7 +49,6 @@ if ($db == null){
     ?> <p>$db is null</p> <?php
 }
 $email = $_SESSION['email'];
-error_log("email: " . $email);
 $current_user = User::getUserByEmail($db, $email);
 $username = $current_user->getUsername();
 
@@ -62,6 +61,14 @@ drawHeader()
     <form action="../../src/controllers/action_edit_user.php" method="post">
         <div class="card mb-4">
         <div class="card-body">
+            <div class="row">
+              <div class="col-sm-9">
+                <label for="username">Username:</label>
+                <input type="text" name="username" value="<?php echo $username; ?>"><br><br>
+              </div>
+            </div>
+            <hr>
+            <br>
             <div class="row">
               <div class="col-sm-9">
                 <label for="first_name">First Name:</label>
@@ -80,8 +87,9 @@ drawHeader()
             <br>
             <div class="row">
               <div class="col-sm-9">
-                <label for="email">Email:</label>
-                <input type="text" name="email" value="<?php echo $current_user->getEmail() ?>"><br><br>
+                <label for="new_email">Email:</label>
+                <input type="email" name="new_email" value="<?php echo $current_user->getEmail() ?>"><br><br>
+                <input type="hidden" name="email" value="<?php echo $email?>">
               </div>
             </div>
             <hr>
@@ -112,8 +120,8 @@ drawHeader()
             <br>
             <div class="row">
               <div class="col-sm-9">
-                <label for="zipCode">ZipCode:</label>
-                <input type="text" name="zipCode" value="<?php echo $current_user->getZipCode() ?>"><br><br>
+                <label for="zip_code">zip_code:</label>
+                <input type="text" name="zip_code" value="<?php echo $current_user->getzip_code() ?>"><br><br>
               </div>
             </div>
             <hr>
@@ -125,11 +133,8 @@ drawHeader()
               </div>
             </div>
           </div>
-          <button type="submit">Save Changes</button>
+          <button class="submit" type="submit">Save Changes</button>
         </div>
-        <input type="hidden" name="user" value="<?php echo $username; ?>">
-        <input type="hidden" name="email" value="<?php echo $email?>">
-
     </form>
 <?php
     drawFooter();

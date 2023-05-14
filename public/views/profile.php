@@ -16,7 +16,14 @@
         ?> <p>$db is null</p> <?php
     }
     $email = $_SESSION['email'];
+    error_log("profile email: $email");
     $current_user = User::getUserByEmail($db, $email);
+    if(!$current_user){
+        error_log("profile: user not found");
+        ?> <p> <?php echo "User was not found" ?></p> <?php
+        header('Location: /src/controllers/logout.php');
+        exit();
+    }
     $username = $current_user->getUsername();
 
     drawHeader()
@@ -24,9 +31,8 @@
     <head>
     <link href="../styles/profile.css" rel="stylesheet">
     </head>
-    <body>
+    
     <h3>User <?php echo $username?></h3><br><br> 
-
     <div class="card mb-4">
         <div class="card-body">
             <div class="row">
@@ -79,7 +85,7 @@
                 <p class="mb-0">Zip Code</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0"><?php echo $current_user->getZipCode() ?></p>
+                <p class="text-muted mb-0"><?php echo $current_user->getzip_code() ?></p>
               </div>
             </div>
             <hr>
@@ -91,13 +97,15 @@
                 <p class="text-muted mb-0"><?php echo $current_user->getBio() ?></p>
               </div>
             </div>
+            <hr>
           </div>
+          <!-- using method GET because we are not changing anything in the database -->
+          <form action="edit_profile.php" method="get"> 
+            <input type="hidden" name="user" value=<?php echo $username?>>
+              <button type="submit">Edit Ticket</button>    
+        </form>
         </div>  
-        <!-- using method GET because we are not changing anything in the database -->
-        <form action="edit_user.php" method="get"> 
-          <input type="hidden" name="user" value=<?php echo $username?>>
-            <button type="submit">Edit Ticket</button>    
-      </form>
+
 <?php
     drawFooter();
 ?>

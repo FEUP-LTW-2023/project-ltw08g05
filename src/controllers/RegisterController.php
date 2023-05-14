@@ -10,13 +10,13 @@ class RegisterController {
         session_start();
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $firstName = $_POST['first_name'];
-        $lastName = $_POST['last_name'];
+        $first_name = $_POST['first_name'];
+        $last_name = $_POST['last_name'];
         $username = $_POST['username'];
         $address = $_POST['address'];
         $country = $_POST['country'];
         $city = $_POST['city'];
-        $zipCode = $_POST['zipCode'];
+        $zip_code = $_POST['zip_code'];
         $bio = $_POST['bio'];
         $isAgent = isset($_POST['is_agent']) ? 1 : 0;
         $isAdmin = isset($_POST['is_admin']) ? 1 : 0;
@@ -36,11 +36,11 @@ class RegisterController {
         $db = new PDO("sqlite:../../database/database.db");
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt = $db->prepare('INSERT INTO User (email, password, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin) 
-                              VALUES (:email, :password, :firstName, :lastName, :username, :address, :country, :city, :zipCode, :bio, :isAgent, :isAdmin)');
+                              VALUES (:email, :password, :first_name, :last_name, :username, :address, :country, :city, :zip_code, :bio, :isAgent, :isAdmin)');
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':firstName', $firstName);
-        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':first_name', $first_name);
+        $stmt->bindParam(':last_name', $last_name);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':address', $address);
         $stmt->bindParam(':country', $country);
@@ -49,10 +49,10 @@ class RegisterController {
         } else {
           $stmt->bindValue(':city', null, PDO::PARAM_NULL);
         }
-        if(isset($zipCode)) {
-          $stmt->bindParam(':zipCode', $zipCode);
+        if(isset($zip_code)) {
+          $stmt->bindParam(':zip_code', $zip_code);
         } else {
-          $stmt->bindValue(':zipCode', null, PDO::PARAM_NULL);
+          $stmt->bindValue(':zip_code', null, PDO::PARAM_NULL);
         }
         if (isset($bio)) {
           $stmt->bindParam(':bio', $bio);
