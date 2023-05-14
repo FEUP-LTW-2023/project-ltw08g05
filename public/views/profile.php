@@ -17,7 +17,7 @@
     }
     $email = $_SESSION['email'];
     $current_user = User::getUserByEmail($db, $email);
-    
+    $username = $current_user->getUsername();
 
     drawHeader()
 ?>
@@ -25,8 +25,9 @@
     <link href="../styles/profile.css" rel="stylesheet">
     </head>
     <body>
-    <h3>User <?php echo $current_user->getUsername()?></h3><br><br> 
-        <div class="card mb-4">
+    <h3>User <?php echo $username?></h3><br><br> 
+
+    <div class="card mb-4">
         <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
@@ -91,7 +92,12 @@
               </div>
             </div>
           </div>
-    </body>
+        </div>  
+        <!-- using method GET because we are not changing anything in the database -->
+        <form action="edit_user.php" method="get"> 
+          <input type="hidden" name="user" value=<?php echo $username?>>
+            <button type="submit">Edit Ticket</button>    
+      </form>
 <?php
     drawFooter();
 ?>
