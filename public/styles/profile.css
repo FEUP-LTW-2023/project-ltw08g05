@@ -39,6 +39,15 @@ hr {
   opacity: .25;
 }
 
+button.submit{
+  background-color: #ce7b10;
+  color: white;
+}
+button.submit:hover {
+  background-color: red;
+  color: white;
+}
+
 /* ---------------------------- Layout ----------------------------*/
 
 body{

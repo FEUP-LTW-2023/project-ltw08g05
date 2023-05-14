@@ -24,9 +24,8 @@
     <head>
     <link href="../styles/profile.css" rel="stylesheet">
     </head>
-    <body>
+    
     <h3>User <?php echo $username?></h3><br><br> 
-
     <div class="card mb-4">
         <div class="card-body">
             <div class="row">
@@ -91,13 +90,15 @@
                 <p class="text-muted mb-0"><?php echo $current_user->getBio() ?></p>
               </div>
             </div>
+            <hr>
           </div>
+          <!-- using method GET because we are not changing anything in the database -->
+          <form action="edit_profile.php" method="get"> 
+            <input type="hidden" name="user" value=<?php echo $username?>>
+              <button type="submit">Edit Ticket</button>    
+        </form>
         </div>  
-        <!-- using method GET because we are not changing anything in the database -->
-        <form action="edit_user.php" method="get"> 
-          <input type="hidden" name="user" value=<?php echo $username?>>
-            <button type="submit">Edit Ticket</button>    
-      </form>
+
 <?php
     drawFooter();
 ?>

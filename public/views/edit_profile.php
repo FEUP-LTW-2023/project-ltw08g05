@@ -125,11 +125,10 @@ drawHeader()
               </div>
             </div>
           </div>
-          <button type="submit">Save Changes</button>
+          <input type="hidden" name="user" value="<?php echo $username; ?>">
+          <input type="hidden" name="email" value="<?php echo $email?>">
+          <button class="submit" type="submit">Save Changes</button>
         </div>
-        <input type="hidden" name="user" value="<?php echo $username; ?>">
-        <input type="hidden" name="email" value="<?php echo $email?>">
-
     </form>
 <?php
     drawFooter();
