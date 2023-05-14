@@ -88,7 +88,7 @@ drawHeader()
             <div class="row">
               <div class="col-sm-9">
                 <label for="new_email">Email:</label>
-                <input type="text" name="new_email" value="<?php echo $current_user->getEmail() ?>"><br><br>
+                <input type="email" name="new_email" value="<?php echo $current_user->getEmail() ?>"><br><br>
                 <input type="hidden" name="email" value="<?php echo $email?>">
               </div>
             </div>

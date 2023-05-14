@@ -99,7 +99,9 @@ class User {
           bio = :bio 
       WHERE id = :user_id
     ');
-
+    error_log("save:");
+    error_log($this->email);
+    error_log($this->username);
     $stmt->bindValue(':email', $this->email);
     $stmt->bindValue(':username', $this->username);
     $stmt->bindValue(':first_name', $this->first_name);
@@ -113,6 +115,10 @@ class User {
     
     try {
         $stmt->execute();
+        session_start();
+        $_SESSION['email'] = $this->email;
+        error_log("session email:");
+        error_log($_SESSION['email']);
     } catch (PDOException $e) {
         error_log('Error updating user data: ' . $e->getMessage());
         ?> <p> <?php echo "Error updating user data"; ?> </p> <br> <?php

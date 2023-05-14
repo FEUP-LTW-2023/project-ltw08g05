@@ -16,7 +16,14 @@
         ?> <p>$db is null</p> <?php
     }
     $email = $_SESSION['email'];
+    error_log("profile email: $email");
     $current_user = User::getUserByEmail($db, $email);
+    if(!$current_user){
+        error_log("profile: user not found");
+        ?> <p> <?php echo "User was not found" ?></p> <?php
+        header('Location: /src/controllers/logout.php');
+        exit();
+    }
     $username = $current_user->getUsername();
 
     drawHeader()

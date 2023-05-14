@@ -50,13 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Oops, we've got a problem with database connection:";
         die("User not found.");
     }
-
-    // $ticket = Ticket::getTicket($db, $id);
-    // if ($ticket) {
-    //     $ticket->title = $_POST['title'];
-    //     $ticket->content = $_POST['content'];
-    //     $ticket->save($db);
-    // } 
     
     header("Location: ../../public/views/profile.php");
     exit();
