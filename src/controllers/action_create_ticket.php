@@ -21,7 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $departmentId,
         null,
         $title, 
-        $content, 
+        $content,
+        null, 
         'Open',
         date("Y-m-d"),
         null

@@ -80,10 +80,10 @@ class Ticket {
 
     $stmt = $db->prepare('
         INSERT INTO Ticket
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ');
 
-    $stmt->execute(array($this->id, $this->userID, $this->departmentID, $this->agentAssignedID, $this->title, $this->content, $this->status, $this->creationDate, $this->updateDate));
+    $stmt->execute(array($this->id, $this->userID, $this->departmentID, $this->agentAssignedID, $this->title, $this->content, $this->response, $this->status, $this->creationDate, $this->updateDate));
     $this->id = intval($db->lastInsertId('Ticket'));
   }
 

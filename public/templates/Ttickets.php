@@ -49,7 +49,9 @@ function drawAllTickets($tickets){?>
   <section id="single-ticket-page">
       <header>
           <h2> <?= $ticket->title ?> </h2>
-          <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
+          <?php  if($ticket->userID===$current_user->getUserID()) { ?>
+            <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
+          <?php } ?>
           <?php  if($current_user->getIsAgent()) { ?>
               <a href="assign_ticket.php?id=<?=$ticket->id?>"> Assign </a>
           <?php } ?>
