@@ -6,6 +6,7 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../../database/connection.php');
 
 function drawAllTickets($tickets){?>
+    <?php echo 'drawing all tickets'; ?>
     <section id="ticket-page">
       <header>
         <h2>Tickets</h2>
