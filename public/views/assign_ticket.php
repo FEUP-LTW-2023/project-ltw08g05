@@ -22,9 +22,10 @@ try {
 
 $id = $_GET['id'];
 $ticket = Ticket::getTicket($db, intval($_GET['id']));
+$agents = User::getAgents($db);
 
 drawHeader();
-drawEditTicket($ticket);
+drawAssignTicket($ticket, $agents);
 drawFooter();
 
 ?> 

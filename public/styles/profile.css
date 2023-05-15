@@ -1,0 +1,74 @@
+h3 {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+.card.mb-4 {
+  position: relative;
+  margin-bottom: 5em;
+}
+.row {
+  --mdb-gutter-x: 1.5rem;
+  --mdb-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--mdb-gutter-y)*-1);
+  margin-right: calc(var(--mdb-gutter-x)*-0.5);
+  margin-left: calc(var(--mdb-gutter-x)*-0.5);
+}
+.col-sm-3 {
+  flex: 0 0 auto;
+  width: 25%;
+}
+.col-sm-9 {
+  flex: 0 0 auto;
+  width: 75%;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  border: 0;
+    border-top-color: currentcolor;
+    border-top-style: none;
+    border-top-width: 0px;
+  border-top: 1px solid;
+  opacity: .25;
+}
+
+button.submit{
+  background-color: #ce7b10;
+  color: white;
+}
+button.submit:hover {
+  background-color: red;
+  color: white;
+}
+
+/* ---------------------------- Layout ----------------------------*/
+
+body{
+  display: grid;
+  height: 100vh;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 4fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header" "main" "footer";
+  gap: 0px 0px; 
+  position: relative;
+}
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}

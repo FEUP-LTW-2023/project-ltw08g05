@@ -26,6 +26,7 @@ body {
     flex-direction: row;
     align-items: center;
     position: fixed;
+    min-height: 5vh;
     top: 0;
     width: 100%;
     height: 50px;
@@ -33,10 +34,22 @@ body {
     list-style: none;
     color: var(--white);
     background-color: var(--light-black);
+    z-index: 1;
 }
 .nav a {
     text-decoration: none;
     color: var(--dark-text);
+    padding: 10px;
+}
+
+.nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.nav a.active {
+    background-color: #04AA6D;
+    color: white;
 }
 .shadow-nohov {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
@@ -52,11 +65,7 @@ body {
     padding-left: 10px;
 }
 
-#nav-left button{
-    padding: 0.5rem 1rem;
-    border-radius: 5%;
-    background-color: var(--light-black);
-}
+
 #nav-left span {
     font-family: 'Anton', sans-serif;
     font-size: 18px;
@@ -64,12 +73,12 @@ body {
 }
 
 #nav-right {
-    position: relative;
+    overflow: hidden;
     display: flex;
     float: right;
-    gap: 2rem;
+    gap: 1rem;
     width: 50%;
-    justify-content: flex-end;
+    justify-content: right;
 }
 
 #nav-right>li:nth-child(2)>a {
@@ -80,8 +89,8 @@ body {
     padding-right: 10px;
 }
 
-.nav a {
-    padding: 10px;
+.nav .icon{
+    display: none;
 }
 
 /* Main styles */
@@ -89,7 +98,7 @@ body {
 main {
     margin-top: 50px;
     padding: 10px;
-    min-height: 100vh;
+    min-height: 80vh;
     color: var(--black);
 }
 
@@ -109,46 +118,21 @@ main {
     font-weight: bold;
 }
 
-#ticket-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin: 1rem auto;
-    padding: 10px;
-}
-
-#tickets > span:first-child {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: end;
-    margin-top: 1em;
-}
-
-.ticketCard:nth-child(2) {
-    margin-top: 1em;
-}
 
 /* Footer styles */
-#app-footer {
+footer {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative;
+    position: fixed;
     bottom: 0;
+    min-height: 7vh;
     width: 100%;
-    height: 60px;
     background-color: var(--olive); /* Change to your desired background color */
-    padding: 20px;
-    margin-top: 20px;
-    
-    
 }
 
-#app-footer p {
+footer p {
     font-size: 15px;
     color: var(--light-black); /* Change to your desired text color */
 }

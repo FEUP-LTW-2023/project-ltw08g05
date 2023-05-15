@@ -19,46 +19,65 @@ require_once(__DIR__ . '/../../database/connection.php');
         <title>Tickets website</title>
         <link href="../styles/common.css" rel="stylesheet">
         <link href="../styles/search.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Xb+PnNbz9s3q4SK4twHv/UV+Zie70C/2fS2BtPv2IyXYoX9Xli38WswiYZGWMwAj1DOKnwnpJFNkHlDKm13uOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="../styles/ticket.css" rel="stylesheet">
+        <link href="../styles/chat.css" rel="stylesheet">
+        <link href="../styles/responsive.css" rel="stylesheet">
+	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	    <script src="../scripts/chat.js"></script>
     </head>
 
-    <body style="overflow: scroll;">
-    <?php drawNavbar(); ?>
+    <body>
+        <header>
+        <?php drawNavbar(); ?>
+        </header>
     <main>
 <?php } ?>
 
 
 <?php function drawNavbar()
 { 
-if (isset($_SESSION['id'])) {
-    $db = getDatabaseConnection();
-    // get user statement here
-} ?>
-    
+    session_start(); // start the session to access the $_SESSION variable
+    $loggedIn = isset($_SESSION['email']); // check if the id key is set in the $_SESSION variable
+ ?>
+
     <nav class="nav shadow-nohov">
         <div class="nav" id="nav-left">
             <a href="index.php"><span>TicketEase</span></a>
         </div>
 
-        <ul class="nav" id="nav-right">
-            <!-- add here session condition to verify if user is logged in or not -->
-            <li><a href='tickets.php'>TICKETS</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">CONTACT</a></li>
-            <li><a href="#">Login</a></li>
-            
-            <!--  Logout dropdown
-            <section id="dropdown">
-                <form action="" method="">
-                    <button type="submit" class="">
-                        Logout
-                    </button>
-                </form>
-            </section>-->
-        </ul>
+        <div class="topnav" id="nav-right">
+        <?php if ($loggedIn): ?>
+        <!-- add links for logged in users here -->
+        <a href='tickets.php'>TICKETS</a>
+        <a href="#">CONTACT</a>
+        <a href="faq.php">FAQ</a>
+        <a href="profile.php">PROFILE</a>
+        <a href="../../src/controllers/logout.php">LOGOUT</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+        <?php else: ?>
+        <!-- add links for non-logged in users here -->
+        <a href="faq.php">FAQ</a>
+        <a href="#">CONTACT</a>
+        <a href="register.php">SIGN UP</a>
+        <a href="login.php">LOGIN</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+        <?php endif; ?>
+        </div>
+
     </nav>
-    
 <?php } ?>
+
+
+<script>
+    function myFunction() {
+    var x = document.getElementById("nav-right");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+    }
+</script>
 
 <?php function drawFooter()
 { ?>

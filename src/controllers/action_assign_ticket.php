@@ -1,20 +1,22 @@
 <?php
 require_once(__DIR__ . '/../../database/connection.php');
 require_once '../models/Mticket.php';
+require_once '../models/Musers.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // get new data
+    // get data
     $id = $_POST['id'];
-    $title = $_POST['title'];
-    $content = $_POST['content'];
+    $assigneeEmail = $_POST['assignee'];
+    $statusValue = $_POST['status'];
 
     $db = getDatabaseConnection();
-
     $ticket = Ticket::getTicket($db, $id);
+    $agent = User::getUserByEmail($db, $assigneeEmail);
+
     if ($ticket) {
-        $ticket->title = $_POST['title'];
-        $ticket->content = $_POST['content'];
-        $ticket->save($db);
+        $ticket->agentAssignedID = $agent->userID;
+        $ticket->status = $statusValue;
+        $ticket->saveAssign($db);
     } 
 
     header("Location: ../../public/views/ticket.php?id=" . $_POST['id']);
