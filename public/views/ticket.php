@@ -3,6 +3,7 @@
 require_once(__DIR__ . '/../../database/connection.php');
 require_once('../../src/models/Mticket.php');
 require_once('../../src/models/Musers.php');
+require_once('../../src/models/Mdep.php');
 require_once('../templates/Tcommon.php');
 require_once('../templates/Ttickets.php');
 
@@ -17,11 +18,11 @@ if ($db == null){
 $email = $_SESSION['email'];
 $current_user = User::getUserByEmail($db, $email);
 
-
 $ticket = Ticket::getTicket($db, intval($_GET['id']));
+$dep = Department::getDepartment($db, $ticket->departmentID);
 
 drawHeader();
-drawTicket($ticket, $current_user);
+drawTicket($ticket, $current_user, $dep);
 
 //echo(print_r($ticket));
 

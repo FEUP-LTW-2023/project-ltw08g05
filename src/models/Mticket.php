@@ -89,17 +89,32 @@ class Ticket {
 
   function save(PDO $db) {
     $stmt = $db->prepare('
-      UPDATE Ticket SET title = ?, content_text = ? WHERE id = ?
+      UPDATE Ticket SET title = ?, content_text = ? , id_department = ? WHERE id = ?
     ');
 
-    $stmt->execute(array($this->title, $this->content, $this->id));
+    $stmt->execute(array($this->title, $this->content, $this->departmentID, $this->id));
   }
-  
+
+  function saveDep(PDO $db) {
+    $stmt = $db->prepare('
+      UPDATE Ticket SET id_department = ? WHERE id = ?
+    ');
+
+    $stmt->execute(array($this->departmentID, $this->id));
+  }
+  function saveStatus(PDO $db) {
+    $stmt = $db->prepare('
+      UPDATE Ticket SET ticket_status = ? WHERE id = ?
+    ');
+
+    $stmt->execute(array($this->status, $this->id));
+  }
+
   function saveAssign(PDO $db) {
     $stmt = $db->prepare('
-      UPDATE Ticket SET agent_assigned = ?, ticket_status = ? WHERE id = ?
+      UPDATE Ticket SET agent_assigned = ? WHERE id = ?
     ');
-    $stmt->execute(array($this->agentAssignedID, $this->status, $this->id));
+    $stmt->execute(array($this->agentAssignedID, $this->id));
   }
 
   function saveResponse(PDO $db) {

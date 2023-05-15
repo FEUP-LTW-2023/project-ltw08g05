@@ -45,17 +45,30 @@ function drawAllTickets($tickets){?>
   <?php } 
 ?>
 
-<?php function drawTicket($ticket, $current_user) { ?>
+<?php function drawTicket($ticket, $current_user, $dep) { ?>
+  
   <section id="single-ticket-page">
       <header>
+          <h2> <?= $dep->title ?> ></h2>
           <h2> <?= $ticket->title ?> </h2>
-          <?php  if($ticket->userID===$current_user->getUserID()) { ?>
+          <?php if($ticket->userID===$current_user->getUserID()) { // ticket's author can edit ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
           <?php } ?>
-          <?php  if($current_user->getIsAgent()) { ?>
-              <a href="assign_ticket.php?id=<?=$ticket->id?>"> Assign </a>
+          <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
+            <a href="edit_ticket.php?id=<?=$ticket->id?>"> Department </a>
           <?php } ?>
-      </header>
+          <?php  if($current_user->getIsAgent()) { ?>
+            <a href="assign_ticket.php?id=<?=$ticket->id?>"> Assign </a>
+            <div class="status-container">
+              <a href="#" class="status-toggle"> Status </a>
+              <div class="status-buttons">
+                <button class="status-button" data-status="Open" data-ticket-id="<?= $ticket->id ?>">Open</button>
+                <button class="status-button" data-status="Assigned" data-ticket-id="<?= $ticket->id ?>">Assigned</button>
+                <button class="status-button" data-status="Closed" data-ticket-id="<?= $ticket->id ?>">Closed</button>
+              </div>
+            </div>
+          <?php } ?>
+        </header>
 
       <section class="container">
           <h2>Message Chat</h2>
@@ -72,30 +85,56 @@ function drawAllTickets($tickets){?>
             <textarea id="message" name="message" placeholder="Enter your message..."></textarea>
             <button type="submit">Send</button>
           </form>
+        <?php } elseif($current_user->getIsAgent()){ ?>
+          <section class="card">
+            <article class="home-card-message">
+              <?php
+                echo "You are not assigned to this ticket!";
+              ?>
+              <br>
+            </article>
+          </section>
         <?php } ?>
+
       </section>
     
   </section>
 <?php } ?>
 
-<?php function drawEditTicket($ticket) { ?>
-  <h1>Edit Ticket</h1>
-  <p>Current title: <?= $ticket->title ?> </p> 
-  <p>Current issue: <?= $ticket->content ?></p>
+<?php function drawEditTicket($ticket, $current_user, $deps) { ?>
+
   <form action="../../src/controllers/action_edit_ticket.php" method="post">
+    <?php  if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
+      <h1>Change Department</h1>
+      <?php foreach($deps as $dep) { ?> 
+        <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+        <input type="radio" id="dep<?= $dep->id ?>" name="department" value="<?= $dep->id ?>">
+        <label for="dep<?= $dep->id ?>"><?= $dep->title ?></label><br>
+      <?php } ?>
+    <?php } else{ ?>  
+      <h1>Edit Ticket</h1>
       <input type="hidden" name="id" value=" <?= $ticket->id ?>">
       <label for="title">New Title:</label>
       <input type="text" name="title" value=" <?= $ticket->title; ?> "><br><br>
       <label for="content">New Content:</label><br>
       <textarea name="content"> <?= $ticket->content; ?> </textarea><br><br>
-      <button type="submit">Save</button>
+      <h1>Change Department</h1>
+      <?php foreach($deps as $dep) { ?> 
+        <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+        <input type="radio" id="dep<?= $dep->id ?>" name="department" value="<?= $dep->id ?>">
+        <label for="dep<?= $dep->id ?>"><?= $dep->title ?></label><br>
+      <?php } ?>
+    <?php } ?> 
+    <button type="submit">Save</button>
   </form>
 <?php } ?>
 
-<?php function drawAssignTicket($ticket, $agents) { ?>
+<?php function drawAssignTicket($ticket, $agents, $assigned_agent) { ?>
   <h1>Assign Ticket</h1><br>
-  <p>Current title: <?= $ticket->title ?> </p> 
-  <p>Current issue: <?= $ticket->content ?></p><br>
+  <p>Current status: <?= $ticket->status ?> </p>
+  <?php if($assigned_agent!=NULL){ ?>
+    <p>Current assignee: <?= $assigned_agent->first_name ?> <?= $assigned_agent->last_name ?> </p>
+  <?php } ?>
   <form action="../../src/controllers/action_assign_ticket.php" method="post">
       <h4>New Assignee</h4><br>
       <input type="hidden" name="id" value=" <?= $ticket->id ?>">
@@ -103,17 +142,10 @@ function drawAllTickets($tickets){?>
         <input type="radio" id="agent<?= $agent->id ?>" name="assignee" value="<?= $agent->email ?>">
         <label for="agent<?= $agent->id ?>"><?= $agent->first_name ?> <?= $agent->last_name ?></label><br>
       <?php } ?>
-      <br><h4>New Status</h4><br>
-      <input type="radio" id="status_open" class="ticket_status" name="status" value="Open">
-      <label for="status_open">Open</label><br>
-      <input type="radio" id="status_assigned" class="ticket_status" name="status" value="Assigned">
-      <label for="status_assigned">Assigned</label><br>
-      <input type="radio" id="status_closed" class="ticket_status" name="status" value="Closed">
-      <label for="status_closed">Close</label><br>
-
       <button type="submit">Save</button>
   </form>
 <?php } ?>
+
 <?php function drawAddTicket($deps) { ?>
 
   <h1>New Ticket</h1>

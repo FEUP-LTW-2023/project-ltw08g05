@@ -7,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // get data
     $id = $_POST['id'];
     $assigneeEmail = $_POST['assignee'];
-    $statusValue = $_POST['status'];
 
     $db = getDatabaseConnection();
     $ticket = Ticket::getTicket($db, $id);
@@ -15,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($ticket) {
         $ticket->agentAssignedID = $agent->userID;
-        $ticket->status = $statusValue;
         $ticket->saveAssign($db);
     } 
 
