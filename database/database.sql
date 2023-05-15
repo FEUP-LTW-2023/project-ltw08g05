@@ -152,8 +152,7 @@ INSERT INTO Ticket(id_user, id_department, title, content_text) VALUES
 (11, 3, 'System upgrade', 'I need help upgrading our system.'),
 (12, 4, 'Product warranty', 'I have a problem with a product I purchased and want to know about the warranty.'),
 (13, 1, 'Cancellation request', 'I need to cancel my subscription.'),
-(14, 2, 'Hardware issue', 'I am having problems with my hardware and need help)'),
-(15, 3, 'Payment inquiry', 'I have a question about my payment.');
+(14, 2, 'Hardware issue', 'I am having problems with my hardware and need help)');
 
 INSERT INTO FAQ (question, answer) VALUES ('What is your return policy?', 'Our return policy allows customers to return items within 30 days of purchase for a full refund.');
 INSERT INTO FAQ (question, answer) VALUES ('How can I track my order?', 'You can track your order by logging into your account and viewing the order details. You will also receive a shipping confirmation email with a tracking number.');
