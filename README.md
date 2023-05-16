@@ -1,11 +1,11 @@
 # Project LTW 2023
 
 ## Group 08g05
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| David Burchakov  | 202203777 | up202203777@fe.up.pt                |
-| Renato Leite  | 201908633 | up201908633@edu.fc.up.pt                |
-| António Campelo | ----------------- | --------------@edu.fe.up.pt
+| Name             | Number    | E-Mail                   |
+| ---------------- | --------- | ------------------------ |
+| David Burchakov  | 202203777 | up202203777@fe.up.pt     |
+| Renato Leite     | 201908633 | up201908633@edu.fc.up.pt |
+| António Campelo  | 201704987 | up201704987@edu.fc.up.pt |
 ----
 
 ## set-up commands
