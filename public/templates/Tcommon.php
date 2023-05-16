@@ -23,8 +23,8 @@ require_once(__DIR__ . '/../../database/connection.php');
         <link href="../styles/chat.css" rel="stylesheet">
         <link href="../styles/responsive.css" rel="stylesheet">
         <link href="../styles/admin_management.css" rel="stylesheet">
-	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	    <script src="../scripts/chat.js"></script>
+	    <!-- <script src="../scripts/chat.js"></script> -->
+        <script src="../scripts/status.js" defer></script>
     </head>
 
     <body>

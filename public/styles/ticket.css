@@ -34,3 +34,19 @@
     height: 3em;
     width: 3em;
 }
+
+/*Status*/
+.status-container {
+    position: relative;
+}
+  
+.status-buttons {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 2em;
+}
+  
+.status-container:hover .status-buttons {
+    display: block;
+}

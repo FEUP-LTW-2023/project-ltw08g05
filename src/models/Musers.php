@@ -221,7 +221,35 @@ class User {
       }
   }
   
-  
+  static function getUserById(PDO $db, $id) {
+    if ($id==null) {
+      return null;
+    }
+    $stmt = $db->prepare('SELECT id, email, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin FROM User WHERE id = ?');
+    $stmt->execute(array($id));
+
+    $user = $stmt->fetch();
+
+    // check if ticket exists
+    if (!$user) {
+      echo "Oops, User not found.";
+      die("User not found.");
+    }
+    return new User(
+      $user['id'],
+      $user['email'],
+      $user['first_name'],
+      $user['last_name'],
+      $user['username'],
+      $user['address'],
+      $user['country'],
+      $user['city'],
+      $user['zip_code'],
+      $user['bio'],
+      $user['is_agent'],
+      $user['is_admin']
+    );
+  }  
 
     static function getAllUsers(PDO $db) {
         $stmt = $db->prepare('SELECT * FROM User');
