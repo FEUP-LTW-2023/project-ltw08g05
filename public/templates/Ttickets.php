@@ -10,7 +10,7 @@ require_once('../../src/models/Musers.php');
 session_start();
 $loggedIn = isset($_SESSION['email']);
 
-function drawAllTickets($tickets){?>
+function drawAllTickets($tickets, $current_user){?>
     <section id="tickets-page">
       <header>
         <h2>Tickets</h2>
@@ -56,7 +56,7 @@ function drawAllTickets($tickets){?>
           <?php if($ticket->userID===$current_user->getUserID()) { // ticket's author can edit ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
           <?php } ?>
-          <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
+          <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { // agent whos not the author can only change department ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Department </a>
           <?php } ?>
           <?php  if($current_user->getIsAgent()) { ?>

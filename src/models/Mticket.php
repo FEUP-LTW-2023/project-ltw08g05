@@ -76,9 +76,9 @@ class Ticket {
       return $tickets;
   }
 
-  static function searchTickets(PDO $db, string $search, int $count) : array {
-      $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? LIMIT ?');
-      $stmt->execute(array($search . '%', $count));
+  static function searchTickets(PDO $db, string $search) : array {
+      $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ?');
+      $stmt->execute(array($search . '%'));
 
       $tickets = array();
       while ($ticket = $stmt->fetch()) {  
@@ -97,6 +97,74 @@ class Ticket {
         );
       }
       return $tickets;
+  }
+
+  static function getUserTickets(PDO $db, int $id) {
+  
+    $stmt = $db->prepare('
+      SELECT id
+      FROM Ticket
+      WHERE id_user = ?
+    ');
+
+    $stmt->execute(array($id));
+    $tickets = array();
+
+    while ($tickID = $stmt->fetch()) {
+      $stmt2 = $db->prepare('
+        SELECT *
+        FROM Ticket
+        WHERE id = ?
+      ');
+
+      $stmt2->execute(array($tickID['id']));
+      $ticket = $stmt2->fetch();
+
+      $tickets[] = new Ticket(
+        $ticket['id'], 
+        $ticket['id_user'], 
+        $ticket['id_department'], 
+        $ticket['agent_assigned'], 
+        $ticket['title'], 
+        $ticket['content_text'], 
+        $ticket['response_text'], 
+        $ticket['ticket_status'], 
+        $ticket['creation_date'], 
+        $ticket['update_date']
+      );
+    }
+    return $tickets;
+  }
+
+  static function searchUserTickets(PDO $db, string $search, $id) : array {
+    $stmt = $db->prepare('SELECT * FROM Ticket WHERE id_user = ? AND title LIKE ?');
+    $stmt->execute(array($id, $search . '%'));
+
+    $tickets = array();
+    while ($tickID = $stmt->fetch()) {
+      $stmt2 = $db->prepare('
+        SELECT *
+        FROM Ticket
+        WHERE id = ?
+      ');
+
+      $stmt2->execute(array($tickID['id']));
+      $ticket = $stmt2->fetch();
+
+      $tickets[] = new Ticket(
+        $ticket['id'], 
+        $ticket['id_user'], 
+        $ticket['id_department'], 
+        $ticket['agent_assigned'], 
+        $ticket['title'], 
+        $ticket['content_text'], 
+        $ticket['response_text'], 
+        $ticket['ticket_status'], 
+        $ticket['creation_date'], 
+        $ticket['update_date']
+      );
+    }
+    return $tickets;
   }
 
   public function add(PDO $db) {  
