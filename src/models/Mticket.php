@@ -76,6 +76,29 @@ class Ticket {
       return $tickets;
   }
 
+  static function searchTickets(PDO $db, string $search, int $count) : array {
+      $stmt = $db->prepare('SELECT * FROM Ticket WHERE title LIKE ? LIMIT ?');
+      $stmt->execute(array($search . '%', $count));
+
+      $tickets = array();
+      while ($ticket = $stmt->fetch()) {  
+        // echo print_r($ticket);
+        $tickets[] = new Ticket(
+          $ticket['id'], 
+          $ticket['id_user'], 
+          $ticket['id_department'], 
+          $ticket['agent_assigned'], 
+          $ticket['title'], 
+          $ticket['content_text'], 
+          $ticket['response_text'],
+          $ticket['ticket_status'], 
+          $ticket['creation_date'], 
+          $ticket['update_date']
+        );
+      }
+      return $tickets;
+  }
+
   public function add(PDO $db) {  
 
     $stmt = $db->prepare('

@@ -17,7 +17,7 @@ function drawAllTickets($tickets){?>
       </header>
       <section id="tickets">
         <span class="search-bar">
-          <input id="search-ticket" type="text" placeholder="Search">
+          <input id="search-ticket" type="text" name="search" placeholder="Search">
           <svg class="search-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               width="632.399px" height="632.399px" viewBox="0 0 632.399 632.399" style="enable-background:new 0 0 632.399 632.399;"
               xml:space="preserve">
@@ -32,13 +32,15 @@ function drawAllTickets($tickets){?>
             <svg class="add-ticket-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
           </article>
         </a>
-        <?php foreach($tickets as $ticket) { ?> 
-          <a href="../views/ticket.php?id=<?=$ticket->id?>">
-            <article class="card ticketCard">
-              <h4 class="ticket-title"> <?= $ticket->title ?> </h4>
-            </article>
-          </a>
-        <?php } ?>
+        <section id="all-tickets">
+          <?php foreach($tickets as $ticket) { ?> 
+            <a href="../views/ticket.php?id=<?=$ticket->id?>">
+              <article class="card ticketCard">
+                <h4 class="ticket-title"> <?= $ticket->title ?> </h4>
+              </article>
+            </a>
+          <?php } ?>
+        </section>
       </section>
     </section>
    

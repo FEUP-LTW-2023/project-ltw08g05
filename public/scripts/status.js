@@ -1,6 +1,5 @@
 // status.js
 
-
 function updateTicketStatus(event) {
     const statusValue = event.target.getAttribute('data-status');
     const ticketId = event.target.getAttribute('data-ticket-id');

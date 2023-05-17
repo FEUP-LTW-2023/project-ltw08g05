@@ -24,6 +24,7 @@ require_once(__DIR__ . '/../../database/connection.php');
         <link href="../styles/responsive.css" rel="stylesheet">
 	    <!-- <script src="../scripts/chat.js"></script> -->
         <script src="../scripts/status.js" defer></script>
+        <script src="../scripts/ticket.js" defer></script>
     </head>
 
     <body>
