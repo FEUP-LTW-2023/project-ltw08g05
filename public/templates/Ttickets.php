@@ -10,14 +10,14 @@ require_once('../../src/models/Musers.php');
 session_start();
 $loggedIn = isset($_SESSION['email']);
 
-function drawAllTickets($tickets){?>
+function drawAllTickets($tickets, $current_user){?>
     <section id="tickets-page">
       <header>
         <h2>Tickets</h2>
       </header>
       <section id="tickets">
         <span class="search-bar">
-          <input id="search-ticket" type="text" placeholder="Search">
+          <input id="search-ticket" type="text" name="search" placeholder="Search">
           <svg class="search-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               width="632.399px" height="632.399px" viewBox="0 0 632.399 632.399" style="enable-background:new 0 0 632.399 632.399;"
               xml:space="preserve">
@@ -32,13 +32,15 @@ function drawAllTickets($tickets){?>
             <svg class="add-ticket-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
           </article>
         </a>
-        <?php foreach($tickets as $ticket) { ?> 
-          <a href="../views/ticket.php?id=<?=$ticket->id?>">
-            <article class="card ticketCard">
-              <h4 class="ticket-title"> <?= $ticket->title ?> </h4>
-            </article>
-          </a>
-        <?php } ?>
+        <section id="all-tickets">
+          <?php foreach($tickets as $ticket) { ?> 
+            <a href="../views/ticket.php?id=<?=$ticket->id?>">
+              <article class="card ticketCard">
+                <h4 class="ticket-title"> <?= $ticket->title ?> </h4>
+              </article>
+            </a>
+          <?php } ?>
+        </section>
       </section>
     </section>
    
@@ -54,7 +56,7 @@ function drawAllTickets($tickets){?>
           <?php if($ticket->userID===$current_user->getUserID()) { // ticket's author can edit ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
           <?php } ?>
-          <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
+          <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { // agent whos not the author can only change department ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Department </a>
           <?php } ?>
           <?php  if($current_user->getIsAgent()) { ?>
