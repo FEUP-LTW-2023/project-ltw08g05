@@ -10,6 +10,7 @@ class RegisterController {
         session_start();
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
         $username = $_POST['username'];
@@ -38,7 +39,7 @@ class RegisterController {
         $stmt = $db->prepare('INSERT INTO User (email, password, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin) 
                               VALUES (:email, :password, :first_name, :last_name, :username, :address, :country, :city, :zip_code, :bio, :isAgent, :isAdmin)');
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':password', $passwordHash);
         $stmt->bindParam(':first_name', $first_name);
         $stmt->bindParam(':last_name', $last_name);
         $stmt->bindParam(':username', $username);
