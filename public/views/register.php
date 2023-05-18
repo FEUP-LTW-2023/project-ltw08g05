@@ -17,10 +17,10 @@
 
     <div class="centered">
       <h2>Register</h2>
-    <form>
+    <form method="post">
     <label for="email">Email: <span class="required">*</span></label>
     <input type="email" name="email" id="email" required
-        <?php if (isset($_SESSION['email'])) echo 'value="' . $_SESSION['email'] . '"'; ?>>
+    <?php if (isset($_SESSION['email'])) echo 'value="' . htmlspecialchars($_SESSION['email']) . '"'; ?>>
     <br>
     <span id="email-error" class="error"></span>
 
@@ -38,8 +38,8 @@
     <input type="text" name="last_name" id="last_mame" required>
     <br>
 
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username">
+    <label for="username">Username: <span class="required">*</span></label>
+    <input type="text" name="username" id="username" required>
     <br>
 
     <label for="address">Address: <span class="required">*</span></label>
@@ -96,7 +96,7 @@
     <input type="checkbox" name="isAdmin" id="isAdmin">
     <br>
 
-    <button formaction="/src/controllers/RegisterController.php" formmethod="post" disabled hover-text="Fields are not filled" style="vertical-align:middle"><span>Login</span></button>
+    <button formaction="/src/controllers/RegisterController.php" formmethod="post" disabled hover-text="Fields are not filled" style="vertical-align:middle"><span>Register</span></button>
     </form>
     </div>
 
