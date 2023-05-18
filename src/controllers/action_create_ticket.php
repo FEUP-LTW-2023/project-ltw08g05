@@ -15,6 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $current_user = User::getUserByEmail($db, $_SESSION['email']);
     $userID = $current_user->getUserId();
 
+    if($departmentId == null){
+        $_SESSION['error_message'] = 'Please select a department';
+        header('Location: /public/views/add_ticket.php');
+        exit();
+    }
+    if($title == null){
+        $_SESSION['error_message'] = 'Please enter a title';
+        header('Location: /public/views/add_ticket.php');
+        exit();
+    }
+    if($content == null){
+        $_SESSION['error_message'] = 'Please enter a content';
+        header('Location: /public/views/add_ticket.php');
+        exit();
+    }
     $ticket = new Ticket(
         null, 
         $userID, 

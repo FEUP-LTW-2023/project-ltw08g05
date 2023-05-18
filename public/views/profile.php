@@ -102,7 +102,7 @@
           <!-- using method GET because we are not changing anything in the database -->
           <form action="edit_profile.php" method="get"> 
             <input type="hidden" name="user" value=<?php echo $username?>>
-              <button type="submit">Edit Ticket</button>    
+              <button type="submit">Edit Profile</button>    
         </form>
         </div>  
 

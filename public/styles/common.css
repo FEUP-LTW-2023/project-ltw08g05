@@ -125,7 +125,6 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative;
     bottom: 0;
     height: 1.5em;
     background-color: var(--olive); /* Change to your desired background color */
