@@ -99,9 +99,6 @@ class User {
           bio = :bio 
       WHERE id = :user_id
     ');
-    error_log("save:");
-    error_log($this->email);
-    error_log($this->username);
     $stmt->bindValue(':email', $this->email);
     $stmt->bindValue(':username', $this->username);
     $stmt->bindValue(':first_name', $this->first_name);
@@ -124,6 +121,25 @@ class User {
         ?> <p> <?php echo "Error updating user data"; ?> </p> <br> <?php
         throw new Exception('Error updating user data');
     }
+}
+
+static function deleteUser(PDO $db, $userID) {
+  if ($db == null) {
+    error_log("Database not initialized");
+    throw new Exception('Database not initialized');
+  }
+
+  $stmt = $db->prepare('DELETE FROM User WHERE id = :userID');
+  $stmt->bindValue(':userID', $userID);
+
+  try {
+      $stmt->execute();
+      session_start();
+  } catch (PDOException $e) {
+      error_log('Error deleting user: ' . $e->getMessage());
+      echo "<p>Error deleting user</p><br>";
+      throw new Exception('Error deleting user');
+  }
 }
 
 
@@ -299,9 +315,7 @@ class User {
       
     }
     return $users;
-  }
-
-  
+  }  
 
 }
 ?>

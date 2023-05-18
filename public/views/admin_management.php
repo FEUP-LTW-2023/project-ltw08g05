@@ -12,7 +12,7 @@
         $departments = Department::getAllDepartments($db);
         $tickets = Ticket::getAllTickets($db);
         ?>
-        <main>
+        <main id="adminPage">
             <section id="users">
                 <header>
                     <h2>Users</h2>
@@ -21,7 +21,7 @@
                 <table id="usersTable">
                     <tr><td>Name</td><td>Email</td><td>Type</td><td>Options</td></tr>
                     <?php foreach($users as $user) { ?>
-                        <tr userid="<?=$user->userID?>">
+                        <tr data-userid="<?=$user->userID?>">
                             <td><?=$user->first_name?> <?=$user->last_name?></td>
                             <td><?=$user->email?></td>
                             <?php
@@ -83,8 +83,10 @@
                             <td><?= Department::getDepartment($db, $ticket->departmentID)->title ?></td>
                             <td><?=$ticket->status?></td>
                             <?php
-                            if($ticket->agentAssignedID !== NULL) { ?>
-                                <td><?= $ticket->agentAssignedID ?></td>
+                            if($ticket->agentAssignedID !== NULL) { 
+                                $agent = User::getUserById($db, $ticket->agentAssignedID);
+                            ?>
+                                <td><?= $agent->first_name ?> <?= $agent->last_name ?></td>
                             <?php
                             } else { ?>
                                 <td>-</td>
@@ -98,6 +100,7 @@
                 </table>
             </section>
         </main>
+        <?=drawEditWindow();?>
     <?php
     }
 
@@ -136,6 +139,21 @@
             <line fill="none" stroke="#a3250b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" x1="5" x2="19" y1="12" y2="12"/>
         </svg>
     <?php        
+    }
+
+    function drawCloseIcon() { ?>
+        <svg class="closeIcon" width="2em" height="2em" viewBox="0 0 1024 1024">
+            <path fill="#a3250b" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"/>
+        </svg>
+    <?php
+    }
+
+    function drawEditWindow() { ?>
+        <section id="editWindow">
+            <?=drawCloseIcon();?>
+            <h2>Edit Menu</h2>
+        </section>
+    <?php
     }
 
     session_start();
