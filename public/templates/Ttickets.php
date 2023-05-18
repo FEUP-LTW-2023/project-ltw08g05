@@ -113,6 +113,10 @@ function drawAllTickets($tickets, $current_user){?>
         <input type="radio" id="dep<?= $dep->id ?>" name="department" value="<?= $dep->id ?>">
         <label for="dep<?= $dep->id ?>"><?= $dep->title ?></label><br>
       <?php } ?>
+      <?php if (isset($_SESSION['error_message'])): ?>
+        <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+        <?php unset($_SESSION['error_message']); ?>
+      <?php endif; ?>
     <?php } else{ ?>  
       <h1>Edit Ticket</h1>
       <input type="hidden" name="id" value=" <?= $ticket->id ?>">
@@ -126,9 +130,14 @@ function drawAllTickets($tickets, $current_user){?>
         <input type="radio" id="dep<?= $dep->id ?>" name="department" value="<?= $dep->id ?>">
         <label for="dep<?= $dep->id ?>"><?= $dep->title ?></label><br>
       <?php } ?>
+      <?php if (isset($_SESSION['error_message'])): ?>
+        <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+        <?php unset($_SESSION['error_message']); ?>
+      <?php endif; ?>
     <?php } ?> 
     <button type="submit">Save</button>
   </form>
+  
 <?php } ?>
 
 <?php function drawAssignTicket($ticket, $agents, $assigned_agent) { ?>
@@ -149,22 +158,29 @@ function drawAllTickets($tickets, $current_user){?>
 <?php } ?>
 
 <?php function drawAddTicket($deps) { ?>
+  <section class="form-container">
+    <h1>New Ticket</h1>
+    <form action="../../src/controllers/action_create_ticket.php" method="post">
 
-  <h1>New Ticket</h1>
-  <form action="../../src/controllers/action_create_ticket.php" method="post">
+        <input type="text" name="title" placeholder="Title"><br>
+        
+        <section class="radio-group">
+          <?php foreach($deps as $dep) { ?> 
+            <label class="radio-label">
+              <input type="radio" name="department" value="<?= $dep->id ?>">
+              <?= $dep->title ?>
+              <span class="radio-button"></span>
+            </label>
+          <?php } ?>
+        </section>
+        <br><textarea name="content" placeholder="Write here the content of your ticket"></textarea><br>
 
-      <label for="title">Title:</label>
-      <input type="text" name="title" placeholder="Title"><br><br>
-
-      <?php foreach($deps as $dep) { ?> 
-        <input type="radio" id="dep<?= $dep->id ?>" name="department" value="<?= $dep->id ?>">
-        <label for="dep<?= $dep->id ?>"><?= $dep->title ?></label><br>
-      <?php } ?>
-      
-      <label for="content">Content:</label><br>
-      <textarea name="content"></textarea><br><br>
-
-      <button type="submit">Submit</button>
-  </form>
+        <button type="submit">Submit</button>
+    </form>
+    <?php if (isset($_SESSION['error_message'])): ?>
+      <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+  </section>
   
 <?php } ?>

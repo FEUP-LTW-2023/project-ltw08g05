@@ -50,3 +50,136 @@
 .status-container:hover .status-buttons {
     display: block;
 }
+
+/* Add-ticket page */
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 1.5em;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3em 5em;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.form-container h1 {
+    margin-bottom: 1em;
+}
+
+.form-container input[type="text"],
+.form-container textarea {
+    width: 400px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container input[type="radio"] {
+    margin-bottom: 10px;
+}
+
+.form-container button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Form radio css */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-label {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-weight: 400;
+    user-select: none;
+}
+
+.radio-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+}
+
+.radio-label:hover input ~ .radio-button {
+    background-color: #f2f2f2;
+}
+
+.radio-label input:checked ~ .radio-button {
+    background-color: #2196f3;
+    border-color: #2196f3;
+}
+
+.radio-button:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-label input:checked ~ .radio-button:after {
+    display: block;
+}
+
+.radio-label .radio-button:after {
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* Ticket error messages */
+
+.error-message {
+    background-color: #ffcccc;
+    padding: 10px;
+    border-radius: 5px;
+    animation-name: fade-in-out;
+    animation-duration: 3s;
+}
+
+@keyframes fade-in-out {
+0% {
+    opacity: 0;
+}
+10% {
+    opacity: 1;
+}
+90% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+
+  
