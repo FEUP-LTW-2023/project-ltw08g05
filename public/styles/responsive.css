@@ -1,4 +1,4 @@
-@media screen and (max-width: 80em){
+@media screen and (max-width: 90rem){
     main{
       grid-template-columns: 100%;
       grid-template-rows: auto;
@@ -37,7 +37,7 @@
 
 
 
-@media screen and (max-width: 50em){
+@media screen and (max-width: 65rem){
     main{
       grid-template-columns: 100%;
       grid-template-rows: auto;
