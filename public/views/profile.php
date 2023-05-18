@@ -32,7 +32,7 @@
     <link href="../styles/profile.css" rel="stylesheet">
     </head>
     
-    <h3>User <?php echo $username?></h3><br><br> 
+    <h3>User <?php echo $username?></h3><br><br>
     <div class="card mb-4">
         <div class="card-body">
             <div class="row">
@@ -99,13 +99,12 @@
             </div>
             <hr>
           </div>
-          <!-- using method GET because we are not changing anything in the database -->
+          <!-- using method GET as we're not passing sensitive information -->
           <form action="edit_profile.php" method="get"> 
             <input type="hidden" name="user" value=<?php echo $username?>>
               <button type="submit">Edit Profile</button>    
         </form>
-        </div>  
-
+    </div>  
 <?php
     drawFooter();
 ?>
