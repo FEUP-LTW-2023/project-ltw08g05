@@ -47,31 +47,3 @@ button.submit:hover {
   background-color: red;
   color: white;
 }
-
-/* ---------------------------- Layout ----------------------------*/
-
-body {
-  display: grid;
-  min-height: 100vh;
-  grid-template-columns: 4fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header"
-    "main"
-    "footer";
-}
-
-header {
-  grid-area: header;
-}
-
-main {
-  grid-area: main;
-}
-
-footer {
-  grid-area: footer;
-  min-height: 7vh;
-  background-color: var(--olive);
-  color: var(--light-black);
-}

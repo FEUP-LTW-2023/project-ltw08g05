@@ -15,10 +15,7 @@
     margin: 0px;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-}
+
 
 /* Nav styles*/
 .nav {
@@ -136,4 +133,24 @@ main {
 #app-footer p {
     font-size: 15px;
     color: var(--light-black); /* Change to your desired text color */
+}
+
+
+/* ------------------------------------------------- Standard Layout ------------------------------------------------- */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
 }
