@@ -1,16 +1,14 @@
 .centered {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin: 0 auto;
+    margin-top: 2%;
     box-sizing: border-box;
     border: 0.1em solid black;
     text-align: center;
-    min-height: 15em;
-    min-width: 25em;
-    margin-top: 3em;
-    padding: 0.5em;
-  }
+    max-height: 40em;
+    max-width: 25em;
+}
+
 .error{
   color: red;
   font-size: 1em;
@@ -54,7 +52,7 @@
 .centered button[disabled]:hover::before {
   content: attr(hover-text);
   position: absolute;
-  bottom: 100%;
+  top: 95%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #000;
@@ -97,18 +95,3 @@ hr {
   border-top: 1px solid;
   opacity: .25;
 }
-
-/* ---------------------------- Layout ----------------------------*/
-
-body{
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template-columns: 4fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas: "header" "main" "footer";
-  gap: 0px 0px; 
-}
-header { grid-area: header; }
-main { grid-area: main; }
-footer { grid-area: footer; }

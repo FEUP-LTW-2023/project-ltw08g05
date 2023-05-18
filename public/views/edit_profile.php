@@ -57,9 +57,10 @@ drawHeader()
     <head>
     <link href="../styles/profile.css" rel="stylesheet">
     </head>
-    <h3>Edit User <?php echo $username?></h3><br><br> 
+
+    <h4>Edit User <?php echo $username?></h4><br><br> 
     <form action="../../src/controllers/action_edit_user.php" method="post">
-        <div class="card mb-4">
+        <div class="card mb-4">    
         <div class="card-body">
             <div class="row">
               <div class="col-sm-9">

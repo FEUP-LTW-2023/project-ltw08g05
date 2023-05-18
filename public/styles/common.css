@@ -15,10 +15,7 @@
     margin: 0px;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-}
+
 
 /* Nav styles*/
 .nav {
@@ -120,20 +117,45 @@ main {
 
 
 /* Footer styles */
-#app-footer {
+footer {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     bottom: 0;
     width: 100%;
-    height: 1.5em;
-    background-color: var(--olive); /* Change to your desired background color */
+    height: 1rem;
+    background-color: var(--olive);
     padding: 20px;
     margin-top: 20px;
+
 }
 
-#app-footer p {
+
+footer p {
     font-size: 15px;
     color: var(--light-black); /* Change to your desired text color */
+}
+
+
+/* ------------------------------------------------- Standard Layout ------------------------------------------------- */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vh;
+    position: relative;
+    margin: 0 auto;
+}
+
+main {
+    flex-grow: 1;
 }
