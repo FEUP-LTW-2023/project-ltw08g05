@@ -5,9 +5,10 @@ declare(strict_types=1);
 <?php
 //require_once (__DIR__ . '../../src/models/Musers.php');
 require_once(__DIR__ . '/../../database/connection.php');
+require_once('../../src/models/Musers.php');
 ?>
 
-<?php function drawHeader()
+<?php function drawHeader($db)
 { ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -26,17 +27,18 @@ require_once(__DIR__ . '/../../database/connection.php');
 	    <!-- <script src="../scripts/chat.js"></script> -->
         <script src="../scripts/status.js" defer></script>
         <script src="../scripts/ticket.js" defer></script>
+        <script src="../scripts/admin_management.js" defer></script>
     </head>
 
     <body>
         <header>
-        <?php drawNavbar(); ?>
+        <?php drawNavbar($db); ?>
         </header>
     <main>
 <?php } ?>
 
 
-<?php function drawNavbar()
+<?php function drawNavbar($db)
 { 
     session_start(); // start the session to access the $_SESSION variable
     $loggedIn = isset($_SESSION['email']); // check if the id key is set in the $_SESSION variable
@@ -54,6 +56,15 @@ require_once(__DIR__ . '/../../database/connection.php');
         <a href="#">CONTACT</a>
         <a href="faq.php">FAQ</a>
         <a href="profile.php">PROFILE</a>
+
+        <?php    
+        $email = $_SESSION['email'];
+        $current_user = User::getUserByEmail($db, $email);
+        if($current_user->getIsAdmin()) { ?>
+            <a href="admin_management.php">MANAGEMENT</a>
+        <?php
+        } ?>
+        
         <a href="../../src/controllers/logout.php">LOGOUT</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
         <?php else: ?>

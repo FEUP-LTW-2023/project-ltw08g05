@@ -20,7 +20,7 @@ try {
 
 $deps = Department::getAllDepartments($db);
 
-drawHeader();
+drawHeader($db);
 drawAddTicket($deps);
 drawFooter();
 

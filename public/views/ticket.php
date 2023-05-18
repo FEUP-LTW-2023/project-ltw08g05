@@ -21,7 +21,7 @@ $current_user = User::getUserByEmail($db, $email);
 $ticket = Ticket::getTicket($db, intval($_GET['id']));
 $dep = Department::getDepartment($db, $ticket->departmentID);
 
-drawHeader();
+drawHeader($db);
 drawTicket($ticket, $current_user, $dep);
 
 //echo(print_r($ticket));

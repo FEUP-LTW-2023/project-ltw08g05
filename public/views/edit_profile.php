@@ -52,7 +52,7 @@ $email = $_SESSION['email'];
 $current_user = User::getUserByEmail($db, $email);
 $username = $current_user->getUsername();
 
-drawHeader()
+drawHeader($db);
 ?>
     <head>
     <link href="../styles/profile.css" rel="stylesheet">

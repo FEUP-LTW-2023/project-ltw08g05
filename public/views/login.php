@@ -3,7 +3,7 @@
     require_once("../../src/controllers/LoginController.php");
     session_start();
 
-    drawHeader();
+    drawHeader($db);
 ?>
     <head>
     <link href="../styles/login.css" rel="stylesheet">

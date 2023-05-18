@@ -12,7 +12,7 @@ $db = new PDO('sqlite:../../database/database.db');
 if ($db == null)
   throw new Exception('Database not initialized');
 $tickets = getAllFAQ($db);
-drawHeader();
+drawHeader($db);
 
 ?>
     <h1>FAQ</h1>
