@@ -28,6 +28,7 @@ require_once(__DIR__ . '/../../database/connection.php');
     </head>
 
     <body>
+        <div class="page-container">
         <header>
         <?php drawNavbar(); ?>
         </header>
@@ -88,6 +89,7 @@ require_once(__DIR__ . '/../../database/connection.php');
         <p>&copy;TicketEase 2023</p>
     </section>
 </footer>
+</div>
 </body>
 
 </html>
