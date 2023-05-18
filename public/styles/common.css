@@ -125,7 +125,6 @@ footer {
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: fixed;
     bottom: 0;
     min-height: 7vh;
     width: 100%;
