@@ -104,14 +104,14 @@ CREATE TRIGGER update_assignment
 AFTER UPDATE ON Ticket
 FOR EACH ROW
 BEGIN
-    UPDATE Ticket SET agent_assigned = false WHERE ticket_status = 'Open';
+    UPDATE Ticket SET agent_assigned = NULL WHERE ticket_status = 'Open';
 END;
 
 CREATE TRIGGER update_status
 AFTER UPDATE ON Ticket
 FOR EACH ROW
 BEGIN
-    UPDATE Ticket SET ticket_status = 'Assigned' WHERE agent_assigned = true;
+    UPDATE Ticket SET ticket_status = 'Assigned' WHERE agent_assigned NOT NULL;
 END;
 
 -------------------------------------------------------- Populate the database --------------------------------------------------------
