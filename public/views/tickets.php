@@ -23,12 +23,12 @@ $current_user = User::getUserByEmail($db, $email);
 if ($current_user->getIsAgent()) {
     $tickets = Ticket::getAllTickets($db);
 } else {
-    $tickets = User::getUserTickets($db, $current_user->getUserId());
+    $tickets = Ticket::getUserTickets($db, $current_user->getUserId());
 }
 
 drawHeader();
 
-drawAllTickets($tickets);   
+drawAllTickets($tickets, $current_user);   
 //echo(print_r($current_user));
 //var_dump($current_user);
 //echo $current_user->isAgent; // Should output 0 or false

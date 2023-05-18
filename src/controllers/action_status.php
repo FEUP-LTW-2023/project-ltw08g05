@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($ticket) {
         $ticket->status = $statusValue;
         $ticket->saveStatus($db);
-        echo(print_r($ticket));
+        //echo(print_r($ticket));
         echo 'Success';             // Add this line to indicate success
     } else {
         echo 'Ticket not found';    // Add this line to indicate if the ticket was not found

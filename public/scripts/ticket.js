@@ -1,6 +1,7 @@
 const searchTicket = document.querySelector('#search-ticket')
 if (searchTicket) {
   searchTicket.addEventListener('input', async function() {
+    
     const response = await fetch('../../src/controllers/action_search_tickets.php?search=' + this.value)
     const tickets = await response.json()
     console.log(tickets)
