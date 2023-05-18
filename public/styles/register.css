@@ -52,7 +52,7 @@
 .centered button[disabled]:hover::before {
   content: attr(hover-text);
   position: absolute;
-  bottom: 100%;
+  top: 95%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #000;

@@ -1,16 +1,13 @@
 .centered {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-    border: 0.1em solid black;
-    text-align: center;
-    min-height: 15em;
-    min-width: 25em;
-    margin-top: 3em;
-    padding: 0.5em;
-  }
+  position: relative;
+  margin: 0 auto;
+  margin-top: 2%;
+  box-sizing: border-box;
+  border: 0.1em solid black;
+  text-align: center;
+  max-height: 40em;
+  max-width: 25em;
+}
   
   .centered h2{
     font-size: 2em;
@@ -44,7 +41,7 @@
   .centered button[disabled]:hover::before {
     content: attr(hover-text);
     position: absolute;
-    bottom: 100%;
+    top: 95%;
     left: 50%;
     transform: translateX(-50%);
     background-color: #000;
