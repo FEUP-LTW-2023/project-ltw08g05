@@ -1,16 +1,14 @@
 .centered {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin: 0 auto;
+    margin-top: 2%;
     box-sizing: border-box;
     border: 0.1em solid black;
     text-align: center;
-    min-height: 15em;
-    min-width: 25em;
-    margin-top: 3em;
-    padding: 0.5em;
-  }
+    max-height: 40em;
+    max-width: 25em;
+}
+
 .error{
   color: red;
   font-size: 1em;
