@@ -23,13 +23,18 @@
     <?php if (isset($_SESSION['email'])) echo 'value="' . htmlspecialchars($_SESSION['email']) . '"'; ?>>
     <br>
     <span id="email-error" class="error"></span>
-
     <br>
 
     <label for="password">Password: <span class="required">*</span></label>
     <input type="password" name="password" id="password" required>
     <br>
-
+  
+    <label for="password_confirm">Confirm Password: <span class="required">*</span></label>
+    <input type="password" name="password_confirm" id="password_confirm" required>
+    <br>
+    <span id="password-confirm-error" class="error"></span>
+    
+    <br>
     <label for="first_name">First Name: <span class="required">*</span></label>
     <input type="text" name="first_name" id="first_name" required>
     <br>

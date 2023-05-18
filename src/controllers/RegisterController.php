@@ -10,6 +10,7 @@ class RegisterController {
         session_start();
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $passwordConfirm = $_POST['password_confirm'];
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
@@ -22,6 +23,16 @@ class RegisterController {
         $isAgent = isset($_POST['is_agent']) ? 1 : 0;
         $isAdmin = isset($_POST['is_admin']) ? 1 : 0;
       
+
+        /**
+         * Passwords should match
+         */
+        if ($password !== $passwordConfirm) {
+          $_SESSION['error_message'] = 'Passwords do not match';
+          header("Location: /public/views/register.php");
+          exit();
+        }
+        
         /**
         * Email should be unique
         */

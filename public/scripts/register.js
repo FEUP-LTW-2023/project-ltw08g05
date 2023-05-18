@@ -22,20 +22,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
     emailInput.addEventListener('input', validateEmail);
 
-    // function validateForm() {
-    //     validateEmail();
-    //     // Add validation for other fields here
-    //     // ...
-    // }
 
-    // const form = document.querySelector('form');
-    // form.addEventListener('submit', function(event) {
-    //     event.preventDefault(); 
-    //     validateForm(); 
-    //     if (form.checkValidity()) {
-    //     form.submit();
-    //     }
-    // });
+
+    /**
+     * Confirm the password
+     */
+    const passwordInput = document.getElementById('password');
+    const passwordConfirmInput = document.getElementById('password_confirm');
+    const passwordConfirmError = document.getElementById('password-confirm-error');
+     
+    function validatePasswordConfirm() {
+        const passwordValue = passwordInput.value.trim();
+        const passwordConfirmValue = passwordConfirmInput.value.trim();
+    
+        if (passwordConfirmValue === '') {
+            passwordConfirmError.textContent = 'Please confirm your password';
+        } else if (passwordValue !== passwordConfirmValue) {
+            passwordConfirmError.textContent = 'Passwords do not match';
+        } else {
+            passwordConfirmError.textContent = '';
+        }
+    }
+     
+    passwordConfirmInput.addEventListener('input', validatePasswordConfirm);
+     
+
+
+    /**
+     * Validate form
+     */
+    function validateForm() {
+        validateEmail();
+        validatePasswordConfirm();
+    }
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        validateForm(); 
+        if (form.checkValidity()) {
+        form.submit();
+        }
+    });
 
 
 

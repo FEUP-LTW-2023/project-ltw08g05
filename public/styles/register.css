@@ -5,7 +5,9 @@
     box-sizing: border-box;
     border: 0.1em solid black;
     text-align: center;
-    max-height: 40em;
+    min-width: 26em;
+    min-height: 40em;
+    max-height: 45em;
     max-width: 25em;
 }
 

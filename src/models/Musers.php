@@ -33,30 +33,27 @@ class User {
   }
     
   public static function userPasswordMatch($email, $password) {
-      $db = new PDO('sqlite:../../database/database.db');
-      if ($db == null)
-            throw new Exception('Database not initialized');
-      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      try {
-          $stmt = $db->prepare('SELECT * FROM User WHERE email = :email AND password = :password');
-          $stmt->bindParam(':email', $email);
-          $stmt->bindParam(':password', $password);
-          $stmt->execute();
-          $user = $stmt->fetch();
-          if($user){
-              return true;
-          }
-          error_log("Credentials don't match. User data:");
-          error_log('User data: ' . print_r($user, true));
-          error_log($stmt->rowCount());
-          error_log($email);
-          error_log($password);
-          return false;
-      } catch(PDOException $e) {
-          ?> <p> <?php echo "Oops, we've got a problem with database connection:"; ?> </p> <br> 
-          <?php echo $e->getMessage();
-      }
-  }
+    $db = new PDO('sqlite:../../database/database.db');
+    if ($db == null)
+        throw new Exception('Database not initialized');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+        $stmt = $db->prepare('SELECT * FROM User WHERE email = :email');
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch();
+        
+        if ($user && password_verify($password, $user['password'])) {
+            return true;
+        }
+
+        return false;
+    } catch(PDOException $e) {
+        ?> <p> <?php echo "Oops, we've got a problem with the database connection:"; ?> </p> <br> 
+        <?php echo $e->getMessage();
+    }
+}
+
 
 
   public static function userExists($email){
