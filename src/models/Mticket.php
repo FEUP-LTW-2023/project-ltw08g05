@@ -167,6 +167,23 @@ class Ticket {
     return $tickets;
   }
 
+
+    /**
+     * Gets the ticket history
+     */
+    public static function getTicketHistory(PDO $db, int $ticket_id) {
+    $stmt = $db->prepare('SELECT * FROM TicketHistory WHERE ticket_id = ? ORDER BY change_time DESC');
+    $stmt->execute(array($ticket_id));
+
+    $history = array();
+    while ($row = $stmt->fetch()) {
+        $history[] = $row;
+    }
+
+    return $history;
+    }
+
+
   public function add(PDO $db) {  
 
     $stmt = $db->prepare('

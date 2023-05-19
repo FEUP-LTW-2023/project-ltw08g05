@@ -55,6 +55,7 @@ function drawAllTickets($tickets, $current_user){?>
           <h2> <?= $ticket->title ?> </h2>
           <?php if($ticket->userID===$current_user->getUserID()) { // ticket's author can edit ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
+            <a href="edit_ticket_history.php?id=<?=$ticket->id?>"> View edit history </a>
           <?php } ?>
           <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { // agent whos not the author can only change department ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Department </a>
@@ -102,6 +103,46 @@ function drawAllTickets($tickets, $current_user){?>
     
   </section>
 <?php } ?>
+
+
+<?php 
+/**
+ *  Draws the edit ticket history page
+ */
+function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
+  $history = Ticket::getTicketHistory($db, $ticket_id);
+  
+  ?>
+      <table>
+          <thead>
+              <tr>
+                  <th>Change Time</th>
+                  <th>User</th>
+                  <th>Field</th>
+                  <th>Old Value</th>
+                  <th>New Value</th>
+              </tr>
+          </thead>
+          <tbody>
+              <?php if(empty($history)) { ?>
+                  <tr>
+                      <td colspan="5">No changes have been made to this ticket.</td>
+                  </tr>
+                  <?php } 
+                  else{ ?>
+              <?php foreach ($history as $change) { ?>
+                  <tr>
+                      <td><?php echo htmlspecialchars($change['change_time']); ?></td>
+                      <td><?php echo htmlspecialchars($current_user->getUserName()); ?></td>
+                      <td><?php echo htmlspecialchars($change['field_name']); ?></td>
+                      <td><?php echo htmlspecialchars($change['old_value']); ?></td>
+                      <td><?php echo htmlspecialchars($change['new_value']); ?></td>
+                  </tr>
+              <?php }} ?>
+          </tbody>
+      </table>
+  <?php } ?>
+
 
 <?php function drawEditTicket($ticket, $current_user, $deps) { ?>
 
