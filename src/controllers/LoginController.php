@@ -1,5 +1,6 @@
 <?php
 require_once('../../src/models/Musers.php');
+require_once('../../src/controllers/AccessLogController.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     LoginController::login();
@@ -25,6 +26,7 @@ class LoginController
     
         if (User::userPasswordMatch($db, $email, $password)) {
             $_SESSION['email'] = $email;
+            AccessLogController::updateAccessLog($db, $email);  // Update access log if the user is logged in successfully
             header('Location: /index.php');
             unset($_SESSION['error_message']);
             exit();
@@ -34,6 +36,9 @@ class LoginController
             exit();
         }
     }
+
+
+
     
 
     public static function showRecordsFromDatabase(){

@@ -157,59 +157,7 @@ class User {
 
 
   // --------------------------------------- getters ---------------------------------------
-  public function getUserID() {
-    return $this->userID;
-  }
-  
-  public function getEmail() {
-      return $this->email;
-  }
-  
-  
-  public function getfirst_name() {
-      return $this->first_name;
-  }
-  
-  public function getlast_name() {
-      return $this->last_name;
-  }
-  
-  public function getUsername() {
-      return $this->username;
-  }
-  
-  public function getAddress() {
-      return $this->address;
-  }
-  
-  public function getCountry() {
-      return $this->country;
-  }
-  
-  public function getCity() {
-      return $this->city;
-  }
-  
-  public function getzip_code() {
-      return $this->zip_code;
-  }
-  
-  public function getBio() {
-      return $this->bio;
-  }
-  
-  public function getIsAgent() {
-      return $this->isAgent;
-  }
-  
-  public function getIsAdmin() {
-      return $this->isAdmin;
-  }
-  
-  
-  public function getFullName() {
-      return $this->first_name . ' ' . $this->last_name;
-  }
+
   
     /**
      * access a user's data using email
@@ -333,6 +281,58 @@ class User {
   }
 
   
-
+    public function getUserID() {
+      return $this->userID;
+    }
+    
+    public function getEmail() {
+        return $this->email;
+    }
+    
+    
+    public function getfirst_name() {
+        return $this->first_name;
+    }
+    
+    public function getlast_name() {
+        return $this->last_name;
+    }
+    
+    public function getUsername() {
+        return $this->username;
+    }
+    
+    public function getAddress() {
+        return $this->address;
+    }
+    
+    public function getCountry() {
+        return $this->country;
+    }
+    
+    public function getCity() {
+        return $this->city;
+    }
+    
+    public function getzip_code() {
+        return $this->zip_code;
+    }
+    
+    public function getBio() {
+        return $this->bio;
+    }
+    
+    public function getIsAgent() {
+        return $this->isAgent;
+    }
+    
+    public function getIsAdmin() {
+        return $this->isAdmin;
+    }
+    
+    
+    public function getFullName() {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }
 ?>
