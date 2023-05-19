@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS Admin;
 DROP TABLE IF EXISTS FAQ;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS AccessLog;
-/*DROP TABLE IF EXISTS Message; */
+DROP TABLE IF EXISTS Message;
 /* Create the tables */
 
 
@@ -70,14 +70,13 @@ CREATE TABLE Ticket (
     CHECK(length(content_text) > 0 and length(content_text) <= 200)
 );
 
-/*
 CREATE TABLE Message (
     id              INTEGER PRIMARY KEY,
     id_user         INTEGER REFERENCES User(id),
     id_ticket       INTEGER REFERENCES Ticket(id),
     message         TEXT NOT NULL,
     creation_date   DATE DEFAULT (DATE('now'))
-);*/
+);
 
 CREATE TABLE FAQ(
     id              INTEGER PRIMARY KEY,
