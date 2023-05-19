@@ -29,11 +29,14 @@ try {
 $id = intval($_GET['id']);
 $ticket = Ticket::getTicket($db, intval($_GET['id']));
 $current_user = User::getUserByEmail($db, $_SESSION['email']);
+if(!$current_user->getIsAgent() && $current_user->getUserId() != $ticket->userID) {
+    header("Location: /src/controllers/logout.php");
+    exit();
+}
 $deps = Department::getAllDepartments($db);
 
 drawHeader();
 drawTicketHistory($db, $id, $current_user);
-// drawEditTicket($ticket, $current_user, $deps);
 drawFooter();
 
 ?> 

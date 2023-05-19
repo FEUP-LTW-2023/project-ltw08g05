@@ -103,6 +103,24 @@
               </div>
             </div>
             <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">is Agent</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><?php if ($current_user->getIsAgent() === 1) echo "yes"; else echo "no"; ?></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">is Admin</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><?php if ($current_user->getIsAdmin() === 1) echo "yes"; else echo "no"; ?></p>
+              </div>
+            </div>
+            <hr>
           </div>
           <div class="buttons">
           <form action="edit_profile.php" method="get"> 

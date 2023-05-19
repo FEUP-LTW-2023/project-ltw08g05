@@ -23,8 +23,8 @@ class RegisterController {
         $bio = $_POST['bio'];
         $isAgent = isset($_POST['is_agent']) ? 1 : 0;
         $isAdmin = isset($_POST['is_admin']) ? 1 : 0;
-      
 
+        
         /**
          * Passwords should match
          */

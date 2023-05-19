@@ -14,8 +14,8 @@ class User {
   public ?string $city = NULL;
   public ?string $zip_code = NULL;
   public ?string $bio = NULL;
-  public ?bool $isAgent = null;
-  public ?bool $isAdmin = null;
+  public ?int $isAgent = null;
+  public ?int $isAdmin = null;
   
   public ?string $password = NULL;
 
@@ -187,7 +187,7 @@ class User {
           $user['bio'],
           $user['is_agent'],
           $user['is_admin'],
-          $user['password'] // added password here
+          $user['password'] 
         );
           
       } else {

@@ -55,7 +55,7 @@ function drawAllTickets($tickets, $current_user){?>
           <h2> <?= $ticket->title ?> </h2>
           <?php if($ticket->userID===$current_user->getUserID()) { // ticket's author can edit ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
-            <a href="edit_ticket_history.php?id=<?=$ticket->id?>"> View edit history </a>
+            <a href="ticket_history.php?id=<?=$ticket->id?>"> View edit history </a>
           <?php } ?>
           <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { // agent whos not the author can only change department ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Department </a>

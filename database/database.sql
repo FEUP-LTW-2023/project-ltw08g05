@@ -23,8 +23,8 @@ CREATE TABLE User(
     city            VARCHAR(20),
     zip_code        VARCHAR(20), -- 4100-001
     bio             TEXT,
-    is_agent        BOOLEAN NOT NULL DEFAULT 'false',
-    is_admin        BOOLEAN NOT NULL DEFAULT 'false',
+    is_agent        INTEGER NOT NULL DEFAULT 0,
+    is_admin        INTEGER NOT NULL DEFAULT 0,
     creation_date   DATE DEFAULT (DATE('now')),
     update_date     DATE DEFAULT null,
     CHECK(email LIKE '%_@_%._%'),
@@ -129,20 +129,20 @@ END;
 -------------------------------------------------------- Populate the database --------------------------------------------------------
 
 INSERT INTO User (email, password, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin) VALUES
-    ('user1@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'John', 'Doe', 'johndoe', '123 Main St', 'United States', 'Los Angeles', '90001', 'Bio for John Doe', false, false), -- password1
-    ('user2@example.com', '$2y$10$T6LVM8/MLpdq9i0O5SWz8Ommh6DIvGaImC8SF9oxGsul3do.N7jd6', 'Jane', 'Doe', 'janedoe', '456 Main St', 'Canada', 'New York', '10001', 'Bio for Jane Doe', false, false), -- password2
-    ('user3@example.com', '$2y$10$B7DEUr.s76K.bjMme00wQ.gEYlAqhkdBTBC4RrS45cwSpvW07ACdG', 'Bob', 'Smith', 'bobsmith', '789 Main St', 'Mexico', 'Chicago', '60601', 'Bio for Bob Smith', true, false), -- password3
-    ('user4@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Alice', 'Johnson', 'alicejohnson', '321 Main St', 'Brazil', 'Houston', '77001', 'Bio for Alice Johnson', true, false), -- password1
-    ('user5@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Michael', 'Brown', 'michaelbrown', '654 Main St', 'Argentina', 'Phoenix', '85001', 'Bio for Michael Brown', true, true), -- password1
-    ('user6@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Samantha', 'Davis', 'samanthadavis', '987 Main St', 'United Kingdom', 'Philadelphia', '19101', 'Bio for Samantha Davis', true, true), -- password1
-    ('user7@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'David', 'Wilson', 'davidwilson', '246 Main St', 'France', 'San Antonio', '78201', 'Bio for David Wilson', false, false), -- password1
-    ('user8@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Linda', 'Garcia', 'lindagarcia', '135 Main St', 'Germany', 'San Diego', '92101', 'Bio for Linda Garcia', false, false), -- password1
-    ('user9@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'William', 'Martinez', 'williammartinez', '864 Main St', 'Spain', 'Dallas', '75201', 'Bio for William Martinez', true, false), -- password1
-    ('user10@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Emily', 'Hernandez', 'emilyhernandez', '975 Main St', 'Italy', 'San Jose', '95101', 'Bio for Emily Hernandez', true, true), -- password1
-    ('user11@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Christopher', 'Lopez', 'christopherlopez', '732 Main St', 'Netherlands', 'Austin', '73301', 'Bio for Christopher Lopez', false, false), -- password1
-    ('user12@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Mary', 'Clark', 'maryclark', '741 Main St', 'Belgium', 'Jacksonville', '32201', 'Bio for Mary Clark', false, false), -- password1
-    ('user13@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Daniel', 'Lee', 'daniellee', '258 Main St', 'Switzerland', 'Fort Worth', '76101', 'Bio for Daniel Lee', true, false), -- password1
-    ('user14@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Patricia', 'Walker', 'patriciawalker', '369 Main St', 'Austria', 'Columbus', '43201', 'Bio for Patricia Walker', false, false -- password1
+    ('user1@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'John', 'Doe', 'johndoe', '123 Main St', 'United States', 'Los Angeles', '90001', 'Bio for John Doe', 0, 0), -- password1
+    ('user2@example.com', '$2y$10$T6LVM8/MLpdq9i0O5SWz8Ommh6DIvGaImC8SF9oxGsul3do.N7jd6', 'Jane', 'Doe', 'janedoe', '456 Main St', 'Canada', 'New York', '10001', 'Bio for Jane Doe', 0, 0), -- password2
+    ('user3@example.com', '$2y$10$B7DEUr.s76K.bjMme00wQ.gEYlAqhkdBTBC4RrS45cwSpvW07ACdG', 'Bob', 'Smith', 'bobsmith', '789 Main St', 'Mexico', 'Chicago', '60601', 'Bio for Bob Smith', 1, 0), -- password3
+    ('user4@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Alice', 'Johnson', 'alicejohnson', '321 Main St', 'Brazil', 'Houston', '77001', 'Bio for Alice Johnson', 1, 0), -- password1
+    ('user5@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Michael', 'Brown', 'michaelbrown', '654 Main St', 'Argentina', 'Phoenix', '85001', 'Bio for Michael Brown', 1, 1), -- password1
+    ('user6@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Samantha', 'Davis', 'samanthadavis', '987 Main St', 'United Kingdom', 'Philadelphia', '19101', 'Bio for Samantha Davis', 1, 1), -- password1
+    ('user7@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'David', 'Wilson', 'davidwilson', '246 Main St', 'France', 'San Antonio', '78201', 'Bio for David Wilson', 0, 0), -- password1
+    ('user8@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Linda', 'Garcia', 'lindagarcia', '135 Main St', 'Germany', 'San Diego', '92101', 'Bio for Linda Garcia', 0, 0), -- password1
+    ('user9@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'William', 'Martinez', 'williammartinez', '864 Main St', 'Spain', 'Dallas', '75201', 'Bio for William Martinez', 1, 0), -- password1
+    ('user10@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Emily', 'Hernandez', 'emilyhernandez', '975 Main St', 'Italy', 'San Jose', '95101', 'Bio for Emily Hernandez', 1, 1), -- password1
+    ('user11@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Christopher', 'Lopez', 'christopherlopez', '732 Main St', 'Netherlands', 'Austin', '73301', 'Bio for Christopher Lopez', 0, 0), -- password1
+    ('user12@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Mary', 'Clark', 'maryclark', '741 Main St', 'Belgium', 'Jacksonville', '32201', 'Bio for Mary Clark', 0, 0), -- password1
+    ('user13@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Daniel', 'Lee', 'daniellee', '258 Main St', 'Switzerland', 'Fort Worth', '76101', 'Bio for Daniel Lee', 1, 0), -- password1
+    ('user14@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Patricia', 'Walker', 'patriciawalker', '369 Main St', 'Austria', 'Columbus', '43201', 'Bio for Patricia Walker', 0, 0 -- password1
     );
 
 
