@@ -6,10 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 class RegisterController {
+
     public static function register() {
         session_start();
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $passwordConfirm = $_POST['password_confirm'];
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
@@ -22,6 +24,16 @@ class RegisterController {
         $isAgent = isset($_POST['is_agent']) ? 1 : 0;
         $isAdmin = isset($_POST['is_admin']) ? 1 : 0;
       
+
+        /**
+         * Passwords should match
+         */
+        if ($password !== $passwordConfirm) {
+          $_SESSION['error_message'] = 'Passwords do not match';
+          header("Location: /public/views/register.php");
+          exit();
+        }
+        
         /**
         * Email should be unique
         */
@@ -79,5 +91,16 @@ class RegisterController {
           header("Location: /public/views/index.php");
         }
       }
+
+      public static function showRecordsFromDatabase(){
+        $db = new PDO('sqlite:../../database/database.db');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $db->prepare('SELECT * FROM User');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        foreach ($result as $row) {
+            echo $row['email'] . ' ' . $row['password'] . ' ' . $row['first_name'] . $row['last_name'] . $row['username'] . $row['address'] . $row['country']. '<br>';
+        }
+    }
       
 }
