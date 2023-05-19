@@ -1,7 +1,6 @@
 <?php
     require_once (__DIR__ . '/../templates/Tcommon.php');
     require_once("../../src/controllers/RegisterController.php");
-    require_once("../../src/controllers/LoginController.php");
     session_start();
     
     drawHeader();
@@ -13,7 +12,7 @@
     
     </head>
 
-    <!-- <?php LoginController::showRecordsFromDatabase() ?> -->
+    <?php RegisterController::showRecordsFromDatabase() ?>
 
     <div class="centered">
       <h2>Register</h2>

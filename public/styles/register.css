@@ -1,25 +1,31 @@
-.centered {
-    position: relative;
-    margin: 0 auto;
-    margin-top: 2%;
-    box-sizing: border-box;
-    border: 0.1em solid black;
-    text-align: center;
-    min-width: 26em;
-    min-height: 40em;
-    max-height: 45em;
-    max-width: 25em;
+h4 {
+  text-align: center;
+  margin-top: 2%;
 }
 
 .error{
   color: red;
   font-size: 1em;
 }
+
 .required{
     color: red;
     font-size: 1.5rem;
     font-weight: bold;
     margin-left: 0.5rem;
+}
+
+.centered {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 2%;
+  box-sizing: border-box;
+  border: 0.1em solid black;
+  text-align: center;
+  min-width: 26em;
+  min-height: 40em;
+  max-height: 45em;
+  max-width: 25em;
 }
 
 .centered h2{

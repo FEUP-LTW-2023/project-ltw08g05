@@ -103,7 +103,12 @@
           <form action="edit_profile.php" method="get"> 
             <input type="hidden" name="user" value=<?php echo $username?>>
               <button type="submit">Edit Profile</button>    
-        </form>
+          </form>
+          
+          <form action="change_password.php" method="post"> 
+            <input type="hidden" name="user" value=<?php echo $username?>>
+              <button type="submit">Change Password</button>    
+          </form>
     </div>  
 <?php
     drawFooter();

@@ -1,7 +1,7 @@
 <?php
 // check if user parameter is set
 if (!isset($_GET['user'])) {
-    die("Ticket ID not provided.");
+    die("You don't have enough permissions.");
 }
 
 // connect to database
@@ -13,7 +13,7 @@ try {
     die("Error connecting to database: " . $e->getMessage());
 }
 
-// retrieve article from database
+// retrieve the user from database
 $username = $_GET['user'];
 
 $stmt = $dbh->prepare("SELECT * FROM User WHERE username = ?");
@@ -21,13 +21,12 @@ $stmt = $dbh->prepare("SELECT * FROM User WHERE username = ?");
 $stmt->execute([$username]);
 $user = $stmt->fetch();
 
-// check if article exists
+// check if user exists
 if (!$user) {
     echo "Oops, User not found.";
     die("User not found.");
 }
 
-// fill form fields with article values
 $first_name = $user['first_name'];
 $last_name = $user['last_name'];
 
@@ -90,7 +89,6 @@ drawHeader()
               <div class="col-sm-9">
                 <label for="new_email">Email:</label>
                 <input type="email" name="new_email" value="<?php echo $current_user->getEmail() ?>"><br><br>
-                <input type="hidden" name="email" value="<?php echo $email?>">
               </div>
             </div>
             <hr>
@@ -134,6 +132,7 @@ drawHeader()
               </div>
             </div>
           </div>
+          <input type="hidden" name="email" value="<?php echo $email?>">
           <button class="submit" type="submit">Save Changes</button>
         </div>
     </form>

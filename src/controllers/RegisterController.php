@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 class RegisterController {
+
     public static function register() {
         session_start();
         $email = $_POST['email'];
@@ -90,5 +91,16 @@ class RegisterController {
           header("Location: /public/views/index.php");
         }
       }
+
+      public static function showRecordsFromDatabase(){
+        $db = new PDO('sqlite:../../database/database.db');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $db->prepare('SELECT * FROM User');
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        foreach ($result as $row) {
+            echo $row['email'] . ' ' . $row['password'] . ' ' . $row['first_name'] . $row['last_name'] . $row['username'] . $row['address'] . $row['country']. '<br>';
+        }
+    }
       
 }
