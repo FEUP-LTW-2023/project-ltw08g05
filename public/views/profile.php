@@ -122,17 +122,18 @@
           </div>
           <div class="buttons">
           <form action="edit_profile.php" method="get"> 
-            <input type="hidden" name="user" value=<?php echo $username?>>
+              <input type="hidden" name="user" value=<?php echo urlencode($username) ?>>
               <button type="submit">Edit Profile</button>    
           </form>
           
           <form action="change_password.php" method="post"> 
-            <input type="hidden" name="user" value=<?php echo $username?>>
+              <input type="hidden" name="user" value=<?php echo urlencode($username) ?>>
+              <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
               <button type="submit">Change Password</button>    
           </form>
 
           <form action="access_log.php" method="get"> 
-            <input type="hidden" name="user" value=<?php echo $username?>>
+              <input type="hidden" name="user" value=<?php echo urlencode($username) ?>>
               <button type="submit">View Login History</button>    
           </form>
           </div>

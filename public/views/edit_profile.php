@@ -4,6 +4,7 @@ require_once(__DIR__ . '/../../database/connection.php');
 require_once('../../src/models/Musers.php');
 require_once("../../src/controllers/LoginController.php");
 
+
 if (!isset($_GET['user'])) {
     die("You don't have enough permissions.");
 }

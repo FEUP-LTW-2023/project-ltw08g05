@@ -1,15 +1,18 @@
 <?php
-session_start();
+require_once (__DIR__ . '/../templates/Tcommon.php'); // session is declared in Tcommon.php
+require_once(__DIR__ . '/../../database/connection.php');
+require_once('../../src/models/Musers.php');
 require_once(__DIR__ . '/../../database/connection.php');
 
-// check if user parameter is set
+if (!isset($_POST['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
+    die('CSRF token verification failed!');
+}
+
 if (!isset($_POST['user'])) {
     die("You don't have enough permissions.");
 }
 
-// check if the user is logged in
 if (!isset($_SESSION['email'])) {
-    // if not, unset all session variables and redirect to the login
     header('Location: src/controllers/logout.php');
     exit();
 }
@@ -22,29 +25,7 @@ if ($db == null) {
 }
 
 
-// retrieve the user from the database
-$username = $_POST['user'];
-$stmt = $db->prepare("SELECT * FROM User WHERE username = ?");
-$stmt->execute([$username]);
-$user = $stmt->fetch();
-
-// check if user exists
-if (!$user) {
-    echo "Oops, User not found.";
-    die("User not found.");
-}
-
-// Page itself
-require_once (__DIR__ . '/../templates/Tcommon.php');
-require_once(__DIR__ . '/../../database/connection.php');
-require_once('../../src/models/Musers.php');
-
-
 $email = $_SESSION['email'];
-$current_user = User::getUserByEmail($db, $email);
-$username = $current_user->getUsername();
-$first_name = $user['first_name'];
-$last_name = $user['last_name'];
 
 drawHeader();
 ?>
@@ -79,7 +60,8 @@ drawHeader();
               </div>
             </div>
           </div>
-          <input type="hidden" name="email" value="<?php echo $email ?>">
+          <input type="hidden" name="email" value="<?php echo htmlspecialchars($email, ENT_QUOTES, 'UTF-8')?>">
+          <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
           <button class="submit" type="submit">Save Changes</button>
         </div>
     </form>
