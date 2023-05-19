@@ -22,20 +22,75 @@ document.addEventListener('DOMContentLoaded', function() {
 
     emailInput.addEventListener('input', validateEmail);
 
-    // function validateForm() {
-    //     validateEmail();
-    //     // Add validation for other fields here
-    //     // ...
-    // }
 
-    // const form = document.querySelector('form');
-    // form.addEventListener('submit', function(event) {
-    //     event.preventDefault(); 
-    //     validateForm(); 
-    //     if (form.checkValidity()) {
-    //     form.submit();
-    //     }
-    // });
+
+    /**
+     * Confirm the password
+     */
+    const passwordInput = document.getElementById('password');
+    const passwordConfirmInput = document.getElementById('password_confirm');
+    const passwordConfirmError = document.getElementById('password-confirm-error');
+     
+    function validatePasswordConfirm() {
+        const passwordValue = passwordInput.value.trim();
+        const passwordConfirmValue = passwordConfirmInput.value.trim();
+    
+        if (passwordConfirmValue === '') {
+            passwordConfirmError.textContent = 'Please confirm your password';
+        } else if (passwordValue !== passwordConfirmValue) {
+            passwordConfirmError.textContent = 'Passwords do not match';
+        } else {
+            passwordConfirmError.textContent = '';
+        }
+    }
+     
+    passwordConfirmInput.addEventListener('input', validatePasswordConfirm);
+     
+    
+    /**
+     * Check password strength
+     */
+    const passwordStrengthError = document.getElementById('password-strength-error');
+
+    function checkPasswordStrength() {
+        const passwordValue = passwordInput.value.trim();
+        const passwordStrength = getPasswordStrength(passwordValue);
+
+        if (passwordValue === '') {
+            passwordStrengthError.textContent = 'Password is required';
+        } else if (passwordStrength === 'weak') {
+            passwordStrengthError.textContent = 'Password is too weak';
+        } else if (passwordStrength === 'medium') {
+            passwordStrengthError.textContent = 'Password strength is medium';
+        } else if (passwordStrength === 'strong') {
+            passwordStrengthError.textContent = 'Password strength is strong';
+        } else {
+            passwordStrengthError.textContent = '';
+        }
+    }
+
+    function getPasswordStrength(password) {
+      const strengthThresholds = {
+          weak: 6,
+          medium: 8
+      };
+  
+      if (password.length < strengthThresholds.weak) {
+          return 'weak';
+      } else if (password.length < strengthThresholds.medium) {
+          return 'medium';
+      } else if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+          // Check lowercase and uppercase letters
+          return 'medium';
+      } else if (!/\d/.test(password)) {
+          // Check numbers
+          return 'medium';
+      } else {
+          return 'strong';
+      }
+  }
+  
+    passwordInput.addEventListener('input', checkPasswordStrength);
 
 
 
@@ -65,4 +120,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     registerForm.addEventListener('input', checkInputs);
+
+
+
+
+    /**
+     * Validate form
+     */
+     function validateForm() {
+      validateEmail();
+      validatePasswordConfirm();
+      checkPasswordStrength();
+      checkInputs();
+  }
+
+  const form = document.querySelector('form');
+  form.addEventListener('submit', function(event) {
+      event.preventDefault(); 
+      validateForm(); 
+      if (form.checkValidity()) {
+      form.submit();
+      }
+  });
+
   });

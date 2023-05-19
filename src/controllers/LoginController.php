@@ -1,5 +1,6 @@
 <?php
 require_once('../../src/models/Musers.php');
+require_once('../../src/controllers/AccessLogController.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     LoginController::login();
@@ -15,14 +16,19 @@ class LoginController
 
     public static function login()
     {
-        
         session_start();
         $email = $_POST['email'];
         $password = $_POST['password'];
-
-        if (User::userPasswordMatch($email, $password)) {
+    
+        // Create database connection
+        $db = new PDO('sqlite:../../database/database.db');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+        if (User::userPasswordMatch($db, $email, $password)) {
             $_SESSION['email'] = $email;
+            AccessLogController::updateAccessLog($db, $email);  // Update access log if the user is logged in successfully
             header('Location: /index.php');
+            unset($_SESSION['error_message']);
             exit();
         } else {
             $_SESSION['error_message'] = 'credentials do not match';
@@ -30,6 +36,11 @@ class LoginController
             exit();
         }
     }
+
+
+
+    
+
     public static function showRecordsFromDatabase(){
         $db = new PDO('sqlite:../../database/database.db');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
