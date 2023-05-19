@@ -1,8 +1,7 @@
 <?php 
 declare(strict_types = 1);
-
 require_once(__DIR__ . '/../../database/connection.php');
-// NOTE: This file is not used in the current version of the application
+
 class Message {
   public ?int $id;
   public ?int $userID;
@@ -39,5 +38,8 @@ class Message {
     $stmt = $db->prepare('INSERT INTO Message (id_user, id_ticket, message) VALUES (?, ?, ?)');
     $stmt->execute([$this->userID, $this->ticketID, $this->message]);
     $this->id = intval($db->lastInsertId('Message'));
+    echo(print_r($this));
   }
 }
+
+?>
