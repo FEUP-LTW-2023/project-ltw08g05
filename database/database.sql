@@ -70,6 +70,17 @@ CREATE TABLE Ticket (
     CHECK(length(content_text) > 0 and length(content_text) <= 200)
 );
 
+CREATE TABLE TicketHistory (
+    id             INTEGER PRIMARY KEY,
+    ticket_id      INTEGER REFERENCES Ticket(id),
+    user_id        INTEGER REFERENCES User(id),
+    change_time    DATE DEFAULT (datetime('now')),
+    field_name     TEXT NOT NULL,
+    old_value      TEXT,
+    new_value      TEXT
+);
+
+
 /*
 CREATE TABLE Message (
     id              INTEGER PRIMARY KEY,

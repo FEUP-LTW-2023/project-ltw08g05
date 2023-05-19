@@ -214,5 +214,16 @@ class Ticket {
     ');
     $stmt->execute(array($this->response, $this->id));
   }
+
+  static function saveHistory(PDO $db, int $ticketId, int $userId, string $field, $oldValue, $newValue) {
+      $stmt = $db->prepare('
+          INSERT INTO TicketHistory (ticket_id, user_id, change_time, field_name, old_value, new_value)
+          VALUES (?, ?, datetime("now"), ?, ?, ?)
+      ');
+
+      $stmt->execute(array($ticketId, $userId, $field, $oldValue, $newValue));
+  }
+
+
 }
 ?>

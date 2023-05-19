@@ -21,30 +21,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: /public/views/edit_ticket.php?id=' . $id . '');
             exit();
         }
+
+        // Record changes in TicketHistory
+        if($ticket->departmentID != $departmentId) {
+            Ticket::saveHistory($db, $id, $current_user->getUserId(), 'departmentID', $ticket->departmentID, $departmentId);
+        }
+        
         $ticket->departmentID = $departmentId;
         $ticket->saveDep($db);
     }
     else if ($ticket) {
-        
-        if($departmentId == null){
-            $_SESSION['error_message'] = 'Please select a department';
-            header('Location: /public/views/edit_ticket.php?id=' . $id . '');
-            exit();
+        // Record changes in TicketHistory
+        if($ticket->title != $title) {
+            Ticket::saveHistory($db, $id, $current_user->getUserId(), 'title', $ticket->title, $title);
         }
-        if($title == null){
-            $_SESSION['error_message'] = 'Please enter a title';
-            header('Location: /public/views/edit_ticket.php?id=' . $id . '');
-            exit();
+        if($ticket->content != $content) {
+            Ticket::saveHistory($db, $id, $current_user->getUserId(), 'content', $ticket->content, $content);
         }
-        if($content == null){
-            $_SESSION['error_message'] = 'Please enter a content';
-            header('Location: /public/views/edit_ticket.php?id=' . $id . '');
-            exit();
+        if($ticket->departmentID != $departmentId) {
+            Ticket::saveHistory($db, $id, $current_user->getUserId(), 'departmentID', $ticket->departmentID, $departmentId);
         }
+
         $ticket->title = $_POST['title'];
         $ticket->content = $_POST['content'];
-        $ticket->save($db);
         $ticket->departmentID = $departmentId;
+        $ticket->save($db);
     } 
    
     header("Location: ../../public/views/ticket.php?id=" . $_POST['id']);
@@ -53,4 +54,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: index.php");
     exit();
 }
+
 ?>
