@@ -157,59 +157,7 @@ class User {
 
 
   // --------------------------------------- getters ---------------------------------------
-  public function getUserID() {
-    return $this->userID;
-  }
-  
-  public function getEmail() {
-      return $this->email;
-  }
-  
-  
-  public function getfirst_name() {
-      return $this->first_name;
-  }
-  
-  public function getlast_name() {
-      return $this->last_name;
-  }
-  
-  public function getUsername() {
-      return $this->username;
-  }
-  
-  public function getAddress() {
-      return $this->address;
-  }
-  
-  public function getCountry() {
-      return $this->country;
-  }
-  
-  public function getCity() {
-      return $this->city;
-  }
-  
-  public function getzip_code() {
-      return $this->zip_code;
-  }
-  
-  public function getBio() {
-      return $this->bio;
-  }
-  
-  public function getIsAgent() {
-      return $this->isAgent;
-  }
-  
-  public function getIsAdmin() {
-      return $this->isAdmin;
-  }
-  
-  
-  public function getFullName() {
-      return $this->first_name . ' ' . $this->last_name;
-  }
+
   
     /**
      * access a user's data using email
@@ -250,6 +198,74 @@ class User {
       echo $e->getMessage();
     }
   }
+
+  /**
+   * get user's IP address
+   */
+  public static function getUserIpAddress() {
+    $ip = null; 
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+
+    if($ip === null) {
+        throw new Exception('Unable to determine IP address.');
+        // die("Unable to determine IP address.");
+    }
+
+    return $ip;
+}
+
+
+  /**
+   * get user's OS
+   */
+  public static function getUserOS() {
+    if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+        throw new Exception('User agent is not defined.');
+    }
+
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $os_platform  = "Unknown OS Platform";
+
+    $os_array = array(
+        '/windows nt 10/i'      => 'Windows 10',
+        '/windows nt 6.3/i'     => 'Windows 8.1',
+        '/windows nt 6.2/i'     => 'Windows 8',
+        '/windows nt 6.1/i'     => 'Windows 7',
+        '/windows nt 6.0/i'     => 'Windows Vista',
+        '/windows nt 5.2/i'     => 'Windows Server 2003/XP x64',
+        '/windows nt 5.1/i'     => 'Windows XP',
+        '/windows xp/i'         => 'Windows XP',
+        '/windows nt 5.0/i'     => 'Windows 2000',
+        '/windows me/i'         => 'Windows ME',
+        '/win98/i'              => 'Windows 98',
+        '/win95/i'              => 'Windows 95',
+        '/win16/i'              => 'Windows 3.11',
+        '/macintosh|mac os x/i' => 'Mac OS X',
+        '/mac_powerpc/i'        => 'Mac OS 9',
+        '/linux/i'              => 'Linux',
+        '/ubuntu/i'             => 'Ubuntu',
+        '/iphone/i'             => 'iPhone',
+        '/ipod/i'               => 'iPod',
+        '/ipad/i'               => 'iPad',
+        '/android/i'            => 'Android',
+        '/blackberry/i'         => 'BlackBerry',
+        '/webos/i'              => 'Mobile',
+    );
+
+    foreach ($os_array as $regex => $value) {
+        if (preg_match($regex, $user_agent)) {
+            $os_platform = $value;
+        }
+    }
+
+    return $os_platform;
+}
 
   
   static function getUserById(PDO $db, $id) {
@@ -333,6 +349,58 @@ class User {
   }
 
   
-
+    public function getUserID() {
+      return $this->userID;
+    }
+    
+    public function getEmail() {
+        return $this->email;
+    }
+    
+    
+    public function getfirst_name() {
+        return $this->first_name;
+    }
+    
+    public function getlast_name() {
+        return $this->last_name;
+    }
+    
+    public function getUsername() {
+        return $this->username;
+    }
+    
+    public function getAddress() {
+        return $this->address;
+    }
+    
+    public function getCountry() {
+        return $this->country;
+    }
+    
+    public function getCity() {
+        return $this->city;
+    }
+    
+    public function getzip_code() {
+        return $this->zip_code;
+    }
+    
+    public function getBio() {
+        return $this->bio;
+    }
+    
+    public function getIsAgent() {
+        return $this->isAgent;
+    }
+    
+    public function getIsAdmin() {
+        return $this->isAdmin;
+    }
+    
+    
+    public function getFullName() {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }
 ?>
