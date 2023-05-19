@@ -6,11 +6,10 @@ DROP TABLE IF EXISTS Admin;
 DROP TABLE IF EXISTS FAQ;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS AccessLog;
+DROP TABLE IF EXISTS Message;
 DROP TABLE IF EXISTS TicketHistory;
-/*DROP TABLE IF EXISTS Message; */
+
 /* Create the tables */
-
-
 CREATE TABLE User(
     id              INTEGER PRIMARY KEY,
     email           VARCHAR(20) UNIQUE NOT NULL,
@@ -81,15 +80,13 @@ CREATE TABLE TicketHistory (
     new_value      TEXT
 );
 
-
-/*
 CREATE TABLE Message (
     id              INTEGER PRIMARY KEY,
     id_user         INTEGER REFERENCES User(id),
     id_ticket       INTEGER REFERENCES Ticket(id),
     message         TEXT NOT NULL,
     creation_date   DATE DEFAULT (DATE('now'))
-);*/
+);
 
 CREATE TABLE FAQ(
     id              INTEGER PRIMARY KEY,
