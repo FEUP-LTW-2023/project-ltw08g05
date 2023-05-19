@@ -32,6 +32,11 @@
     <link href="../styles/profile.css" rel="stylesheet">
     </head>
     
+    <?php if(isset($_SESSION['error_message'])){
+        $error = $_SESSION['error_message'];
+        unset($_SESSION['error_message']);
+        ?> <p class="error-message"> <?php echo $error ?></p> <?php } ?>
+
     <h3>User <?php echo $username?></h3><br><br>
     <div class="card mb-4">
         <div class="card-body">
@@ -99,7 +104,7 @@
             </div>
             <hr>
           </div>
-          <!-- using method GET as we're not passing sensitive information -->
+          <div class="buttons">
           <form action="edit_profile.php" method="get"> 
             <input type="hidden" name="user" value=<?php echo $username?>>
               <button type="submit">Edit Profile</button>    
@@ -109,6 +114,7 @@
             <input type="hidden" name="user" value=<?php echo $username?>>
               <button type="submit">Change Password</button>    
           </form>
+          </div>
     </div>  
 <?php
     drawFooter();

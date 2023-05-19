@@ -7,6 +7,12 @@ h4 {
     text-align: center;
     margin-top: 2%;
   }
+.error-message{
+  color: red;
+  font-size: 1.5em;
+  text-align: left;
+  margin-top: 2%;
+}
 .card.mb-4 {
   position: relative;
   margin-bottom: 5em;
@@ -42,6 +48,12 @@ hr {
   opacity: .25;
 }
 
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 2%;
+}
 button.submit{
   background-color: #ce7b10;
   color: white;
