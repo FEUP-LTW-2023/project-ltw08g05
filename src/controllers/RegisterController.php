@@ -9,6 +9,11 @@ class RegisterController {
 
     public static function register() {
         session_start();
+        if ($_SESSION['csrf'] !== $_POST['csrf']) {
+          $_SESSION['error_message'] = 'Invalid form submission';
+          header('Location: /public/views/register.php');
+          exit();
+        }
         $email = $_POST['email'];
         $password = $_POST['password'];
         $passwordConfirm = $_POST['password_confirm'];

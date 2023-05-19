@@ -1,8 +1,16 @@
 <?php
-declare(strict_types=1); 
-?>
+declare(strict_types=1);  // strict_types declaration must be the very first statement in the script
+header("Content-Security-Policy: default-src 'self'");
+header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
+header("X-Content-Type-Options: nosniff");
 
-<?php
+/**
+ * start a session and generate a CSRF token to prevent CSRF attacks
+ */
+session_start();
+if (!isset($_SESSION['csrf'])) {
+  $_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(32));
+}
 //require_once (__DIR__ . '../../src/models/Musers.php');
 require_once(__DIR__ . '/../../database/connection.php');
 ?>
@@ -22,7 +30,7 @@ require_once(__DIR__ . '/../../database/connection.php');
         <link href="../styles/ticket.css" rel="stylesheet">
         <link href="../styles/chat.css" rel="stylesheet">
         <link href="../styles/responsive.css" rel="stylesheet">
-	    <!-- <script src="../scripts/chat.js"></script> -->
+	    <script src="../scripts/chat.js"></script>
         <script src="../scripts/status.js" defer></script>
         <script src="../scripts/ticket.js" defer></script>
     </head>
@@ -38,7 +46,6 @@ require_once(__DIR__ . '/../../database/connection.php');
 
 <?php function drawNavbar()
 { 
-    session_start(); // start the session to access the $_SESSION variable
     $loggedIn = isset($_SESSION['email']); // check if the id key is set in the $_SESSION variable
  ?>
 
