@@ -70,22 +70,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getPasswordStrength(password) {
-        const strengthThresholds = {
-            weak: 6,
-            medium: 8
-        };
-
-        if (password.length < strengthThresholds.weak) {
-            return 'weak';
-        } else if (password.length < strengthThresholds.medium) {
-            return 'medium';
-        } else {
-            return 'strong';
-        }
-    }
-
+      const strengthThresholds = {
+          weak: 6,
+          medium: 8
+      };
+  
+      if (password.length < strengthThresholds.weak) {
+          return 'weak';
+      } else if (password.length < strengthThresholds.medium) {
+          return 'medium';
+      } else if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+          // Check lowercase and uppercase letters
+          return 'medium';
+      } else if (!/\d/.test(password)) {
+          // Check numbers
+          return 'medium';
+      } else {
+          return 'strong';
+      }
+  }
+  
     passwordInput.addEventListener('input', checkPasswordStrength);
-
 
 
 
