@@ -29,8 +29,9 @@ try {
 $id = intval($_GET['id']);
 $ticket = Ticket::getTicket($db, intval($_GET['id']));
 $current_user = User::getUserByEmail($db, $_SESSION['email']);
-if(!$current_user->getIsAgent() && $current_user->getUserId() != $ticket->userID) {
-    header("Location: /src/controllers/logout.php");
+if($current_user->getIsAgent() != 1 || $current_user->getUserId() != $ticket->userID) {
+    die("Permission denied.");
+    // header("Location: /src/controllers/logout.php");
     exit();
 }
 $deps = Department::getAllDepartments($db);

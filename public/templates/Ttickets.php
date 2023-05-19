@@ -54,13 +54,14 @@ function drawAllTickets($tickets, $current_user){?>
           <h2> <?= $dep->title ?> ></h2>
           <h2> <?= $ticket->title ?> </h2>
           <?php if($ticket->userID===$current_user->getUserID()) { // ticket's author can edit ?>
-            <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>
-            <a href="ticket_history.php?id=<?=$ticket->id?>"> View edit history </a>
+            <a href="edit_ticket.php?id=<?=$ticket->id?>"> Edit </a>  
           <?php } ?>
-          <?php if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { // agent whos not the author can only change department ?>
+          <?php if($current_user->getIsAgent() === 1 && $ticket->userID!=$current_user->getUserID()) { // agent whos not the author can only change department ?>
             <a href="edit_ticket.php?id=<?=$ticket->id?>"> Department </a>
           <?php } ?>
-          <?php  if($current_user->getIsAgent()) { ?>
+          <?php  if($current_user->getIsAgent() === 1) { ?>
+            <!-- Only an agent can view edit history -->
+            <a href="ticket_history.php?id=<?=$ticket->id?>"> View edit history </a>  
             <a href="assign_ticket.php?id=<?=$ticket->id?>"> Assign </a>
             <div class="status-container">
               <a href="#" class="status-toggle"> Status </a>
