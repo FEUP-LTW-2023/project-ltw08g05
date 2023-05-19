@@ -12,8 +12,6 @@
     
     </head>
 
-    <?php RegisterController::showRecordsFromDatabase() ?>
-
     <div class="centered">
       <h2>Register</h2>
     <form method="post">
@@ -26,6 +24,8 @@
 
     <label for="password">Password: <span class="required">*</span></label>
     <input type="password" name="password" id="password" required>
+    <br>
+    <span id="password-strength-error" class="error"></span>
     <br>
   
     <label for="password_confirm">Confirm Password: <span class="required">*</span></label>
