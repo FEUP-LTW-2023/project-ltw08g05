@@ -114,6 +114,11 @@
             <input type="hidden" name="user" value=<?php echo $username?>>
               <button type="submit">Change Password</button>    
           </form>
+
+          <form action="access_log.php" method="get"> 
+            <input type="hidden" name="user" value=<?php echo $username?>>
+              <button type="submit">View Login History</button>    
+          </form>
           </div>
     </div>  
 <?php

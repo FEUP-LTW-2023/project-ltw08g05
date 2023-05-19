@@ -9,48 +9,53 @@
   max-width: 25em;
 }
   
-  .centered h2{
-    font-size: 2em;
-    margin: 0.5em;
-    margin-top: 1em;
-  }
-  .centered input {
-    margin: 0.5em;
-  }
+.centered h2{
+  font-size: 2em;
+  margin: 0.5em;
+  margin-top: 1em;
+}
+.centered input {
+  margin: 0.5em;
+}
   
-  .centered button {
-    display: inline-block;
-    border-radius: 4px;
-    background-color: #970808;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 1em;
-    padding: 20px;
-    width: 10em;
-    transition: all 3s;
-    cursor: pointer;
-    margin: 0.5em;
-    margin-bottom: 2em;
-  }
+.centered button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #970808;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 1em;
+  padding: 20px;
+  width: 10em;
+  transition: all 3s;
+  cursor: pointer;
+  margin: 0.5em;
+  margin-bottom: 2em;
+}
 
-  .centered button[disabled]:hover {
-    cursor: not-allowed;
-  }
-  
-  .centered button[disabled]:hover::before {
-    content: attr(hover-text);
-    position: absolute;
-    top: 95%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #000;
-    color: #fff;
-    padding: 0.5em;
-    font-size: 0.8em;
-    white-space: nowrap;
-  }
-  
-  .centered button:not([disabled]) {    
-    background-color: #0f3fdd;
+.centered button[disabled]:hover {
+  cursor: not-allowed;
+}
+
+.centered button[disabled]:hover::before {
+  content: attr(hover-text);
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: #fff;
+  padding: 0.5em;
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+.centered button:not([disabled]) {    
+  background-color: #0f3fdd;
+}
+
+h4{
+  text-align: center;
+  margin-top: 1%;
 }
