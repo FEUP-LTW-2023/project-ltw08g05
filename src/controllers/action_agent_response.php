@@ -13,15 +13,18 @@ $message = $_POST['message'];
 
 // Save the message to the database
 $db = getDatabaseConnection();
+if($db == null) {
+    throw new Exception('Database connection error');
+    error_log("Database connection error");
+    die("Database connection error");
+}
 $ticket = Ticket::getTicket($db, $ticket_id);
 $agent = User::getUserByEmail($db, $agent_email);
 
-if ($ticket) {
+if ($ticket && $agent) {
     $ticket->response = $message;
     $ticket->saveResponse($db);
 } 
 header("Location: ../../public/views/ticket.php?id=" . $_POST['id']);
 exit();
-
-
-
+?>
