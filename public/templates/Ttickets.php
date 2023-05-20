@@ -173,71 +173,93 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
 
 <?php function drawEditTicket($ticket, $current_user, $deps) { ?>
 
-  <?php  
-    // if the user is agent and is not the author of the ticket
+  <section class="form-container">
+    <?php  
+      // if the user is agent and is not the author of the ticket
     if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
-    <form action="../../src/controllers/action_edit_department.php" method="post">
-    <h1>Change Department</h1>
-    <?php foreach($deps as $dep) { ?> 
-      <input type="hidden" name="id" value=" <?= $ticket->id ?>">
-      <input type="radio" id="dep<?= $dep->id ?>" name="department" value="<?= $dep->id ?>">
-      <label for="dep<?= $dep->id ?>"><?= $dep->title ?></label><br>
-    <?php } ?>
-    <?php if (isset($_SESSION['error_message'])): ?>
-      <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
-      <?php unset($_SESSION['error_message']); ?>
-    <?php endif; ?>
-    <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
-    <input type="hidden" name="email" value="<?php echo $current_user->getEmail(); ?>">
-    <button type="submit">Save</button>
-  </form>
-  <?php } 
-  
-  // if the user is the author
-  else{ ?>   
-    <form action="../../src/controllers/action_edit_ticket.php" method="post">
-    <h1>Edit Ticket</h1>
-    <input type="hidden" name="id" value=" <?= $ticket->id ?>">
-    <label for="title">New Title:</label>
-    <input type="text" name="title" value=" <?= $ticket->title; ?> "><br><br>
-    <label for="content">New Content:</label><br>
-    <textarea name="content"> <?= $ticket->content; ?> </textarea><br><br>
-    <h1>Change Department</h1>
-    <?php foreach($deps as $dep) { ?> 
-      <input type="hidden" name="id" value=" <?= $ticket->id ?>">
-      <input type="radio" id="dep<?= $dep->id ?>" name="department" value="<?= $dep->id ?>">
-      <label for="dep<?= $dep->id ?>"><?= $dep->title ?></label><br>
-    <?php } ?>
-    <?php if (isset($_SESSION['error_message'])): ?>
-      <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
-      <?php unset($_SESSION['error_message']); ?>
-    <?php endif; ?>
-    <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
-    <input type="hidden" name="email" value="<?php echo $current_user->getEmail(); ?>">
-    <button type="submit">Save</button>
-  </form> <?php
-} ?> 
-
+      <form action="../../src/controllers/action_edit_department.php" method="post">
+        <h1>Change Department</h1>
+        <section class="radio-group">
+          <?php foreach($deps as $dep) { ?> 
+            <label class="radio-label">
+              <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+              <input type="radio" name="department" value="<?= $dep->id ?>">
+              <?= $dep->title ?>
+              <span class="radio-button"></span>
+            </label>
+          <?php } ?>
+        </section>
+        <?php if (isset($_SESSION['error_message'])): ?>
+          <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+          <?php unset($_SESSION['error_message']); ?>
+        <?php endif; ?>
+        <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
+        <input type="hidden" name="email" value="<?php echo $current_user->getEmail(); ?>">
+        <button type="submit">Save</button>
+      </form>
+    <?php } 
+    
+    // if the user is the author
+    else{ ?>   
+      <form action="../../src/controllers/action_edit_ticket.php" method="post">
+        <h1>Edit Ticket</h1>
+        <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+        <label for="title">New Title</label>
+        <input type="text" name="title" value=" <?= $ticket->title; ?> "><br><br>
+        <label for="content">New Content</label><br>
+        <textarea name="content"> <?= $ticket->content; ?> </textarea><br><br>
+        <h1>Change Department</h1>
+        <section class="radio-group">
+          <?php foreach($deps as $dep) { ?> 
+            <label class="radio-label">
+              <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+              <input type="radio" name="department" value="<?= $dep->id ?>">
+              <?= $dep->title ?>
+              <span class="radio-button"></span>
+            </label>
+          <?php } ?>
+        </section>
+        <?php if (isset($_SESSION['error_message'])): ?>
+          <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+          <?php unset($_SESSION['error_message']); ?>
+        <?php endif; ?>
+        <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
+        <input type="hidden" name="email" value="<?php echo $current_user->getEmail(); ?>">
+        <button type="submit">Save</button>
+      </form> <?php 
+    } ?> 
+  </section>
 
 <?php } ?>
 
 
 <?php function drawAssignTicket($ticket, $agents, $assigned_agent) { ?>
-  <h1>Assign Ticket</h1><br>
-  <p>Current status: <?= $ticket->status ?> </p>
-  <?php if($assigned_agent!=NULL){ ?>
-    <p>Current assignee: <?= $assigned_agent->first_name ?> <?= $assigned_agent->last_name ?> </p>
-  <?php } ?>
-  <form action="../../src/controllers/action_assign_ticket.php" method="post">
-      <h4>New Assignee</h4><br>
-      <input type="hidden" name="id" value=" <?= $ticket->id ?>">
-      <?php foreach($agents as $agent) { ?> 
-        <input type="radio" id="agent<?= $agent->id ?>" name="assignee" value="<?= $agent->email ?>">
-        <label for="agent<?= $agent->id ?>"><?= $agent->first_name ?> <?= $agent->last_name ?></label><br>
-      <?php } ?>
-      <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
-      <button type="submit">Save</button>
-  </form>
+  <section class="form-container">
+    <h1>Assign Ticket</h1><br>
+    <p>Current status: <?= $ticket->status ?> </p>
+    <?php if($assigned_agent!=NULL){ ?>
+      <p>Current assignee: <?= $assigned_agent->first_name ?> <?= $assigned_agent->last_name ?> </p>
+    <?php } ?>
+    <form action="../../src/controllers/action_assign_ticket.php" method="post">
+        <h4>New Assignee</h4><br>
+        <input type="hidden" name="id" value=" <?= $ticket->id ?>">
+        <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
+        <section class="radio-group">
+          <?php foreach($agents as $agent) { ?> 
+            <label class="radio-label">
+              <input type="radio" id="agent<?= $agent->id ?>" name="assignee" value="<?= $agent->email ?>">
+              <?= $agent->first_name ?> <?= $agent->last_name ?>
+              <span class="radio-button"></span>
+            </label>
+          <?php } ?>
+        </section>
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+            <?php unset($_SESSION['error_message']); ?>
+        <?php endif; ?>
+        <button type="submit">Save</button>
+    </form>
+  </section>
 <?php } ?>
 
 <?php function drawAddTicket($deps) { ?>

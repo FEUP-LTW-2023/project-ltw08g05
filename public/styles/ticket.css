@@ -39,19 +39,24 @@
 .status-container {
     position: relative;
 }
-  
+
 .status-buttons {
     display: none;
     position: absolute;
     top: 100%;
     left: 2em;
 }
-  
+
 .status-container:hover .status-buttons {
     display: block;
 }
 
-/* Add-ticket page */
+.status-button {
+    width: 100%; 
+    padding: 0.5em; 
+}
+
+/* Add css to the ticket form pages */
 
 .form-container {
     display: flex;
