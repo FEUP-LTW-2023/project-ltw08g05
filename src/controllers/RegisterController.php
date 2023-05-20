@@ -1,6 +1,5 @@
 <?php
 require_once('../../src/models/Musers.php');
-header("Content-Security-Policy: default-src 'self'");
 header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
 header("X-Content-Type-Options: nosniff");
 

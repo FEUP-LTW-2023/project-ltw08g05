@@ -27,7 +27,7 @@ if ($db == null) {
 
 $email = $_SESSION['email'];
 
-drawHeader();
+drawHeader($db);
 ?>
     <head>
     <link href="../styles/register.css" rel="stylesheet">

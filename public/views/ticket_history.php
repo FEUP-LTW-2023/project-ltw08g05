@@ -36,7 +36,7 @@ if($current_user->getIsAgent() != 1) {
 }
 $deps = Department::getAllDepartments($db);
 
-drawHeader();
+drawHeader($db);
 
 ?>
     <head>
