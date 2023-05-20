@@ -1,7 +1,6 @@
 <?php
-    require_once (__DIR__ . '/../templates/Tcommon.php');
+    require_once (__DIR__ . '/../templates/Tcommon.php'); // session is declared in Tcommon.php
     require_once("../../src/controllers/RegisterController.php");
-    session_start();
     
     drawHeader();
 ?>
@@ -99,7 +98,7 @@
     <label for="isAdmin">Register as admin:</label>
     <input type="checkbox" name="isAdmin" id="isAdmin">
     <br>
-
+    <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
     <button formaction="/src/controllers/RegisterController.php" formmethod="post" disabled hover-text="Fields are not filled" style="vertical-align:middle"><span>Register</span></button>
     </form>
     </div>

@@ -4,32 +4,32 @@ require_once('../../src/models/Musers.php');
 
 class AccessLogController
 {
-     /**
-   * get user's IP address
-   */
-  public static function getUserIpAddress() {
-    $ip = null; 
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
-        $ip = $_SERVER['REMOTE_ADDR'];
+    /**
+     * get user's IP address
+     */
+    public static function getUserIpAddress() {
+        $ip = null; 
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+
+        if($ip === null) {
+            throw new Exception('Unable to determine IP address.');
+            // die("Unable to determine IP address.");
+        }
+
+        return $ip;
     }
 
-    if($ip === null) {
-        throw new Exception('Unable to determine IP address.');
-        // die("Unable to determine IP address.");
-    }
 
-    return $ip;
-}
-
-
-  /**
-   * get user's OS, among the most common OSs
-   */
-  public static function getUserOS() {
+    /**
+     * get user's OS, among the most common OSs
+     */
+    public static function getUserOS() {
     if (!isset($_SERVER['HTTP_USER_AGENT'])) {
         throw new Exception('User agent is not defined.');
     }
@@ -70,7 +70,7 @@ class AccessLogController
     }
 
     return $os_platform;
-}
+    }
 
 
     /**
@@ -95,7 +95,11 @@ class AccessLogController
             $userId = $user->getUserID();
             $ipAddress = AccessLogController::getUserIpAddress();
             $operatingSystem = AccessLogController::getUserOS();
-            $stmt->execute(['user_id' => $userId, 'ip_address' => $ipAddress, 'operating_system' => $operatingSystem]);
+
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':ip_address', $ipAddress, PDO::PARAM_STR);
+            $stmt->bindParam(':operating_system', $operatingSystem, PDO::PARAM_STR);
+            $stmt->execute();
 
         } catch (PDOException $e) {
             // PDO exceptions
@@ -109,7 +113,7 @@ class AccessLogController
     }
 
     /**
-     * 
+     * get access log of a user
      */
     public static function getLog($db, $userId){
         $stmt = $db->prepare('SELECT * FROM AccessLog WHERE user_id = ? ORDER BY access_time DESC');
