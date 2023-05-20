@@ -75,18 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // other users/agents who are the authors -- can change everything 
     else if ($ticket) {
         // Record changes in TicketHistory
-        if($ticket->title != $title) {
-            Ticket::saveHistory($db, $id, $current_user->getUserId(), 'title', $ticket->title, $title);
-        }
-        if($ticket->content != $content) {
-            Ticket::saveHistory($db, $id, $current_user->getUserId(), 'content', $ticket->content, $content);
-        }
         if($ticket->departmentID != $departmentId) {
             Ticket::saveHistory($db, $id, $current_user->getUserId(), 'departmentID', $ticket->departmentID, $departmentId);
         }
-
-        $ticket->title = $_POST['title'];
-        $ticket->content = $_POST['content'];
         $ticket->departmentID = $departmentId;
         $ticket->save($db);
     } 
