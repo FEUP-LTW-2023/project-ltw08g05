@@ -1,7 +1,4 @@
 <?php
-header("Content-Security-Policy: default-src 'self'");
-header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
-header("X-Content-Type-Options: nosniff");
 
 /**
  * start a session and generate a CSRF token to prevent CSRF attacks

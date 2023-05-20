@@ -51,7 +51,7 @@ $username = $current_user->getUsername();
 $userId = $current_user->getUserID();
 $logs = AccessLogController::getLog($db, $userId);
 
-drawHeader();
+drawHeader($db);
 ?>
     <head>
     <link href="../styles/login.css" rel="stylesheet">
