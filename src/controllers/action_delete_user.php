@@ -12,6 +12,11 @@
 
     $userId = $_GET['id'];
 
+    // To Do:
+    // Delete user tickets
+    // Change tickets agentid to NULL (when agentid==userid)
+    // Change those tickets to open
+
     User::deleteUser($db, $userId);
 
     header("Location: ../../public/views/admin_management.php");

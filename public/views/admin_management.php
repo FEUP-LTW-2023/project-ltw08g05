@@ -83,7 +83,7 @@
                             <td><?= Department::getDepartment($db, $ticket->departmentID)->title ?></td>
                             <td><?=$ticket->status?></td>
                             <?php
-                            if($ticket->agentAssignedID !== NULL) { 
+                            if($ticket->agentAssignedID !== NULL) {
                                 $agent = User::getUserById($db, $ticket->agentAssignedID);
                             ?>
                                 <td><?= $agent->first_name ?> <?= $agent->last_name ?></td>

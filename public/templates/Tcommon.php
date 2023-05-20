@@ -40,7 +40,7 @@ require_once('../../src/models/Musers.php');
 
 <?php function drawNavbar($db)
 { 
-    session_start(); // start the session to access the $_SESSION variable
+    //session_start(); // start the session to access the $_SESSION variable
     $loggedIn = isset($_SESSION['email']); // check if the id key is set in the $_SESSION variable
  ?>
 
