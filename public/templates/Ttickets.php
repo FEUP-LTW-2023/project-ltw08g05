@@ -202,6 +202,7 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
         <input type="radio" id="agent<?= $agent->id ?>" name="assignee" value="<?= $agent->email ?>">
         <label for="agent<?= $agent->id ?>"><?= $agent->first_name ?> <?= $agent->last_name ?></label><br>
       <?php } ?>
+      <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
       <button type="submit">Save</button>
   </form>
 <?php } ?>
@@ -223,7 +224,7 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
           <?php } ?>
         </section>
         <br><textarea name="content" placeholder="Write here the content of your ticket"></textarea><br>
-
+        <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
         <button type="submit">Submit</button>
     </form>
     <?php if (isset($_SESSION['error_message'])): ?>

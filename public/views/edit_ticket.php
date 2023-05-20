@@ -30,4 +30,3 @@ drawEditTicket($ticket, $current_user, $deps);
 drawFooter();
 
 ?> 
-

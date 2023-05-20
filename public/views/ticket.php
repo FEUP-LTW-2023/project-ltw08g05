@@ -4,10 +4,9 @@ require_once(__DIR__ . '/../../database/connection.php');
 require_once('../../src/models/Mticket.php');
 require_once('../../src/models/Musers.php');
 require_once('../../src/models/Mdep.php');
-require_once('../templates/Tcommon.php');
+require_once('../templates/Tcommon.php'); // session_start() is declared here
 require_once('../templates/Ttickets.php');
 
-session_start();
 $loggedIn = isset($_SESSION['email']);
 $db = getDatabaseConnection();
     
@@ -29,8 +28,6 @@ if(isset($_SESSION['error_message'])){
 ?> <p class="error-message"> <?php echo $error ?></p> <?php }
 
 drawTicket($ticket, $current_user, $dep);
-
-//echo(print_r($ticket));
 
 drawFooter();
 ?>
