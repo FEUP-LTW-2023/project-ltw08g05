@@ -1,9 +1,18 @@
 h3 {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    text-align: center;
+    margin-top: 2%;
   }
+
+h4 {
+    text-align: center;
+    margin-top: 2%;
+  }
+.error-message{
+  color: red;
+  font-size: 1.5em;
+  text-align: left;
+  margin-top: 2%;
+}
 .card.mb-4 {
   position: relative;
   margin-bottom: 5em;
@@ -39,6 +48,12 @@ hr {
   opacity: .25;
 }
 
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 2%;
+}
 button.submit{
   background-color: #ce7b10;
   color: white;
@@ -46,32 +61,4 @@ button.submit{
 button.submit:hover {
   background-color: red;
   color: white;
-}
-
-/* ---------------------------- Layout ----------------------------*/
-
-body {
-  display: grid;
-  min-height: 100vh;
-  grid-template-columns: 4fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header"
-    "main"
-    "footer";
-}
-
-header {
-  grid-area: header;
-}
-
-main {
-  grid-area: main;
-}
-
-footer {
-  grid-area: footer;
-  min-height: 7vh;
-  background-color: var(--olive);
-  color: var(--light-black);
 }

@@ -1,8 +1,6 @@
 <?php
-    require_once (__DIR__ . '/../templates/Tcommon.php');
+    require_once (__DIR__ . '/../templates/Tcommon.php'); // session is declared in Tcommon.php
     require_once("../../src/controllers/RegisterController.php");
-    require_once("../../src/controllers/LoginController.php");
-    session_start();
     
     drawHeader($db);
 ?>
@@ -13,8 +11,6 @@
     
     </head>
 
-    <!-- <?php LoginController::showRecordsFromDatabase() ?> -->
-
     <div class="centered">
       <h2>Register</h2>
     <form method="post">
@@ -23,13 +19,20 @@
     <?php if (isset($_SESSION['email'])) echo 'value="' . htmlspecialchars($_SESSION['email']) . '"'; ?>>
     <br>
     <span id="email-error" class="error"></span>
-
     <br>
 
     <label for="password">Password: <span class="required">*</span></label>
     <input type="password" name="password" id="password" required>
     <br>
-
+    <span id="password-strength-error" class="error"></span>
+    <br>
+  
+    <label for="password_confirm">Confirm Password: <span class="required">*</span></label>
+    <input type="password" name="password_confirm" id="password_confirm" required>
+    <br>
+    <span id="password-confirm-error" class="error"></span>
+    
+    <br>
     <label for="first_name">First Name: <span class="required">*</span></label>
     <input type="text" name="first_name" id="first_name" required>
     <br>
@@ -95,7 +98,7 @@
     <label for="isAdmin">Register as admin:</label>
     <input type="checkbox" name="isAdmin" id="isAdmin">
     <br>
-
+    <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
     <button formaction="/src/controllers/RegisterController.php" formmethod="post" disabled hover-text="Fields are not filled" style="vertical-align:middle"><span>Register</span></button>
     </form>
     </div>

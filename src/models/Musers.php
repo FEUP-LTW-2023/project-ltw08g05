@@ -14,10 +14,13 @@ class User {
   public ?string $city = NULL;
   public ?string $zip_code = NULL;
   public ?string $bio = NULL;
-  public ?bool $isAgent = null;
-  public ?bool $isAdmin = null;
+  public ?int $isAgent = null;
+  public ?int $isAdmin = null;
   
-  public function __construct($userID, $email, $first_name, $last_name, $username, $address = null, $country = null, $city = null, $zip_code = null, $bio = null, $isAgent = false, $isAdmin = false) {
+  public ?string $password = NULL;
+
+  public function __construct($userID, $email, $first_name, $last_name, $username, $address = null, $country = null, $city = null, $zip_code = null, $bio = null, $isAgent = false, $isAdmin = false, $password = null) {
+      $this->password = $password;
       $this->userID = $userID;
       $this->email = $email;
       $this->first_name = $first_name;
@@ -31,32 +34,36 @@ class User {
       $this->isAgent = $isAgent;
       $this->isAdmin = $isAdmin;
   }
-    
-  public static function userPasswordMatch($email, $password) {
-      $db = new PDO('sqlite:../../database/database.db');
-      if ($db == null)
-            throw new Exception('Database not initialized');
-      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      try {
-          $stmt = $db->prepare('SELECT * FROM User WHERE email = :email AND password = :password');
-          $stmt->bindParam(':email', $email);
-          $stmt->bindParam(':password', $password);
-          $stmt->execute();
-          $user = $stmt->fetch();
-          if($user){
-              return true;
-          }
-          error_log("Credentials don't match. User data:");
-          error_log('User data: ' . print_r($user, true));
-          error_log($stmt->rowCount());
-          error_log($email);
-          error_log($password);
-          return false;
-      } catch(PDOException $e) {
-          ?> <p> <?php echo "Oops, we've got a problem with database connection:"; ?> </p> <br> 
-          <?php echo $e->getMessage();
-      }
-  }
+  
+
+
+  public static function userPasswordMatch(PDO $db, $email, $password) {
+    error_log("email: ".$email);
+    if ($db == null){
+        throw new Exception('Database not initialized');
+    }
+    try {
+        $stmt = $db->prepare('SELECT * FROM User WHERE email = :email');
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch();
+        error_log("user: ".$user);
+        error_log("HERE:");
+        error_log("user password: ".$password);
+        error_log("db password: ".$user['password']);
+
+        if ($user && password_verify($password, $user['password'])) {
+            return true;
+        }
+
+        return false;
+    } catch(PDOException $e) {
+        ?> <p> <?php echo "Oops, we've got a problem with the database connection:"; ?> </p> <br> 
+        <?php echo $e->getMessage();
+    }
+}
+
+
 
 
   public static function userExists($email){
@@ -143,99 +150,74 @@ static function deleteUser(PDO $db, $userID) {
 }
 
 
+  public function savePassword(PDO $db, $hashedPassword) {
+
+    if ($db == null) {
+      error_log("Database not initialized");
+      throw new Exception('Database not initialized');
+    }
+
+    $stmt = $db->prepare('
+      UPDATE User 
+      SET password = :password
+      WHERE id = :user_id
+    ');
+
+    $stmt->bindValue(':password', $hashedPassword);
+    $stmt->bindValue(':user_id', $this->userID);
+
+    try {
+      $stmt->execute();
+    } catch (PDOException $e) {
+      error_log('Error updating user password: ' . $e->getMessage());
+      throw new Exception('Error updating user password');
+    }
+  }  
+
+
   // --------------------------------------- getters ---------------------------------------
-  public function getUserID() {
-    return $this->userID;
-  }
-  
-  public function getEmail() {
-      return $this->email;
-  }
-  
-  
-  public function getfirst_name() {
-      return $this->first_name;
-  }
-  
-  public function getlast_name() {
-      return $this->last_name;
-  }
-  
-  public function getUsername() {
-      return $this->username;
-  }
-  
-  public function getAddress() {
-      return $this->address;
-  }
-  
-  public function getCountry() {
-      return $this->country;
-  }
-  
-  public function getCity() {
-      return $this->city;
-  }
-  
-  public function getzip_code() {
-      return $this->zip_code;
-  }
-  
-  public function getBio() {
-      return $this->bio;
-  }
-  
-  public function getIsAgent() {
-      return $this->isAgent;
-  }
-  
-  public function getIsAdmin() {
-      return $this->isAdmin;
-  }
-  
-  
-  public function getFullName() {
-      return $this->first_name . ' ' . $this->last_name;
-  }
+
   
     /**
      * access a user's data using email
      */
-    public static function getUserByEmail(PDO $db, $email): ?User {
-      if ($db == null) {
-          error_log("Database not initialized");
-          throw new Exception('Database not initialized');
+  public static function getUserByEmail(PDO $db, $email): ?User {
+    if ($db == null) {
+      error_log("Database not initialized");
+      throw new Exception('Database not initialized');
+    }
+
+    try {
+      $stmt = $db->prepare('SELECT * FROM User WHERE email = :email');
+      $stmt->bindParam(':email', $email);
+      $stmt->execute();
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($user) {
+        return new User(
+          $user['id'],
+          $user['email'],
+          $user['first_name'],
+          $user['last_name'],
+          $user['username'],
+          $user['address'],
+          $user['country'],
+          $user['city'],
+          $user['zip_code'],
+          $user['bio'],
+          $user['is_agent'],
+          $user['is_admin'],
+          $user['password'] 
+        );
+          
+      } else {
+        return null;
       }
-  
-      try {
-        $stmt = $db->prepare('SELECT id, email, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin FROM User WHERE email = :email');
-        $stmt->bindParam(':email', $email);
-          $stmt->execute();
-          $user = $stmt->fetch(PDO::FETCH_ASSOC);
-          if ($user) {
-            return new User(
-              $user['id'],
-              $user['email'],
-              $user['first_name'],
-              $user['last_name'],
-              $user['username'],
-              $user['address'],
-              $user['country'],
-              $user['city'],
-              $user['zip_code'],
-              $user['bio'],
-              $user['is_agent'],
-              $user['is_admin']
-            );
-            
-          } else {
-              return null;
-          }
-      } catch(PDOException $e) {
-          ?> <p> <?php echo "Oops, we've got a problem with database connection:"; ?> </p> <br> 
-          <?php echo $e->getMessage();
-      }
+    } catch(PDOException $e) {
+      echo "Oops, we've got a problem with database connection:"; 
+      echo $e->getMessage();
+    }
   }
+
   
   static function getUserById(PDO $db, $id) {
     if ($id==null) {
@@ -315,7 +297,58 @@ static function deleteUser(PDO $db, $userID) {
       
     }
     return $users;
-  }  
+  }
 
+  public function getUserID() {
+    return $this->userID;
+  }
+  
+  public function getEmail() {
+      return $this->email;
+  }
+  
+  public function getfirst_name() {
+      return $this->first_name;
+  }
+  
+  public function getlast_name() {
+      return $this->last_name;
+  }
+  
+  public function getUsername() {
+      return $this->username;
+  }
+  
+  public function getAddress() {
+      return $this->address;
+  }
+  
+  public function getCountry() {
+      return $this->country;
+  }
+  
+  public function getCity() {
+      return $this->city;
+  }
+  
+  public function getzip_code() {
+      return $this->zip_code;
+  }
+  
+  public function getBio() {
+      return $this->bio;
+  }
+  
+  public function getIsAgent() {
+      return $this->isAgent;
+  }
+  
+  public function getIsAdmin() {
+      return $this->isAdmin;
+  }
+  
+  public function getFullName() {
+      return $this->first_name . ' ' . $this->last_name;
+  }
 }
 ?>
