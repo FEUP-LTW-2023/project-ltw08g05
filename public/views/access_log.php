@@ -50,11 +50,13 @@ drawHeader();
     <link href="../styles/login.css" rel="stylesheet">
     </head>
 
+    <div class="centered2">
     <h4>Login History</h4>
     <h4><?php echo $username?></h4><br><br> 
-    <form action="profile.php" method="get" style="text-align: center;"> 
+    <form action="profile.php" method="get"> 
         <button type="submit" >Go back</button>    
     </form>
+    </div>
     <div class="centered">
     <?php
         if (count($logs) > 0) {

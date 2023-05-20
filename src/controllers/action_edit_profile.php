@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $zip_code = $_POST['zip_code'];
     $bio = $_POST['bio'];
 
-    if (!preg_match('/^[a-zA-Z0-9_\s]+$/', $username)) {
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) { 
         error_log("Invalid username format");
         $_SESSION['error_message'] = "Invalid username format";
         header("Location: /public/views/profile.php");
@@ -62,25 +62,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: /public/views/profile.php");
         exit();
     }
-    if (!preg_match('/^[a-zA-Z\s]+$/', $country)) {
+    /**
+     * country, city, zip_code, bio can be empty
+     */ 
+    if (!empty($country) && !preg_match('/^[a-zA-Z\s]+$/', $country)) {
         error_log("Invalid country format");
         $_SESSION['error_message'] = "Invalid country format";
         header("Location: /public/views/profile.php");
         exit();
     }
-    if (!preg_match('/^[a-zA-Z\s]+$/', $city)) {
+    if (!empty($city) && !preg_match('/^[a-zA-Z\s]+$/', $city)) {
         error_log("Invalid city format");
         $_SESSION['error_message'] = "Invalid city format";
         header("Location: /public/views/profile.php");
         exit();
     }
-    if (!preg_match('/^[0-9-]+$/', $zip_code)) {
+    if (!empty($zip_code) && !preg_match('/^[0-9-]+$/', $zip_code)) {
         error_log("Invalid zip code format");
         $_SESSION['error_message'] = "Invalid zip code format";
         header("Location: /public/views/profile.php");
         exit();
     }
-    if (!preg_match('/^[\pL\s\d.,!?"\']+$/', $bio)) {
+    if (!empty($bio) && !preg_match('/^[\pL\s\d.,!?"\']+$/', $bio)) {
         error_log("Invalid bio format");
         $_SESSION['error_message'] = "Invalid bio format";
         header("Location: /public/views/profile.php");
