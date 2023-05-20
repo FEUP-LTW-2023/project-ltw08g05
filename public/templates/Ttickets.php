@@ -69,14 +69,14 @@ function drawAllTickets($tickets, $current_user){?>
             <div class="status-container">
               <a href="#" class="status-toggle"> Status </a>
               <div class="status-buttons">
-                <button class="status-button" data-status="Open" data-ticket-id="<?= $ticket->id ?>">Open</button>
-                <button class="status-button" data-status="Assigned" data-ticket-id="<?= $ticket->id ?>">Assigned</button>
-                <button class="status-button" data-status="Closed" data-ticket-id="<?= $ticket->id ?>">Closed</button>
+                <button class="status-button" data-status="Open" data-ticket-id="<?= $ticket->id ?>" data-csrf="<?php echo $_SESSION['csrf']; ?>">Open</button>
+                <button class="status-button" data-status="Assigned" data-ticket-id="<?= $ticket->id ?>" data-csrf="<?php echo $_SESSION['csrf']; ?>">Assigned</button>
+                <button class="status-button" data-status="Closed" data-ticket-id="<?= $ticket->id ?>" data-csrf="<?php echo $_SESSION['csrf']; ?>">Closed</button>
               </div>
             </div>
           <?php } ?>
       </header>
-
+      <p>Current status: <?= $ticket->status ?> </p>
       <section class="container">
           <h2>Message Chat</h2>
           <section id="ticket-chat-cont">
@@ -97,12 +97,23 @@ function drawAllTickets($tickets, $current_user){?>
           </section>
         <!-- Only the Author of the ticket and the assigned Agent can chat -->
         <?php  if(($current_user->getIsAgent() && $ticket->agentAssignedID===$current_user->userID) || $ticket->userID===$current_user->getUserID()) { ?>  
-          <form class="chat-form">
-            <input type="hidden" name="user_id" value="<?=$current_user->userID?>">
-            <input type="hidden" name="id" value="<?=$ticket->id?>">
-            <textarea id="message" name="message" placeholder="Enter your message..."></textarea>
-            <button type="submit">Send</button>
-          </form>
+          <?php  if($ticket->status=='Closed') { ?>
+            <section class="card">
+              <article class="home-card-message">
+                <?php
+                  echo "This ticket is closed!";
+                ?>
+                <br>
+              </article>
+            </section>
+          <?php } else { ?>
+            <form class="chat-form">
+              <input type="hidden" name="user_id" value="<?=$current_user->userID?>">
+              <input type="hidden" name="id" value="<?=$ticket->id?>">
+              <textarea id="message" name="message" placeholder="Enter your message..."></textarea>
+              <button type="submit">Send</button>
+            </form>
+          <?php } ?>
         <?php } elseif($current_user->getIsAgent()){ ?>
           <section class="card">
             <article class="home-card-message">
@@ -113,7 +124,8 @@ function drawAllTickets($tickets, $current_user){?>
             </article>
           </section>
         <?php } ?>
-
+        <!--echo(print_r($ticket));-->
+          
       </section>
     
   </section>
