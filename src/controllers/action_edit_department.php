@@ -20,8 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $id = intVal($_POST['id']);
     $departmentId = intval($_POST['department']);
-    $title = $_POST['title'];
-    $content = $_POST['content'];
 
     // Validate email
     if ($email === false) {
@@ -47,21 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Validate title
-    if ($title === null || $title === "") {
-        error_log("Title is required");
-        $_SESSION['error_message'] = "Title is required";
-        header("Location: /public/views/ticket.php?id=".$id);
-        exit();
-    }
-
-    // Validate content
-    if ($content === null || $content === "") {
-        error_log("Content is required");
-        $_SESSION['error_message'] = "Content is required";
-        header("Location: /public/views/ticket.php?id=".$id);
-        exit();
-    }
 
     $db = getDatabaseConnection();
     if($db == null){
