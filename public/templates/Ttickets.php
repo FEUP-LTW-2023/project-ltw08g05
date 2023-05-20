@@ -151,8 +151,11 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
 
 
 <?php function drawEditTicket($ticket, $current_user, $deps) { ?>
-<form action="../../src/controllers/action_edit_ticket.php" method="post">
-  <?php  if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
+
+  <?php  
+    // if the user is agent and is not the author of the ticket
+    if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
+    <form action="../../src/controllers/action_edit_department.php" method="post">
     <h1>Change Department</h1>
     <?php foreach($deps as $dep) { ?> 
       <input type="hidden" name="id" value=" <?= $ticket->id ?>">
@@ -163,7 +166,15 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
       <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
       <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
-  <?php } else{ ?>  
+    <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
+    <input type="hidden" name="email" value="<?php echo $current_user->getEmail(); ?>">
+    <button type="submit">Save</button>
+  </form>
+  <?php } 
+  
+  // if the user is the author
+  else{ ?>   
+    <form action="../../src/controllers/action_edit_ticket.php" method="post">
     <h1>Edit Ticket</h1>
     <input type="hidden" name="id" value=" <?= $ticket->id ?>">
     <label for="title">New Title:</label>
@@ -180,11 +191,12 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
       <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
       <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
-  <?php } ?> 
-  <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
-  <input type="hidden" name="email" value="<?php echo $current_user->getEmail(); ?>">
-  <button type="submit">Save</button>
-</form>
+    <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf']; ?>">
+    <input type="hidden" name="email" value="<?php echo $current_user->getEmail(); ?>">
+    <button type="submit">Save</button>
+  </form> <?php
+} ?> 
+
 
 <?php } ?>
 
