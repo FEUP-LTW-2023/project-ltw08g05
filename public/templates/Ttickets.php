@@ -45,6 +45,7 @@ function drawAllTickets($tickets, $current_user){?>
     </section>
    
   <?php } 
+
 ?>
 
 <?php function drawTicket($ticket, $current_user, $dep) { ?>
@@ -74,20 +75,28 @@ function drawAllTickets($tickets, $current_user){?>
               </div>
             </div>
           <?php } ?>
-        </header>
+      </header>
 
-        <!-- content that was on the #chat-window -->
-      <!--<article class="user-message"> <?= $ticket->content ?> </article>-->
-      <?php  /*if($ticket->response!=NULL) { ?>
-              <article class="agent-message"> <?= $ticket->response ?> </article>
-            <?php } */?>
       <section class="container">
           <h2>Message Chat</h2>
-          <section class="chat-window">
-            
+          <section id="ticket-chat-cont">
+            <!--Ticket content submitter when the ticket is created-->
+            <section class="chat-window">
+              <!--Agent assigned to the ticket will have the message on the left side-->
+              <?php if($current_user->getIsAgent() && $ticket->agentAssignedID===$current_user->userID){ ?>
+                <article class="agent-message"><?=$ticket->content?></article>
+                <!--Author of the ticket will have it on the right side of the chat-->   
+              <?php } else if($ticket->userID===$current_user->getUserID()) { ?>
+                <article class="user-message"><?=$ticket->content?></article>   
+              <?php } ?>
+            </section>
+            <!--Ticket chat-->
+            <section class="chat-window" id="chat-get_messages">
+                
+            </section>
           </section>
+        <!-- Only the Author of the ticket and the assigned Agent can chat -->
         <?php  if(($current_user->getIsAgent() && $ticket->agentAssignedID===$current_user->userID) || $ticket->userID===$current_user->getUserID()) { ?>  
-          <!--<form class="chat-form" action="../../src/controllers/action_agent_response.php" method="post">-->
           <form class="chat-form">
             <input type="hidden" name="user_id" value="<?=$current_user->userID?>">
             <input type="hidden" name="id" value="<?=$ticket->id?>">
