@@ -22,6 +22,12 @@ $ticket = Ticket::getTicket($db, intval($_GET['id']));
 $dep = Department::getDepartment($db, $ticket->departmentID);
 
 drawHeader();
+
+if(isset($_SESSION['error_message'])){
+    $error = $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
+?> <p class="error-message"> <?php echo $error ?></p> <?php }
+
 drawTicket($ticket, $current_user, $dep);
 
 //echo(print_r($ticket));
