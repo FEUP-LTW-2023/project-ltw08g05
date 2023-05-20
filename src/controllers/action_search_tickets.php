@@ -3,8 +3,6 @@
   require_once(__DIR__ . '/../../database/connection.php');
   require_once '../models/Mticket.php';
   require_once '../models/Musers.php';
-  header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
-  header("X-Content-Type-Options: nosniff");
 
   session_start();
   if (!isset($_SESSION['csrf'])) {

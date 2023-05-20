@@ -1,12 +1,5 @@
 <?php
 declare(strict_types=1);  // strict_types declaration must be the very first statement in the script
-// Header that messes up JavaScript
-// header("Content-Security-Policy: default-src 'self'"); 
-
-// instructs the browser to only access the website over a secure HTTPS connection
-header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
-// prevent content type sniffing
-header("X-Content-Type-Options: nosniff");
 
 /**
  * start a session and generate a CSRF token to prevent CSRF attacks
