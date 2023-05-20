@@ -76,17 +76,20 @@ function drawAllTickets($tickets, $current_user){?>
           <?php } ?>
         </header>
 
+        <!-- content that was on the #chat-window -->
+      <!--<article class="user-message"> <?= $ticket->content ?> </article>-->
+      <?php  /*if($ticket->response!=NULL) { ?>
+              <article class="agent-message"> <?= $ticket->response ?> </article>
+            <?php } */?>
       <section class="container">
           <h2>Message Chat</h2>
           <section class="chat-window">
-            <article class="user-message"> <?= $ticket->content ?> </article>
-            <?php  if($ticket->response!=NULL) { ?>
-              <article class="agent-message"> <?= $ticket->response ?> </article>
-            <?php } ?>
+            
           </section>
-        <?php  if($current_user->getIsAgent() && $ticket->agentAssignedID===$current_user->userID) { ?>  
-          <form class="chat-form" action="../../src/controllers/action_agent_response.php" method="post">
-            <input type="hidden" name="user_email" value="<?=$current_user->email?>">
+        <?php  if(($current_user->getIsAgent() && $ticket->agentAssignedID===$current_user->userID) || $ticket->userID===$current_user->getUserID()) { ?>  
+          <!--<form class="chat-form" action="../../src/controllers/action_agent_response.php" method="post">-->
+          <form class="chat-form">
+            <input type="hidden" name="user_id" value="<?=$current_user->userID?>">
             <input type="hidden" name="id" value="<?=$ticket->id?>">
             <textarea id="message" name="message" placeholder="Enter your message..."></textarea>
             <button type="submit">Send</button>

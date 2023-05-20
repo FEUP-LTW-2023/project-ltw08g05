@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $content = $_POST['content'];
     
     $ticket = Ticket::getTicket($db, $id);
-    if ($ticket && $current_user && $current_user->getIsAgent()) {
+
+    // Check if user is agent and he's not the author of the ticket -- in this case he can only change the department
+    if ($ticket && $current_user && $current_user->getIsAgent() && $current_user->userID != $ticket->userID) {
         if($departmentId == null){
             $_SESSION['error_message'] = 'Please select a department';
             header('Location: /public/views/edit_ticket.php?id=' . $id . '');
@@ -30,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ticket->departmentID = $departmentId;
         $ticket->saveDep($db);
     }
+    // other users/agents who are the authors -- can change everything 
     else if ($ticket) {
         // Record changes in TicketHistory
         if($ticket->title != $title) {
