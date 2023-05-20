@@ -24,6 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $confirm_password = $_POST['confirm_password'];
     $email = $_POST['email'];
 
+    /**
+     * XSS Prevention
+     * If the input contains unexpected characters reject it
+     */
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         error_log("Invalid email format");
         $_SESSION['error_message'] = "Invalid email format";
@@ -32,7 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     
     $db = getDatabaseConnection();
-
+    if ($db == null){
+        error_log("$db is null");
+        throw new Exception('Database not initialized');
+        die("$db is null");
+    }
+    
     // Check if passwords match
     if ($new_password !== $confirm_password) {
         $_SESSION['error_message'] = 'Passwords do not match';

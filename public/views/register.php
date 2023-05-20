@@ -1,7 +1,6 @@
 <?php
-    require_once (__DIR__ . '/../templates/Tcommon.php');
+    require_once (__DIR__ . '/../templates/Tcommon.php'); // session is declared in Tcommon.php
     require_once("../../src/controllers/RegisterController.php");
-    session_start();
     
     drawHeader();
 ?>

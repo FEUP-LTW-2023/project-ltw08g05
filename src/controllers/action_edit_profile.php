@@ -10,9 +10,9 @@ if (!isset($_SESSION['csrf'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Verify the CSRF token
+    // Verify CSRF 
     if (!isset($_POST['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
-        die('CSRF token verification failed!');
+        die('CSRF verification failed!');
     }
     // get new data
     $email = $_POST['email'];
@@ -26,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $zip_code = $_POST['zip_code'];
     $bio = $_POST['bio'];
 
+    /**
+     * XSS Prevention
+     * If the input contains unexpected characters reject it
+     */
     if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) { 
         error_log("Invalid username format");
         $_SESSION['error_message'] = "Invalid username format";
