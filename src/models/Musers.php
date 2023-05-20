@@ -130,6 +130,25 @@ class User {
     }
 }
 
+static function deleteUser(PDO $db, $userID) {
+  if ($db == null) {
+    error_log("Database not initialized");
+    throw new Exception('Database not initialized');
+  }
+
+  $stmt = $db->prepare('DELETE FROM User WHERE id = :userID');
+  $stmt->bindValue(':userID', $userID);
+
+  try {
+      $stmt->execute();
+      session_start();
+  } catch (PDOException $e) {
+      error_log('Error deleting user: ' . $e->getMessage());
+      echo "<p>Error deleting user</p><br>";
+      throw new Exception('Error deleting user');
+  }
+}
+
 
   public function savePassword(PDO $db, $hashedPassword) {
 
@@ -280,59 +299,56 @@ class User {
     return $users;
   }
 
+  public function getUserID() {
+    return $this->userID;
+  }
   
-    public function getUserID() {
-      return $this->userID;
-    }
-    
-    public function getEmail() {
-        return $this->email;
-    }
-    
-    
-    public function getfirst_name() {
-        return $this->first_name;
-    }
-    
-    public function getlast_name() {
-        return $this->last_name;
-    }
-    
-    public function getUsername() {
-        return $this->username;
-    }
-    
-    public function getAddress() {
-        return $this->address;
-    }
-    
-    public function getCountry() {
-        return $this->country;
-    }
-    
-    public function getCity() {
-        return $this->city;
-    }
-    
-    public function getzip_code() {
-        return $this->zip_code;
-    }
-    
-    public function getBio() {
-        return $this->bio;
-    }
-    
-    public function getIsAgent() {
-        return $this->isAgent;
-    }
-    
-    public function getIsAdmin() {
-        return $this->isAdmin;
-    }
-    
-    
-    public function getFullName() {
-        return $this->first_name . ' ' . $this->last_name;
-    }
+  public function getEmail() {
+      return $this->email;
+  }
+  
+  public function getfirst_name() {
+      return $this->first_name;
+  }
+  
+  public function getlast_name() {
+      return $this->last_name;
+  }
+  
+  public function getUsername() {
+      return $this->username;
+  }
+  
+  public function getAddress() {
+      return $this->address;
+  }
+  
+  public function getCountry() {
+      return $this->country;
+  }
+  
+  public function getCity() {
+      return $this->city;
+  }
+  
+  public function getzip_code() {
+      return $this->zip_code;
+  }
+  
+  public function getBio() {
+      return $this->bio;
+  }
+  
+  public function getIsAgent() {
+      return $this->isAgent;
+  }
+  
+  public function getIsAdmin() {
+      return $this->isAdmin;
+  }
+  
+  public function getFullName() {
+      return $this->first_name . ' ' . $this->last_name;
+  }
 }
 ?>

@@ -25,7 +25,7 @@ $ticket = Ticket::getTicket($db, intval($_GET['id']));
 $current_user = User::getUserByEmail($db, $_SESSION['email']);
 $deps = Department::getAllDepartments($db);
 
-drawHeader();
+drawHeader($db);
 drawEditTicket($ticket, $current_user, $deps);
 drawFooter();
 

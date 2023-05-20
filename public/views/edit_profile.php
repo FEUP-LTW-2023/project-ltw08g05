@@ -34,8 +34,7 @@ if (!$current_user) {
 $first_name = $current_user->getfirst_name();
 $last_name = $current_user->getlast_name();
 
-
-drawHeader()
+drawHeader($db);
 ?>
     <head>
     <link href="../styles/profile.css" rel="stylesheet">

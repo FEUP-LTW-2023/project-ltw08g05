@@ -26,7 +26,7 @@ if ($current_user->getIsAgent()) {
     $tickets = Ticket::getUserTickets($db, $current_user->getUserId());
 }
 
-drawHeader();
+drawHeader($db);
 
 drawAllTickets($tickets, $current_user);   
 //echo(print_r($current_user));

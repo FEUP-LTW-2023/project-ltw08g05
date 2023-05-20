@@ -24,7 +24,7 @@
     }
 
     $username = $current_user->getUsername();
-    drawHeader()
+    drawHeader($db);
 ?>
     <head>
     <link href="../styles/profile.css" rel="stylesheet">

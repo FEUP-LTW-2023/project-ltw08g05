@@ -8,7 +8,7 @@
     }
 
 
-    drawHeader();
+    drawHeader($db);
 ?>
     <head>
     <link href="../styles/login.css" rel="stylesheet">

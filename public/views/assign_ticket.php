@@ -25,7 +25,7 @@ $ticket = Ticket::getTicket($db, intval($_GET['id']));
 $agents = User::getAgents($db);
 $assigned_agent = User::getUserByID($db, $ticket->agentAssignedID);
 
-drawHeader();
+drawHeader($db);
 drawAssignTicket($ticket, $agents, $assigned_agent);
 drawFooter();
 

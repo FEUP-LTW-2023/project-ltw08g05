@@ -8,7 +8,7 @@ $loggedIn = isset($_SESSION['email']);
 $justRegistered = isset($_SESSION['justRegistered']);
 $db = getDatabaseConnection();
 
-drawHeader()
+drawHeader($db);
 ?>
 
 <section class="card">
