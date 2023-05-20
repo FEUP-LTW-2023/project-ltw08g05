@@ -1,34 +1,34 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    var ticket_id = document.querySelector("input[name='id']").value;
-    var user_id = document.querySelector("input[name='user_id']").value;
+    const ticket_id = document.querySelector("input[name='id']").value;
+    const user_id = document.querySelector("input[name='user_id']").value;
     //console.log(ticket_id);
     //console.log(user_id);
 
     function appendMessage(message, sender) {
-        var article = document.createElement('article');
+        let article = document.createElement('article');
         article.classList.add('message', sender + '-message');
-        article.innerHTML = message + "<span class='sender'>" + ' ' + sender + "</span>";
+        article.innerHTML = message;
 
-        document.querySelector(".chat-window").appendChild(article);
-        document.querySelector(".chat-window").scrollTop = document.querySelector(".chat-window").scrollHeight;
+        document.querySelector("#chat-get_messages").appendChild(article);
+        document.querySelector("#chat-get_messages").scrollTop = document.querySelector("#chat-get_messages").scrollHeight;
     }
 
     function renderMessages(messages) {
-        var chatWindow = document.querySelector(".chat-window");
+        let chatWindow = document.querySelector("#chat-get_messages");
         chatWindow.innerHTML = "";
-      
-        for (var i = 0; i < messages.length; i++) {
+
+        for (let i = 0; i < messages.length; i++) {
           //console.log(messages[i]);
           //console.log(user_id);
-          var message = messages[i].message;
-          var sender = messages[i].userID == user_id ? "user" : "agent";
+          let message = messages[i].message;
+          let sender = messages[i].userID == user_id ? "user" : "agent";
           appendMessage(message, sender);
         }
     }
 
     function getMessages() {
-        fetch("../../src/controllers/get_messages.php?ticket_id=" + ticket_id)
+        fetch("../../src/controllers/action_get_messages.php?ticket_id=" + ticket_id)
         .then(function(response) {
             if (response.ok) {
                 return response.json();
@@ -39,12 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(function(data) {
             //console.log(data);
             renderMessages(data);
+            scrollToBottom();
         })
     }
-
+    function scrollToBottom() {
+        const chatWindow = document.querySelector("#ticket-chat-cont");
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
     function sendMessage(message) {
         console.log(message);
-        fetch("../../src/controllers/send_message.php?user_id=" + user_id + "&ticket_id=" + ticket_id + "&message=" + message)
+        fetch("../../src/controllers/action_send_message.php?user_id=" + user_id + "&ticket_id=" + ticket_id + "&message=" + message)
         .then(function(response) {
             if (response.ok) {
                 return response.text();
@@ -62,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector(".chat-form").addEventListener("submit", function(e) {
         e.preventDefault();
-        var message = document.querySelector("#message").value;
+        let message = document.querySelector("#message").value;
         sendMessage(message);
         document.querySelector("#message").value = "";
     });

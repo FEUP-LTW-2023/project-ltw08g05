@@ -63,7 +63,6 @@ CREATE TABLE Ticket (
     agent_assigned  INTEGER REFERENCES User(id) ON UPDATE CASCADE ON DELETE SET NULL,
     title           VARCHAR(255) NOT NULL,
     content_text    TEXT NOT NULL,
-    response_text   TEXT DEFAULT NULL,
     ticket_status   VARCHAR(255) DEFAULT 'Open' NOT NULL,
     creation_date   DATE DEFAULT (DATE('now')),
     update_date     DATE DEFAULT null

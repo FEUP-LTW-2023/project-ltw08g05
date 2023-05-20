@@ -10,7 +10,7 @@ if (!isset($_SESSION['csrf'])) {
   $_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(32));
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
     // Verify CSRF 
     if (!isset($_POST['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
         die('CSRF verification failed!');

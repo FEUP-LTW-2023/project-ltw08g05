@@ -3,6 +3,7 @@ require_once(__DIR__ . '/../../database/connection.php');
 require_once '../models/Musers.php';
 require_once '../models/Mticket.php';
 require_once '../models/Mdep.php';
+require_once '../models/Mmessage.php';
 header("Content-Security-Policy: default-src 'self'");
 header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
 header("X-Content-Type-Options: nosniff");
@@ -46,8 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $departmentId,
         null,
         $title, 
-        $content,
-        null, 
+        $content,            
         'Open',
         date("Y-m-d"),
         null
