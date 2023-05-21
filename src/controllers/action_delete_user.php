@@ -13,11 +13,11 @@
 
     $userId = $_GET['id'];
 
-    /* $userTickets = Ticket::getUserTickets($db, $userId);
+    $userTickets = Ticket::getUserTickets($db, (int) $userId);
 
     foreach($userTickets as $userTicket) {
-       deleteTicket($db,  $userTicket->id)
-    } */
+       Ticket::deleteTicket($db,  $userTicket->id);
+    }
 
     // To Do:
     // Change tickets agentid to NULL (when agentid==userid)
