@@ -18,6 +18,14 @@
         $newUserType = $_POST['userType'];
         $userId = intVal($_POST['userId']);
 
+        // Validate email
+        if ($email === false) {
+            error_log("Invalid email format");
+            $_SESSION['error_message'] = "Invalid email format";
+            header("Location: /public/views/ticket.php?id=".$id);
+            exit();
+        }
+
         // Validate newUserType
         if ($newUserType === false) {
             error_log("Invalid user type format");

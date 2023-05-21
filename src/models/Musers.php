@@ -181,7 +181,7 @@ static function deleteUser(PDO $db, $userID) {
 
     switch($userType) {
       case "admin":
-        $userIsAgent = 0;
+        $userIsAgent = 1;
         $userIsAdmin = 1;
         break;
       case "agent":

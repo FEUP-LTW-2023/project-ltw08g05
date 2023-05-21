@@ -60,11 +60,24 @@ function editIconListener() {
                     }
 
                     userEditMenu.style.display = 'flex';
-                    //document.location.assign('../../src/controllers/action_edit_user.php');
                     break;
                 case "departmentsTable":
+                    const departmentId = tableRow.dataset.departmentid;
+                    const departmentIdInput = document.getElementById('postDepartmentId');
+                    const agentsInputs = document.getElementsByClassName('agentInput');
+                    const agentName = this.parentElement.previousElementSibling.innerHTML;
+
+                    //console.log(agentsInputs);
+
+                    /* agentsInputs.forEach(agentInput => {
+                        if(agentInput.value === agentName) {
+                            agentInput.checked = true;
+                        }
+                    }); */
+
+                    departmentIdInput.value = departmentId;
+
                     departmentEditMenu.style.display = 'flex';
-                    //document.location.assign('../../src/controllers/action_edit_department.php');
                     break;
                 default:
                     console.log('Unexpected Table ID.');
