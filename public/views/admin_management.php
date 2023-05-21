@@ -57,12 +57,15 @@
                     <?=drawAddIcon();?>
                 </header>
                 <table id="departmentsTable">
-                    <tr><td>Name</td><td>Options</td></tr>
+                    <tr><td>Name</td><td>Agent</td><td>Options</td></tr>
                     <?php foreach($departments as $department) { ?>
                         <tr departmentid="<?=$department->id?>">
-                            <td><?=$department->title?></td>
+                            <td><?= $department->title ?></td>
+                            <?php
+                            $departmentAgent = User::getUserById($db, $department->userID);
+                            ?>
+                            <td><?= $departmentAgent->first_name ?> <?= $departmentAgent->last_name ?></td>
                             <td>
-                                <!-- <button>Edit Name</button> -->
                                 <?=drawEditIcon();?>
                                 <?=drawDeleteIcon();?>
                             </td>
