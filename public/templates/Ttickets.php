@@ -177,7 +177,7 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
     <?php  
       // if the user is agent and is not the author of the ticket
     if($current_user->getIsAgent() && $ticket->userID!=$current_user->getUserID()) { ?>
-      <form action="../../src/controllers/action_edit_department.php" method="post">
+      <form action="../../src/controllers/action_edit_ticket_agent.php" method="post">
         <h1>Change Department</h1>
         <section class="radio-group">
           <?php foreach($deps as $dep) { ?> 
@@ -229,7 +229,6 @@ function drawTicketHistory(PDO $db, int $ticket_id, User $current_user) {
       </form> <?php 
     } ?> 
   </section>
-
 <?php } ?>
 
 

@@ -149,7 +149,6 @@ static function deleteUser(PDO $db, $userID) {
   }
 }
 
-
   public function savePassword(PDO $db, $hashedPassword) {
 
     if ($db == null) {
@@ -172,8 +171,51 @@ static function deleteUser(PDO $db, $userID) {
       error_log('Error updating user password: ' . $e->getMessage());
       throw new Exception('Error updating user password');
     }
-  }  
+  }
 
+  public function saveUserType($db, $userType, $current_user) {
+    if ($db == null) {
+      error_log("Database not initialized");
+      throw new Exception('Database not initialized');
+    }
+
+    switch($userType) {
+      case "admin":
+        $userIsAgent = 1;
+        $userIsAdmin = 1;
+        break;
+      case "agent":
+        $userIsAdmin = 0;
+        $userIsAgent = 1;
+        break;
+      case "client":
+        $userIsAdmin = 0;
+        $userIsAgent = 0;
+        break;
+    }
+
+    $stmt = $db->prepare('
+      UPDATE User 
+      SET is_admin = :userIsAdmin, 
+          is_agent = :userIsAgent 
+      WHERE id = :user_id
+    ');
+    $stmt->bindValue(':userIsAdmin', $userIsAdmin);
+    $stmt->bindValue(':userIsAgent', $userIsAgent);
+    $stmt->bindValue(':user_id', $this->userID);
+
+    try {
+      $stmt->execute();
+      session_start();
+      $_SESSION['email'] = $current_user->getEmail();
+      error_log("session email:");
+      error_log($_SESSION['email']);
+    } catch (PDOException $e) {
+      error_log('Error updating user type: ' . $e->getMessage());
+      ?> <p> <?php echo "Error updating user type"; ?> </p> <br> <?php
+      throw new Exception('Error updating user type');
+    }
+  }
 
   // --------------------------------------- getters ---------------------------------------
 

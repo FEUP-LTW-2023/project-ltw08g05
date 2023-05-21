@@ -16,7 +16,6 @@
             <section id="users">
                 <header>
                     <h2>Users</h2>
-                    <?=drawAddIcon();?>
                 </header>
                 <table id="usersTable">
                     <tr><td>Name</td><td>Email</td><td>Type</td><td>Options</td></tr>
@@ -57,12 +56,15 @@
                     <?=drawAddIcon();?>
                 </header>
                 <table id="departmentsTable">
-                    <tr><td>Name</td><td>Options</td></tr>
+                    <tr><td>Name</td><td>Agent</td><td>Options</td></tr>
                     <?php foreach($departments as $department) { ?>
-                        <tr departmentid="<?=$department->id?>">
-                            <td><?=$department->title?></td>
+                        <tr data-departmentid="<?=$department->id?>">
+                            <td><?= $department->title ?></td>
+                            <?php
+                            $departmentAgent = User::getUserById($db, $department->userID);
+                            ?>
+                            <td><?= $departmentAgent->first_name ?> <?= $departmentAgent->last_name ?></td>
                             <td>
-                                <!-- <button>Edit Name</button> -->
                                 <?=drawEditIcon();?>
                                 <?=drawDeleteIcon();?>
                             </td>
@@ -100,7 +102,7 @@
                 </table>
             </section>
         </main>
-        <?=drawEditWindow();?>
+        <?=drawEditWindow($db);?>
     <?php
     }
 
@@ -148,15 +150,84 @@
     <?php
     }
 
-    function drawEditWindow() { ?>
+    function drawEditWindow(PDO $db) { ?>
         <section id="editWindow">
-            <?=drawCloseIcon();?>
-            <h2>Edit Menu</h2>
+            <header>
+                <?=drawCloseIcon();?>
+                <h2>Edit Menu</h2>
+            </header>
+            <section id="user_edit_menu" class="editMenuSection">
+                <section id="edit_user_type">
+                    <h3>Change User Type</h3>
+                    <form action="../../src/controllers/action_edit_user.php" method="post">
+                        <div>
+                            <input type="radio" name="userType" value="admin" id="user_type_admin">
+                            <label for="user_type_admin">Admin</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="userType" value="agent" id="user_type_agent">
+                            <label for="user_type_agent">Agent</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="userType" value="client" id="user_type_client">
+                            <label for="user_type_client">Client</label>
+                        </div>
+
+                        <input type="hidden" name="userId" value="-1" id="postUserId">
+                        <input type="hidden" name="email" value="<?=$_SESSION['email'];?>">
+                        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']; ?>">
+                        <button type="submit">Submit</button>
+                    </form>
+                </section>
+                
+                <?php if (isset($_SESSION['error_message'])): ?>
+                <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+                <?php unset($_SESSION['error_message']); ?>
+                <?php endif; ?>
+            </section>
+
+            <section id="department_edit_menu" class="editMenuSection">
+                <form action="../../src/controllers/action_edit_department.php" method="post">
+                    <section id="edit_department_name">
+                        <h3>Change Departmet's Name</h3>
+                        <div>
+                            <label for="department_name">Department Name:</label>
+                            <input type="text" name="departmentName" id="department_name" minlength="2" required>
+                        </div>
+                    </section>
+
+                    <section id="edit_department_agent">
+                        <h3>Change Department's Agent</h3>
+                        <?php
+                        $agents = User::getAgents($db);
+                        foreach($agents as $agent) { ?>
+                            <div>
+                                <input type="radio" name="departmentAgentId" value="<?= $agent->getUserID() ?>" class="agentInput" required>
+                                <label for="user_type_admin"><?=$agent->first_name?> <?=$agent->last_name?></label>
+                            </div>
+                        <?php
+                        } ?>
+                    </section>
+                    
+                    <input type="hidden" name="departmentId" value="-1" id="postDepartmentId">
+                    <input type="hidden" name="email" value="<?=$_SESSION['email'];?>">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']; ?>">
+                    <button type="submit">Submit</button>
+                </form>
+
+                <?php if (isset($_SESSION['error_message'])): ?>
+                <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+                <?php unset($_SESSION['error_message']); ?>
+                <?php endif; ?>
+            </section>
         </section>
     <?php
     }
 
+    /* ---------------------------- */
+    
     session_start();
+
     $loggedIn = isset($_SESSION['email']);
     $db = getDatabaseConnection();
 
@@ -168,7 +239,14 @@
     $email = $_SESSION['email'];
     $current_user = User::getUserByEmail($db, $email);
 
-    drawHeader($db);
+    drawHeader($db); ?>
+    
+    <head>
+        <link href="../styles/admin_management.css" rel="stylesheet">
+        <script src="../scripts/admin_management.js" defer></script>
+    </head>
+
+    <?php
 
     if ($current_user->getIsAdmin()) {
         drawAdminManagement($db);

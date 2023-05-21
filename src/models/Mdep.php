@@ -19,6 +19,35 @@ class Department {
         $this->creationDate = $creationDate;
     }
 
+    function save(PDO $db, $sessionEmail) {
+        if ($db == null) {
+            error_log("Database not initialized");
+            throw new Exception('Database not initialized');
+        }
+    
+        $stmt = $db->prepare('
+          UPDATE Department 
+          SET id_user = :id_user, 
+              title = :title 
+          WHERE id = :id
+        ');
+        $stmt->bindValue(':id_user', $this->userID);
+        $stmt->bindValue(':title', $this->title);
+        $stmt->bindValue(':id', $this->id);
+        
+        try {
+            $stmt->execute();
+            session_start();
+            $_SESSION['email'] = $sessionEmail;
+            error_log("session email:");
+            error_log($_SESSION['email']);
+        } catch (PDOException $e) {
+            error_log('Error updating user data: ' . $e->getMessage());
+            ?> <p> <?php echo "Error updating user data"; ?> </p> <br> <?php
+            throw new Exception('Error updating user data');
+        }
+    }
+
     static function getDepartment(PDO $db, int $id) {
         $stmt = $db->prepare('SELECT id, id_user, title, creation_date FROM Department WHERE id = ?');
         $stmt->execute(array($id));

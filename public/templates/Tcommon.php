@@ -28,11 +28,9 @@ require_once('../../src/models/Musers.php');
         <link href="../styles/ticket.css" rel="stylesheet">
         <link href="../styles/chat.css" rel="stylesheet">
         <link href="../styles/responsive.css" rel="stylesheet">
-        <link href="../styles/admin_management.css" rel="stylesheet">
 	    <script src="../scripts/chat.js"></script>
         <script src="../scripts/status.js" defer></script>
         <script src="../scripts/ticket.js" defer></script>
-        <script src="../scripts/admin_management.js" defer></script>
     </head>
 
     <body>
