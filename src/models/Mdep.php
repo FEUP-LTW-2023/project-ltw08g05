@@ -58,7 +58,11 @@ class Department {
         $this->id = intval($db->lastInsertId('Department'));
     }
 
-    static function getDepartment(PDO $db, int $id) {
+    static function getDepartment(PDO $db, ?int $id) {
+        if($id === null) {
+            return null;
+        }
+
         $stmt = $db->prepare('SELECT id, id_user, title, creation_date FROM Department WHERE id = ?');
         $stmt->execute(array($id));
     

@@ -3,6 +3,7 @@
 
     require_once(__DIR__ . '/../../database/connection.php');
     require_once('../../src/models/Mdep.php');
+    require_once('../../src/models/Mticket.php');
 
     $db = getDatabaseConnection();
     if ($db == null) {
@@ -12,8 +13,12 @@
 
     $departmentId = $_GET['id'];
 
-    // To Do:
-    // Change ticket department to NULL (when ticket->departmentId==departmentId)
+    $departmentTickets = Ticket::getDepartmentTickets($db, $departmentId);
+
+    foreach($departmentTickets as $departmentTicket) {
+        $departmentTicket->departmentID = null;
+        $departmentTicket->save($db);
+    }
 
     Department::deleteDepartment($db, $departmentId);
 

@@ -3,6 +3,7 @@
 
     require_once(__DIR__ . '/../../database/connection.php');
     require_once('../../src/models/Musers.php');
+    require_once('../../src/models/Mticket.php');
 
     $db = getDatabaseConnection();
     if ($db == null) {
@@ -12,8 +13,13 @@
 
     $userId = $_GET['id'];
 
+    /* $userTickets = Ticket::getUserTickets($db, $userId);
+
+    foreach($userTickets as $userTicket) {
+       deleteTicket($db,  $userTicket->id)
+    } */
+
     // To Do:
-    // Delete user tickets
     // Change tickets agentid to NULL (when agentid==userid)
     // Change those tickets to open
 

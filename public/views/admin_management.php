@@ -88,7 +88,15 @@
                     <?php foreach($tickets as $ticket) { ?>
                         <tr data-ticketid="<?=$ticket->id?>">
                             <td><?=$ticket->title?></td>
-                            <td><?= Department::getDepartment($db, $ticket->departmentID)->title ?></td>
+                            <td>
+                                <?php 
+                                $ticketDepartment = Department::getDepartment($db, $ticket->departmentID);
+                                if($ticketDepartment !== null) {
+                                    echo $ticketDepartment->title;
+                                } else {
+                                    echo "-";
+                                } ?>
+                            </td>
                             <td><?=$ticket->status?></td>
                             <?php
                             if($ticket->agentAssignedID !== NULL) {
