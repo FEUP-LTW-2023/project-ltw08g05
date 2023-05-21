@@ -108,6 +108,7 @@ BEGIN
     UPDATE Ticket SET update_date = DATE('now') WHERE id = OLD.id;
 END;
 
+/* Change agent_assigned to NULL when status is changed to Open*/
 CREATE TRIGGER update_assignment
 AFTER UPDATE ON Ticket
 FOR EACH ROW
@@ -115,11 +116,12 @@ BEGIN
     UPDATE Ticket SET agent_assigned = NULL WHERE ticket_status = 'Open';
 END;
 
+/* Change status automatically to Assigned when agent is first assigned*/
 CREATE TRIGGER update_status
 AFTER UPDATE ON Ticket
 FOR EACH ROW
 BEGIN
-    UPDATE Ticket SET ticket_status = 'Assigned' WHERE agent_assigned NOT NULL;
+    UPDATE Ticket SET ticket_status = 'Assigned' WHERE agent_assigned NOT NULL AND ticket_status = 'Open' AND OLD.ticket_status = 'Open';
 END;
 
 -------------------------------------------------------- Populate the database --------------------------------------------------------

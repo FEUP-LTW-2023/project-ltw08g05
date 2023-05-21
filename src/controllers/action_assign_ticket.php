@@ -17,6 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ticket = Ticket::getTicket($db, $id);
     $agent = User::getUserByEmail($db, $assigneeEmail);
 
+    if($id == null){
+        $_SESSION['error_message'] = 'Ticket not found';
+        header('Location: /public/views/assign_ticket.php?id=' . $id);
+        exit();
+    }
+    if($assigneeEmail == null){
+        $_SESSION['error_message'] = 'Please select an Agent';
+        header('Location: /public/views/assign_ticket.php?id=' . $id);
+        exit();
+    }
     if ($ticket) {
         $ticket->agentAssignedID = $agent->userID;
         $ticket->saveAssign($db);
