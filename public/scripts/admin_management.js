@@ -6,16 +6,19 @@ function deleteIconListener() {
         button.addEventListener('click', function() {
             const tableRow = this.parentElement.parentElement;
             const table = tableRow.parentElement.parentElement;
-            const id = tableRow.dataset.userid;
+            const userId = tableRow.dataset.userid;
+            const departmentId = tableRow.dataset.departmentid;
+            const ticketId = tableRow.dataset.ticketid;
+
             switch(table.id) {
                 case "usersTable":
-                    document.location.assign('../../src/controllers/action_delete_user.php?id=' + id);
+                    document.location.assign('../../src/controllers/action_delete_user.php?id=' + userId);
                     break;
                 case "departmentsTable":
-                    document.location.assign('../../src/controllers/action_delete_department.php?id=' + id);
+                    document.location.assign('../../src/controllers/action_delete_department.php?id=' + departmentId);
                     break;
                 case "ticketsTable":
-                    document.location.assign('../../src/controllers/action_delete_ticket.php?id=' + id);
+                    document.location.assign('../../src/controllers/action_delete_ticket.php?id=' + ticketId);
                     break;
                 default:
                     console.log('Unexpected Table ID.');
