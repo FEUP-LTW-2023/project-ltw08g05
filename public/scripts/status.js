@@ -3,12 +3,11 @@
 function updateTicketStatus(event) {
     const statusValue = event.target.getAttribute('data-status');
     const ticketId = event.target.getAttribute('data-ticket-id');
-    const csrfToken = event.target.getAttribute('data-csrf');
-    //console.log(statusValue);
-    //console.log(ticketId);
+    console.log(statusValue);
+    console.log(ticketId);
     // Send an AJAX request to update the status
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../src/controllers/action_change_status.php', true);
+    xhr.open('POST', '../../src/controllers/action_status.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
@@ -18,11 +17,10 @@ function updateTicketStatus(event) {
         if (ticketStatusElement) {
           ticketStatusElement.textContent = statusValue;
         }
-        location.reload();
       }
     };
     console.log(statusValue);
-    xhr.send('id=' + ticketId + '&status=' + statusValue + '&csrf=' + csrfToken);
+    xhr.send('id=' + ticketId + '&status=' + statusValue);
 
     // Hide the status buttons
     const statusButtonsElement = document.querySelector('.status-buttons');

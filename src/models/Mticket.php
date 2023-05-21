@@ -165,15 +165,15 @@ class Ticket {
      * Gets the ticket history
      */
     public static function getTicketHistory(PDO $db, int $ticket_id) {
-      $stmt = $db->prepare('SELECT * FROM TicketHistory WHERE ticket_id = ? ORDER BY change_time DESC');
-      $stmt->execute(array($ticket_id));
+    $stmt = $db->prepare('SELECT * FROM TicketHistory WHERE ticket_id = ? ORDER BY change_time DESC');
+    $stmt->execute(array($ticket_id));
 
-      $history = array();
-      while ($row = $stmt->fetch()) {
-          $history[] = $row;
-      }
+    $history = array();
+    while ($row = $stmt->fetch()) {
+        $history[] = $row;
+    }
 
-      return $history;
+    return $history;
     }
 
 
@@ -203,12 +203,11 @@ class Ticket {
 
     $stmt->execute(array($this->departmentID, $this->id));
   }
-  
   function saveStatus(PDO $db) {
     $stmt = $db->prepare('
       UPDATE Ticket SET ticket_status = ? WHERE id = ?
     ');
-    
+
     $stmt->execute(array($this->status, $this->id));
   }
 
