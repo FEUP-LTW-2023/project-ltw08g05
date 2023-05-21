@@ -53,7 +53,7 @@
             <section id="departments">
                 <header>
                     <h2>Departments</h2>
-                    <?=drawAddIcon();?>
+                    <a href="add_department.php"><?=drawAddIcon();?></a>
                 </header>
                 <table id="departmentsTable">
                     <tr><td>Name</td><td>Agent</td><td>Options</td></tr>
@@ -211,7 +211,7 @@
                     
                     <input type="hidden" name="departmentId" value="-1" id="postDepartmentId">
                     <input type="hidden" name="email" value="<?=$_SESSION['email'];?>">
-                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']; ?>">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf'];?>">
                     <button type="submit">Submit</button>
                 </form>
 

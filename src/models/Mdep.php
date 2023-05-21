@@ -48,6 +48,16 @@ class Department {
         }
     }
 
+    public function addDepartment(PDO $db) {  
+        $stmt = $db->prepare('
+            INSERT INTO Department
+            VALUES (?, ?, ?, ?)
+        ');
+    
+        $stmt->execute(array($this->id, $this->userID, $this->title, $this->creationDate));
+        $this->id = intval($db->lastInsertId('Department'));
+    }
+
     static function getDepartment(PDO $db, int $id) {
         $stmt = $db->prepare('SELECT id, id_user, title, creation_date FROM Department WHERE id = ?');
         $stmt->execute(array($id));
