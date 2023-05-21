@@ -150,13 +150,48 @@
 
     function drawEditWindow() { ?>
         <section id="editWindow">
-            <?=drawCloseIcon();?>
-            <h2>Edit Menu</h2>
+            <header>
+                <?=drawCloseIcon();?>
+                <h2>Edit Menu</h2>
+            </header>
+            <section id="user_edit_menu">
+                <h3>Change User Type:</h3>
+                <form action="../../src/controllers/action_edit_user.php" method="post">
+                    <div>
+                        <input type="radio" name="userType" value="admin" id="user_type_admin">
+                        <label for="user_type_admin">Admin</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="userType" value="agent" id="user_type_agent">
+                        <label for="user_type_agent">Agent</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="userType" value="client" id="user_type_client">
+                        <label for="user_type_client">Client</label>
+                    </div>
+
+                    <input type="hidden" name="userId" value="-1" id="postUserId">
+                    <input type="hidden" name="email" value="<?=$_SESSION['email'];?>">
+                    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']; ?>">
+                    <button type="submit">Submit</button>
+                </form>
+
+                <?php if (isset($_SESSION['error_message'])): ?>
+                <p class="error-message"><?php echo $_SESSION['error_message']; ?></p>
+                <?php unset($_SESSION['error_message']); ?>
+                <?php endif; ?>
+            </section>
+            <section id="department_edit_menu">
+
+            </section>
         </section>
     <?php
     }
 
+    /* ---------------------------- */
+    
     session_start();
+
     $loggedIn = isset($_SESSION['email']);
     $db = getDatabaseConnection();
 
@@ -168,7 +203,14 @@
     $email = $_SESSION['email'];
     $current_user = User::getUserByEmail($db, $email);
 
-    drawHeader($db);
+    drawHeader($db); ?>
+    
+    <head>
+        <link href="../styles/admin_management.css" rel="stylesheet">
+        <script src="../scripts/admin_management.js" defer></script>
+    </head>
+
+    <?php
 
     if ($current_user->getIsAdmin()) {
         drawAdminManagement($db);
