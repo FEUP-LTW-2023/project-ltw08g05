@@ -48,7 +48,7 @@ class Department {
         }
     }
 
-    public function addDepartment(PDO $db) {  
+    public function addDepartment(PDO $db) {
         $stmt = $db->prepare('
             INSERT INTO Department
             VALUES (?, ?, ?, ?)
@@ -75,6 +75,25 @@ class Department {
             $department['title'],
             $department['creation_date']
         );
+    }
+
+    static function deleteDepartment(PDO $db, $departmentId) {
+        if ($db == null) {
+            error_log("Database not initialized");
+            throw new Exception('Database not initialized');
+          }
+        
+          $stmt = $db->prepare('DELETE FROM Department WHERE id = :departmentId');
+          $stmt->bindValue(':departmentId', $departmentId);
+        
+          try {
+              $stmt->execute();
+              session_start();
+          } catch (PDOException $e) {
+              error_log('Error deleting department: ' . $e->getMessage());
+              echo "<p>Error deleting department</p><br>";
+              throw new Exception('Error deleting department');
+          }
     }
 
     static function getAllDepartments(PDO $db) {
