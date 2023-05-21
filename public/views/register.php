@@ -91,13 +91,6 @@
     <textarea name="bio" id="bio"></textarea>
     <br>
 
-    <label for="isAgent">Register as agent:</label>
-    <input type="checkbox" name="isAgent" id="isAgent">
-    <br>
-
-    <label for="isAdmin">Register as admin:</label>
-    <input type="checkbox" name="isAdmin" id="isAdmin">
-    <br>
     <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
     <button formaction="/src/controllers/RegisterController.php" formmethod="post" disabled hover-text="Fields are not filled" style="vertical-align:middle"><span>Register</span></button>
     </form>

@@ -127,11 +127,11 @@ END;
 -------------------------------------------------------- Populate the database --------------------------------------------------------
 
 INSERT INTO User (email, password, first_name, last_name, username, address, country, city, zip_code, bio, is_agent, is_admin) VALUES
-    ('user1@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'John', 'Doe', 'johndoe', '123 Main St', 'United States', 'Los Angeles', '90001', 'Bio for John Doe', 0, 0), -- password1
-    ('user2@example.com', '$2y$10$T6LVM8/MLpdq9i0O5SWz8Ommh6DIvGaImC8SF9oxGsul3do.N7jd6', 'Jane', 'Doe', 'janedoe', '456 Main St', 'Canada', 'New York', '10001', 'Bio for Jane Doe', 0, 0), -- password2
-    ('user3@example.com', '$2y$10$B7DEUr.s76K.bjMme00wQ.gEYlAqhkdBTBC4RrS45cwSpvW07ACdG', 'Bob', 'Smith', 'bobsmith', '789 Main St', 'Mexico', 'Chicago', '60601', 'Bio for Bob Smith', 1, 0), -- password3
+    ('client@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'John', 'Doe', 'johndoe', '123 Main St', 'United States', 'Los Angeles', '90001', 'Bio for John Doe', 0, 0), -- password1
+    ('user2@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Jane', 'Doe', 'janedoe', '456 Main St', 'Canada', 'New York', '10001', 'Bio for Jane Doe', 0, 0), -- password2
+    ('agent@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Bob', 'Smith', 'bobsmith', '789 Main St', 'Mexico', 'Chicago', '60601', 'Bio for Bob Smith', 1, 0), -- password3
     ('user4@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Alice', 'Johnson', 'alicejohnson', '321 Main St', 'Brazil', 'Houston', '77001', 'Bio for Alice Johnson', 1, 0), -- password1
-    ('user5@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Michael', 'Brown', 'michaelbrown', '654 Main St', 'Argentina', 'Phoenix', '85001', 'Bio for Michael Brown', 1, 1), -- password1
+    ('admin@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Michael', 'Brown', 'michaelbrown', '654 Main St', 'Argentina', 'Phoenix', '85001', 'Bio for Michael Brown', 1, 1), -- password1
     ('user6@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Samantha', 'Davis', 'samanthadavis', '987 Main St', 'United Kingdom', 'Philadelphia', '19101', 'Bio for Samantha Davis', 1, 1), -- password1
     ('user7@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'David', 'Wilson', 'davidwilson', '246 Main St', 'France', 'San Antonio', '78201', 'Bio for David Wilson', 0, 0), -- password1
     ('user8@example.com', '$2y$10$a5wyUoVsp8M/HXymkkamCeKueQk2GieYA8RYIdSgvuRoWTHPQmQQK', 'Linda', 'Garcia', 'lindagarcia', '135 Main St', 'Germany', 'San Diego', '92101', 'Bio for Linda Garcia', 0, 0), -- password1
