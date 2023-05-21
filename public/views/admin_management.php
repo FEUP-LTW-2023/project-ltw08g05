@@ -56,14 +56,20 @@
                     <a href="add_department.php"><?=drawAddIcon();?></a>
                 </header>
                 <table id="departmentsTable">
-                    <tr><td>Name</td><td>Agent</td><td>Options</td></tr>
+                    <tr><td>Name</td><td>Creation Date</td><td>Agent</td><td>Options</td></tr>
                     <?php foreach($departments as $department) { ?>
                         <tr data-departmentid="<?=$department->id?>">
                             <td><?= $department->title ?></td>
+                            <td><?= $department->creationDate ?></td>
                             <?php
                             $departmentAgent = User::getUserById($db, $department->userID);
-                            ?>
-                            <td><?= $departmentAgent->first_name ?> <?= $departmentAgent->last_name ?></td>
+                            if( !($departmentAgent === null) ) { ?>
+                                <td><?= $departmentAgent->first_name ?> <?= $departmentAgent->last_name ?></td>
+                            <?php
+                            } else { ?>
+                                <td>-</td>
+                            <?php
+                            } ?>
                             <td>
                                 <?=drawEditIcon();?>
                                 <?=drawDeleteIcon();?>
@@ -188,27 +194,31 @@
 
             <section id="department_edit_menu" class="editMenuSection">
                 <form action="../../src/controllers/action_edit_department.php" method="post">
-                    <section id="edit_department_name">
-                        <h3>Change Departmet's Name</h3>
-                        <div>
-                            <label for="department_name">Department Name:</label>
-                            <input type="text" name="departmentName" id="department_name" minlength="2" required>
-                        </div>
-                    </section>
+                    <section id="edit_department">
+                        <section id="edit_department_name">
+                            <h3>Change Departmet's Name</h3>
+                            <section id="departmentNameSection">
+                                <label for="department_name">Department Name:</label>
+                                <input type="text" name="departmentName" id="department_name" minlength="2" required>
+                            </section>
+                        </section>
 
-                    <section id="edit_department_agent">
-                        <h3>Change Department's Agent</h3>
-                        <?php
-                        $agents = User::getAgents($db);
-                        foreach($agents as $agent) { ?>
-                            <div>
-                                <input type="radio" name="departmentAgentId" value="<?= $agent->getUserID() ?>" class="agentInput" required>
-                                <label for="user_type_admin"><?=$agent->first_name?> <?=$agent->last_name?></label>
-                            </div>
-                        <?php
-                        } ?>
-                    </section>
-                    
+                        <section id="edit_department_agent">
+                            <h3>Change Department's Agent</h3>
+                            <section id="agentsSection">
+                                <?php
+                                $agents = User::getAgents($db);
+                                foreach($agents as $agent) { ?>
+                                    <div>
+                                        <input type="radio" name="departmentAgentId" value="<?= $agent->getUserID() ?>" required>
+                                        <label for="user_type_admin" class="agentInput"><?=$agent->first_name?> <?=$agent->last_name?></label>
+                                    </div>
+                                <?php
+                                } ?>
+                            </section>
+                        </section>
+                    </section>     
+
                     <input type="hidden" name="departmentId" value="-1" id="postDepartmentId">
                     <input type="hidden" name="email" value="<?=$_SESSION['email'];?>">
                     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf'];?>">

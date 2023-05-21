@@ -69,14 +69,16 @@ function editIconListener() {
                     const departmentIdInput = document.getElementById('postDepartmentId');
                     const agentsInputs = document.getElementsByClassName('agentInput');
                     const agentName = this.parentElement.previousElementSibling.innerHTML;
+                    const departmentInput = document.getElementById('department_name');
+                    const departmentName = tableRow.firstElementChild.innerHTML;
 
-                    //console.log(agentsInputs);
-
-                    /* agentsInputs.forEach(agentInput => {
-                        if(agentInput.value === agentName) {
-                            agentInput.checked = true;
+                    for(let i = 0; i < agentsInputs.length; i++) {
+                        if(agentsInputs[i].innerHTML === agentName) {
+                            agentsInputs[i].previousElementSibling.checked = true;
                         }
-                    }); */
+                    }
+
+                    departmentInput.value = departmentName;
 
                     departmentIdInput.value = departmentId;
 
