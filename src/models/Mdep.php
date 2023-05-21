@@ -81,19 +81,19 @@ class Department {
         if ($db == null) {
             error_log("Database not initialized");
             throw new Exception('Database not initialized');
-          }
-        
-          $stmt = $db->prepare('DELETE FROM Department WHERE id = :departmentId');
-          $stmt->bindValue(':departmentId', $departmentId);
-        
-          try {
-              $stmt->execute();
-              session_start();
-          } catch (PDOException $e) {
-              error_log('Error deleting department: ' . $e->getMessage());
-              echo "<p>Error deleting department</p><br>";
-              throw new Exception('Error deleting department');
-          }
+        }
+    
+        $stmt = $db->prepare('DELETE FROM Department WHERE id = :departmentId');
+        $stmt->bindValue(':departmentId', $departmentId);
+    
+        try {
+            $stmt->execute();
+            session_start();
+        } catch (PDOException $e) {
+            error_log('Error deleting department: ' . $e->getMessage());
+            echo "<p>Error deleting department</p><br>";
+            throw new Exception('Error deleting department');
+        }
     }
 
     static function getAllDepartments(PDO $db) {

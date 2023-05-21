@@ -12,8 +12,6 @@
 
     $departmentId = $_GET['id'];
 
-    error_log("departmentId: ".$departmentId);
-
     // To Do:
     // Change ticket department to NULL (when ticket->departmentId==departmentId)
 
