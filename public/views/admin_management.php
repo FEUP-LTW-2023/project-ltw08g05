@@ -80,7 +80,7 @@
                 <table id="ticketsTable">
                     <tr><td>Name</td><td>Department</td><td>Status</td><td>Agent</td><td>Options</td></tr>
                     <?php foreach($tickets as $ticket) { ?>
-                        <tr ticketid="<?=$ticket->id?>">
+                        <tr data-ticketid="<?=$ticket->id?>">
                             <td><?=$ticket->title?></td>
                             <td><?= Department::getDepartment($db, $ticket->departmentID)->title ?></td>
                             <td><?=$ticket->status?></td>

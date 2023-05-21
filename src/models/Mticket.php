@@ -177,7 +177,7 @@ class Ticket {
     }
 
 
-  public function add(PDO $db) {  
+  public function add(PDO $db) {
 
     $stmt = $db->prepare('
         INSERT INTO Ticket
@@ -217,6 +217,25 @@ class Ticket {
       UPDATE Ticket SET agent_assigned = ? WHERE id = ?
     ');
     $stmt->execute(array($this->agentAssignedID, $this->id));
+  }
+
+  static function deleteTicket($db, $ticketId) {
+    if ($db == null) {
+      error_log("Database not initialized");
+      throw new Exception('Database not initialized');
+    }
+
+    $stmt = $db->prepare('DELETE FROM Ticket WHERE id = :ticketId');
+    $stmt->bindValue(':ticketId', $ticketId);
+
+    try {
+      $stmt->execute();
+      session_start();
+    } catch (PDOException $e) {
+      error_log('Error deleting ticket: ' . $e->getMessage());
+      echo "<p>Error deleting ticket</p><br>";
+      throw new Exception('Error deleting ticket');
+    }
   }
 
   static function saveHistory(PDO $db, int $ticketId, int $userId, string $field, $oldValue, $newValue) {
