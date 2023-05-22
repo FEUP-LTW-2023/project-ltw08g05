@@ -81,6 +81,40 @@ class Department {
         );
     }
 
+    static function getDepartmentsByAgent(PDO $db, ?int $agentId) {
+        if($agentId === null) {
+            return null;
+        }
+
+        $stmt = $db->prepare('
+            SELECT id
+            FROM Department
+            WHERE id_user = ?
+        ');
+
+        $stmt->execute(array($agentId));
+        $departments = array();
+
+        while ($departmentID = $stmt->fetch()) {
+        $stmt2 = $db->prepare('
+            SELECT *
+            FROM Department
+            WHERE id = ?
+        ');
+
+        $stmt2->execute(array($departmentID['id']));
+        $department = $stmt2->fetch();
+
+        $departments[] = new Department(
+            $department['id'], 
+            $department['id_user'], 
+            $department['title'], 
+            $department['creation_date']
+        );
+        }
+        return $departments;
+    }
+
     static function deleteDepartment(PDO $db, $departmentId) {
         if ($db == null) {
             error_log("Database not initialized");

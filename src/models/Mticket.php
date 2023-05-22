@@ -129,6 +129,45 @@ class Ticket {
     return $tickets;
   }
 
+  static function getTicketsByAgent(PDO $db, $agentID) {
+    if($agentID === null) {
+      return null;
+    }
+
+    $stmt = $db->prepare('
+      SELECT id
+      FROM Ticket
+      WHERE agent_assigned = ?
+    ');
+
+    $stmt->execute(array($agentID));
+    $tickets = array();
+
+    while ($tickID = $stmt->fetch()) {
+      $stmt2 = $db->prepare('
+        SELECT *
+        FROM Ticket
+        WHERE id = ?
+      ');
+
+      $stmt2->execute(array($tickID['id']));
+      $ticket = $stmt2->fetch();
+
+      $tickets[] = new Ticket(
+        $ticket['id'], 
+        $ticket['id_user'], 
+        $ticket['id_department'], 
+        $ticket['agent_assigned'], 
+        $ticket['title'], 
+        $ticket['content_text'], 
+        $ticket['ticket_status'], 
+        $ticket['creation_date'], 
+        $ticket['update_date']
+      );
+    }
+    return $tickets;
+  }
+
   static function getUserTickets(PDO $db, int $id) {
   
     $stmt = $db->prepare('

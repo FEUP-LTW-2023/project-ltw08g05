@@ -270,10 +270,9 @@ static function deleteUser(PDO $db, $userID) {
 
     $user = $stmt->fetch();
 
-    // check if ticket exists
+    // check if user exists
     if (!$user) {
-      echo "Oops, User not found.";
-      die("User not found.");
+      return null;
     }
     return new User(
       $user['id'],
